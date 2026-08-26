@@ -19,11 +19,20 @@ public sealed class SteedGuardPassive : PowerModel
     public override bool ShouldPlayVfx => false;
 
     private decimal _pendingDamage;
+    private bool _isTransferring;
 
     // 玩家受到的攻击伤害：减为 0（马承受），记录原伤害
     public override decimal ModifyHpLostAfterOsty(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != base.Owner)
+        if (target != base.Owner || _isTransferring)
+        {
+            return amount;
+        }
+        // 无活马时直接承受（防止递归转移）
+        var player = base.Owner.Player;
+        bool anySteed = player?.PlayerCombatState?.GetPet<Glastrier>() is Creature g && g.IsAlive
+            || player?.PlayerCombatState?.GetPet<Spectrier>() is Creature sp && sp.IsAlive;
+        if (!anySteed)
         {
             return amount;
         }
@@ -33,10 +42,23 @@ public sealed class SteedGuardPassive : PowerModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != base.Owner)
+        if (target != base.Owner || _isTransferring)
         {
             return;
         }
+        _isTransferring = true;
+        try
+        {
+            await Transfer(choiceContext, result, props, dealer, cardSource);
+        }
+        finally
+        {
+            _isTransferring = false;
+        }
+    }
+
+    private async Task Transfer(PlayerChoiceContext choiceContext, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
         decimal remaining = _pendingDamage;
         _pendingDamage = 0m;
         if (remaining <= 0m)
@@ -66,7 +88,9 @@ public sealed class SteedGuardPassive : PowerModel
         }
         if (remaining > 0m)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, remaining, ValueProp.Unblockable | ValueProp.Unpowered, dealer, cardSource);
+            // 两马都死：玩家直接承受（绕开转移，避免递归）
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] SteedGuardPassive: no steeds alive, player takes {remaining}");
+            base.Owner.LoseHpInternal(remaining, ValueProp.Unblockable | ValueProp.Unpowered);
         }
     }
 
