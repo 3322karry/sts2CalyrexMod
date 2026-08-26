@@ -19,6 +19,8 @@ public sealed class Mimikyu : LeagueMonsterBase
     public override int MinInitialHp => 60;
     public override int MaxInitialHp => 60;
 
+        private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
+
     protected override string VisualsPath => "res://CalyrexMod/monsters/mimikyu.tscn";
 
     private int BufferAmt => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 2, 1);
@@ -28,10 +30,10 @@ public sealed class Mimikyu : LeagueMonsterBase
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("MIMIKYU.intent.buff"));
-        var attack1 = new MoveState("ATTACK1_MOVE", Attack1Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack1"));
-        var attack2 = new MoveState("ATTACK2_MOVE", Attack2Move, new AttackIntentCustom(Hit2Dmg, "MIMIKYU.intent.attack2"));
-        var attack3 = new MoveState("ATTACK3_MOVE", Attack3Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack3"));
+        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("MIMIKYU.intent.buff", Asc));
+        var attack1 = new MoveState("ATTACK1_MOVE", Attack1Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack1", Asc));
+        var attack2 = new MoveState("ATTACK2_MOVE", Attack2Move, new AttackIntentCustom(Hit2Dmg, "MIMIKYU.intent.attack2", Asc));
+        var attack3 = new MoveState("ATTACK3_MOVE", Attack3Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack3", Asc));
 
         buff.FollowUpState = attack1;
         attack1.FollowUpState = attack2;

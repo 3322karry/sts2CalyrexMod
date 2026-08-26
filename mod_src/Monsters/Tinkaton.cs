@@ -17,14 +17,16 @@ public sealed class Tinkaton : LeagueMonsterBase
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 88, 80);
     public override int MaxInitialHp => MinInitialHp;
 
+        private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
+
     protected override string VisualsPath => "res://CalyrexMod/monsters/tinkaton.tscn";
 
     private int Hit => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 39, 35);
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TINKATON.intent.attack"));
-        var stun = new MoveState("STUN_MOVE", StunMove, new StunIntentCustom("TINKATON.intent.stun"));
+        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TINKATON.intent.attack", Asc));
+        var stun = new MoveState("STUN_MOVE", StunMove, new StunIntentCustom("TINKATON.intent.stun", Asc));
 
         attack.FollowUpState = stun;
         stun.FollowUpState = attack;

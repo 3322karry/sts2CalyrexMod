@@ -28,10 +28,6 @@ public abstract class LeagueMonsterBase : MonsterModel
             }
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} -> {NextMonsterType.Name}");
             var next = (MonsterModel)ModelDb.GetById<MonsterModel>(ModelDb.GetId(NextMonsterType)).ToMutable();
-            if (next is LeagueMonsterBase lb)
-            {
-                lb.NextMonsterType = NextMonsterType;
-            }
             var newCreature = await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
             // 让新敌人当回合立即行动（重置 SpawnedThisTurn）
             newCreature.Monster?.OnSideSwitch();

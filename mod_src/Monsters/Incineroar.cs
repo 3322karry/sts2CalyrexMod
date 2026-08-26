@@ -18,6 +18,8 @@ public sealed class Incineroar : LeagueMonsterBase
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 99, 90);
     public override int MaxInitialHp => MinInitialHp;
 
+        private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
+
     protected override string VisualsPath => "res://CalyrexMod/monsters/incineroar.tscn";
 
     private int StrDebuff => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 2, 2);
@@ -26,10 +28,10 @@ public sealed class Incineroar : LeagueMonsterBase
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("INCINEROAR.intent.debuff"));
-        var big = new MoveState("BIG_HIT_MOVE", BigHitMove, new AttackIntentCustom(BigHit, "INCINEROAR.intent.bigHit"));
-        var small = new MoveState("SMALL_HIT_MOVE", SmallHitMove, new AttackIntentCustom(SmallHit, "INCINEROAR.intent.smallHit"));
-        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("INCINEROAR.intent.buff"));
+        var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("INCINEROAR.intent.debuff", Asc));
+        var big = new MoveState("BIG_HIT_MOVE", BigHitMove, new AttackIntentCustom(BigHit, "INCINEROAR.intent.bigHit", Asc));
+        var small = new MoveState("SMALL_HIT_MOVE", SmallHitMove, new AttackIntentCustom(SmallHit, "INCINEROAR.intent.smallHit", Asc));
+        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("INCINEROAR.intent.buff", Asc));
 
         debuff.FollowUpState = big;
         big.FollowUpState = small;

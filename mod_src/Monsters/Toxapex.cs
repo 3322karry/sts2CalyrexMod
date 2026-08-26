@@ -19,6 +19,8 @@ public sealed class Toxapex : LeagueMonsterBase
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 60, 55);
     public override int MaxInitialHp => MinInitialHp;
 
+        private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
+
     protected override string VisualsPath => "res://CalyrexMod/monsters/toxapex.tscn";
 
     private int StrDebuff => 2;
@@ -29,10 +31,10 @@ public sealed class Toxapex : LeagueMonsterBase
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("TOXAPEX.intent.debuff"));
-        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("TOXAPEX.intent.buff"));
-        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TOXAPEX.intent.attack"));
-        var defend = new MoveState("DEFEND_MOVE", DefendMove, new DefendIntentCustom("TOXAPEX.intent.defend"), new HealIntentCustom("TOXAPEX.intent.heal"));
+        var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("TOXAPEX.intent.debuff", Asc));
+        var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("TOXAPEX.intent.buff", Asc));
+        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TOXAPEX.intent.attack", Asc));
+        var defend = new MoveState("DEFEND_MOVE", DefendMove, new DefendIntentCustom("TOXAPEX.intent.defend", Asc), new HealIntentCustom("TOXAPEX.intent.heal", Asc));
 
         debuff.FollowUpState = buff;
         buff.FollowUpState = attack;
