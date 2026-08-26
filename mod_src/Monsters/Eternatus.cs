@@ -65,18 +65,26 @@ public sealed class Eternatus : MonsterModel
     {
         _revivePending = false;
         _isPhase2 = true;
-        // 消除自身所有效果
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Eternatus phase2 reviving, target hp={MinInitialHp}");
+        // 消除自身所有效果（保留复活 Power，最后移除）
         foreach (var p in base.Creature.Powers.ToList())
         {
+            if (p is EternatusRevivePower || p is EternamaxPower)
+            {
+                continue;
+            }
             await PowerCmd.Remove(p);
         }
-        // 复活 + 阶段2血量 + buff
-        await CreatureCmd.SetCurrentHp(base.Creature, MinInitialHp);
+        // 先解除复活状态，再复活（SetMaxHp + Heal 官方复活法）
         base.Creature.GetPower<EternatusRevivePower>()?.DoRevive();
+        decimal scaled = MegaCrit.Sts2.Core.Entities.Creatures.Creature.ScaleHpForMultiplayer(MinInitialHp, base.CombatState.Encounter, base.CombatState.Players.Count, base.CombatState.RunState.CurrentActIndex);
+        await CreatureCmd.SetMaxHp(base.Creature, scaled);
+        await CreatureCmd.Heal(base.Creature, scaled);
+        // 阶段2 buff
         await PowerCmd.Apply<PanicPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
         await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
         // 刷新视觉（无极巨化）
-        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus phase2 revived!");
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Eternatus phase2 revived! hp={base.Creature.CurrentHp}/{base.Creature.MaxHp}");
     }
 
     // 血量 < 170 后眩晕一回合（阶段1）
