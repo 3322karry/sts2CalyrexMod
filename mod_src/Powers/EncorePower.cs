@@ -11,11 +11,10 @@ using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 namespace CalyrexMod.Powers;
 
 // 再来一次：锁定目标敌人本回合的行动。
-// 接下来 X 个回合（X=层数），每回合开始时将其意图替换为被锁定的行动，并执行它。
+// 接下来 X 个回合（X=层数），每回合开始时（玩家回合，意图显示时）将其意图替换为被锁定的行动。
 public sealed class EncorePower : PowerModel
 {
     private string? _lockedStateId;
-    private bool _tickedThisTurn;
 
     public override PowerType Type => PowerType.Debuff;
 
@@ -43,10 +42,10 @@ public sealed class EncorePower : PowerModel
         await Task.CompletedTask;
     }
 
-    // 敌人回合开始：替换意图为锁定行动
+    // 玩家回合开始：敌人意图正显示，此时替换为锁定行动（含 UI 刷新）
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (side != CombatSide.Enemy)
+        if (side != CombatSide.Player)
         {
             return;
         }
@@ -66,9 +65,8 @@ public sealed class EncorePower : PowerModel
             {
                 return;
             }
-            // 替换意图（含 UI 刷新）
+            // 替换意图（含 UI 刷新）——意图在玩家回合显示，替换后玩家可见
             base.Owner.Monster.SetMoveImmediate(lockedState, forceTransition: true);
-            _tickedThisTurn = true;
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore intent replaced: {_lockedStateId}");
         }
         catch (System.Exception ex)
@@ -85,11 +83,7 @@ public sealed class EncorePower : PowerModel
         {
             return;
         }
-        if (_tickedThisTurn)
-        {
-            _tickedThisTurn = false;
-            await PowerCmd.TickDownDuration(this);
-        }
+        await PowerCmd.TickDownDuration(this);
         await Task.CompletedTask;
     }
 }
