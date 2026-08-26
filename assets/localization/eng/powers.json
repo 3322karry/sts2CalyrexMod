@@ -36,7 +36,7 @@
   "CANNOT_MOUNT_POWER.title": "Cannot Mount",
   "CANNOT_MOUNT_POWER.description": "You cannot mount a steed this combat.",
   "LEECH_SEED_POWER.title": "Leech Seed",
-  "LEECH_SEED_POWER.description": "At the start of each turn, an enemy loses 6 HP and you heal 3 HP.",
+  "LEECH_SEED_POWER.description": "This enemy loses 8 HP at the end of each turn; its owner heals 4 HP.",
   "PRESSURE_POWER.title": "Pressure",
   "PRESSURE_POWER.description": "Enemies gain 1 Vulnerable when attacking.",
   "INGRAIN_POWER.title": "Ingrain",

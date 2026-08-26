@@ -13,7 +13,7 @@ namespace CalyrexMod.Cards;
 public sealed class LeechSeed : CardModel
 {
     public LeechSeed()
-        : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+        : base(2, CardType.Power, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 
@@ -29,7 +29,11 @@ public sealed class LeechSeed : CardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<LeechSeedPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
+        // 指定一名敌人：寄生种子挂在目标身上，每回合对其生效
+        if (cardPlay.Target != null)
+        {
+            await PowerCmd.Apply<LeechSeedPower>(choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()

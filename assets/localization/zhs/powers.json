@@ -36,7 +36,7 @@
   "CANNOT_MOUNT_POWER.title": "无法骑马",
   "CANNOT_MOUNT_POWER.description": "本次战斗无法骑马。",
   "LEECH_SEED_POWER.title": "寄生种子",
-  "LEECH_SEED_POWER.description": "每回合开始时，一名敌人失去 6 血，你回复 3 血。",
+  "LEECH_SEED_POWER.description": "该敌人在每回合结束时失去 8 点血量，其主人回复 4 点血量。",
   "PRESSURE_POWER.title": "压迫感",
   "PRESSURE_POWER.description": "敌人攻击时获得 1 层易伤。",
   "INGRAIN_POWER.title": "扎根",

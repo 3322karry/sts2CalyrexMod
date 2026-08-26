@@ -119,7 +119,7 @@
   "CROWN_TUNDRA.title": "Crown Tundra",
   "CROWN_TUNDRA.description": "Apply [blue]Frozen[/blue] to all enemies equal to your [green]Abundance[/green]. Exhaust. (Upgraded: Retain, cost unchanged)",
   "LEECH_SEED.title": "Leech Seed",
-  "LEECH_SEED.description": "At turn start: an enemy loses 8 HP and you heal 4 HP.",
+  "LEECH_SEED.description": "Target an enemy: it loses 8 HP at the end of each turn, and you heal 4 HP.",
   "HORSE_LOVE.title": "Horse Love",
   "HORSE_LOVE.description": "Feed 14. (Upgraded: Feed 18)",
   "ALL_OUT_ATTACK.title": "All-Out Attack",

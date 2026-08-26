@@ -119,7 +119,7 @@
   "CROWN_TUNDRA.title": "王冠雪原",
   "CROWN_TUNDRA.description": "对所有敌人施加等量于[green]丰饶[/green]层数的[blue]冰冻[/blue]。",
   "LEECH_SEED.title": "寄生种子",
-  "LEECH_SEED.description": "回合开始时，使一名敌人失去 8 点血量，你回复 4 点血量。",
+  "LEECH_SEED.description": "指定一名敌人：该敌人每回合结束时失去 8 点血量，你回复 4 点血量。",
   "HORSE_LOVE.title": "亲马爱",
   "HORSE_LOVE.description": "喂养 14。",
   "ALL_OUT_ATTACK.title": "全力一击",
