@@ -176,7 +176,6 @@ public static class ModEntry
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.KingRock));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.AbilityCapsule));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.LeagueWeakRelic));
-            SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.CalyrexOrobasTouch));
         }
         catch (Exception ex)
         {

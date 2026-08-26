@@ -86,7 +86,5 @@
   "NEOW.talk.CALYREX_CHARACTER.2-0.next": "Continue",
   "NEOW.talk.CALYREX_CHARACTER.2-1.char": "[i][font_size=22]Calyrex says nothing. Both steeds raise their hooves at once. [/font_size][/i]",
   "NEOW.talk.CALYREX_CHARACTER.2-1.next": "Continue",
-  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...good....[/sine]",
-  "OROBAS.pages.INITIAL.options.CALYREX_TOUCH.title": "Accept Orobas's touch",
-  "OROBAS.pages.INITIAL.options.CALYREX_TOUCH.description": "Calyrex only: upgrade your starter relic and reins."
+  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...good....[/sine]"
 }

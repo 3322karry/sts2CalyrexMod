@@ -86,7 +86,5 @@
   "NEOW.talk.CALYREX_CHARACTER.2-0.next": "继续",
   "NEOW.talk.CALYREX_CHARACTER.2-1.char": "[i][font_size=22]蕾冠王没有说话。两匹马同时扬起了蹄。[/font_size][/i]",
   "NEOW.talk.CALYREX_CHARACTER.2-1.next": "继续",
-  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...很好....[/sine]",
-  "OROBAS.pages.INITIAL.options.CALYREX_TOUCH.title": "接过欧罗巴斯的触碰",
-  "OROBAS.pages.INITIAL.options.CALYREX_TOUCH.description": "蕾冠王专属：升级你的初始遗物与缰绳。"
+  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...很好....[/sine]"
 }
