@@ -32,7 +32,9 @@ public abstract class LeagueMonsterBase : MonsterModel
             {
                 lb.NextMonsterType = NextMonsterType;
             }
-            await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
+            var newCreature = await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
+            // 让新敌人当回合立即行动（重置 SpawnedThisTurn）
+            newCreature.Monster?.OnSideSwitch();
             combatState.RemoveCreature(creature);
         }
         catch (System.Exception ex)
