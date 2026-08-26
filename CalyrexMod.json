@@ -1,0 +1,11 @@
+{
+  "id": "CalyrexMod",
+  "name": "Calyrex Mod",
+  "author": "vibeprograms",
+  "description": "A Slay the Spire 2 mod themed around Calyrex (Ride the Twin Heroes!).",
+  "version": "v1.0",
+  "has_pck": true,
+  "has_dll": true,
+  "affects_gameplay": true,
+  "dependencies": []
+}

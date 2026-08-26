@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CalyrexMod</AssemblyName>
+    <RootNamespace>CalyrexMod</RootNamespace>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Godot C# 工程需要 -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- 游戏目录与 Godot 编辑器路径（按需修改） -->
+    <Sts2Dir>D:\SteamLibrary\steamapps\common\Slay the Spire 2</Sts2Dir>
+    <GodotExe>C:\Users\yy150\AppData\Local\Programs\Godot\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="sts2">
+      <HintPath>libs\sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>libs\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="GodotSharp">
+      <HintPath>libs\GodotSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- 只编译 mod_src/（游戏源码经 src/ junction 挂载，仅编辑器用，不参与编译） -->
+  <ItemGroup>
+    <Compile Remove="decompiled\**;game\**;game_link\**;src\**" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="mod_src\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="assets\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- 教程：构建后复制 dll + json 到游戏 mods 目录 -->
+  <Target Name="CopyModToGame" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(Sts2Dir)/mods/$(AssemblyName)/" />
+    <Copy SourceFiles="$(MSBuildProjectName).json" DestinationFolder="$(Sts2Dir)/mods/$(MSBuildProjectName)/" />
+  </Target>
+
+  <!-- 教程：Godot 命令行导出 pck（需先安装 Godot 编辑器并配置导出预设） -->
+  <Target Name="ExportPck" AfterTargets="Build" Condition="Exists('$(GodotExe)')">
+    <Exec Command="&quot;$(GodotExe)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(Sts2Dir)/mods/$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;" ContinueOnError="WarnAndContinue" />
+  </Target>
+
+  <!-- 备选：手写 pck 打包（游戏 png 无 .import 时用，本项目当前默认走这个） -->
+  <Target Name="PackPckLegacy" AfterTargets="Build" Condition="!Exists('$(GodotExe)')">
+    <Exec Command="python tools/deploy.py" ContinueOnError="WarnAndContinue" />
+  </Target>
+
+</Project>

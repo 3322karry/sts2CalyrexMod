@@ -1,0 +1,49 @@
+# 构建产物
+build/
+bin/
+obj/
+
+# 依赖 dll（从游戏拷贝，不入库；clone 后需从游戏 data_sts2_windows_x86_64/ 复制）
+libs/*.dll
+
+# .tres 由 tools/gen_tres.py 从 .png 自动生成，不入库
+assets/**/*.tres
+assets/*.tres
+
+# .NET
+*.user
+*.suo
+
+# Godot
+.godot/
+*.translation
+
+# 游戏挂载（junction 链接，不提交）
+scenes/
+images/
+themes/
+materials/
+animations/
+fonts/
+localization/
+shaders/
+banks/
+models/
+debug_audio/
+steam/
+addons/
+src/
+game/
+game_link/
+
+# 反编译参考
+decompiled/
+
+# 部署副本（游戏 mods 目录）
+CalyrexMod.dll
+CalyrexMod.pck
+
+# IDE
+.vs/
+.vscode/
+.idea/
