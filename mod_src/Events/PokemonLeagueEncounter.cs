@@ -28,9 +28,11 @@ public sealed class PokemonLeagueEncounter : EncounterModel
         var garchomp = (CalyrexMod.Monsters.Garchomp)ModelDb.Monster<CalyrexMod.Monsters.Garchomp>().ToMutable();
         var toxapex = ModelDb.Monster<CalyrexMod.Monsters.Toxapex>().ToMutable();
 
-        // 换人顺序：I→III、II→IV（IV 随机巨锻匠/谜拟丘）
+        // 换人顺序：I→III、II→IV（IV 随机巨锻匠/谜拟丘，用确定性随机避免 canonical Rng 问题）
         incineroar.NextMonsterType = typeof(CalyrexMod.Monsters.Toxapex);
-        garchomp.NextMonsterType = Rng.NextBool() ? typeof(CalyrexMod.Monsters.Tinkaton) : typeof(CalyrexMod.Monsters.Mimikyu);
+        garchomp.NextMonsterType = (System.Random.Shared.Next(2) == 0)
+            ? typeof(CalyrexMod.Monsters.Tinkaton)
+            : typeof(CalyrexMod.Monsters.Mimikyu);
 
         return new (MonsterModel, string?)[]
         {
