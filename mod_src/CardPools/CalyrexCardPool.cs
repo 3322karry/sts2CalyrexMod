@@ -9,7 +9,7 @@ public sealed class CalyrexCardPool : CardPoolModel
 {
     public override string Title => "calyrex";
 
-    public override string EnergyColorName => "ironclad";
+    public override string EnergyColorName => "calyrex";
 
     public override string CardFrameMaterialPath => "card_frame_calyrex";
 

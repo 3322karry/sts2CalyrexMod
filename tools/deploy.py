@@ -72,7 +72,7 @@ def stage() -> None:
     # 能量费图标（[img] BBCode 走 res://images/packed/sprite_fonts/）
     dst_sf = os.path.join(pck_base, "images", "packed", "sprite_fonts")
     os.makedirs(dst_sf, exist_ok=True)
-    shutil.copy(os.path.join(ROOT, "assets", "icons", "energy_icon_24.png"), os.path.join(dst_sf, "ironclad_energy_icon.png"))
+    shutil.copy(os.path.join(ROOT, "assets", "icons", "energy_icon_24.png"), os.path.join(dst_sf, "calyrex_energy_icon.png"))
     shutil.copy(os.path.join(ROOT, "assets", "icons", "energy_icon_24.png"), os.path.join(dst_sf, "colorless_energy_icon.png"))
 
     dst4 = os.path.join(pck_base, "images", "atlases", "potion_atlas.sprites")

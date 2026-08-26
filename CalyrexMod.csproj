@@ -28,6 +28,10 @@
       <HintPath>libs\GodotSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="SmartFormat">
+      <HintPath>libs\SmartFormat.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- 只编译 mod_src/（游戏源码经 src/ junction 挂载，仅编辑器用，不参与编译） -->
