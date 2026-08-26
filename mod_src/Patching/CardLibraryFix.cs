@@ -16,31 +16,6 @@ public static class CardLibraryFix
     private const string CalyrexPoolNodeName = "CalyrexPool";
     private static bool _buttonCreated;
 
-    // 构造时就把蕾冠王加入字典（占位 null），确保任何后续访问不抛 KeyNotFound
-    [HarmonyPatch(typeof(NCardLibrary), MethodType.Constructor)]
-    [HarmonyPostfix]
-    private static void CtorPostfix(NCardLibrary __instance)
-    {
-        try
-        {
-            var filtersObj = HarmonyLib.Traverse.Create(__instance).Field("_cardPoolFilters").GetValue() as IDictionary;
-            if (filtersObj == null)
-            {
-                return;
-            }
-            var calyrex = ModelDb.Character<CalyrexCharacter>();
-            if (!filtersObj.Contains(calyrex))
-            {
-                filtersObj[calyrex] = null;
-                Log.Info("[CalyrexMod] CardLibraryFix: ctor added Calyrex placeholder");
-            }
-        }
-        catch (System.Exception ex)
-        {
-            Log.Info($"[CalyrexMod] CardLibraryFix ctor: {ex}");
-        }
-    }
-
     // 打开图鉴时：创建独立按钮并替换占位值为按钮
     [HarmonyPatch(typeof(NCardLibrary), "OnSubmenuOpened")]
     [HarmonyPostfix]

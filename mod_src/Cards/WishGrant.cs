@@ -15,7 +15,7 @@ public sealed class WishGrant : CardModel
     {
         get
         {
-            yield return new IntVar("Energy", 1m);
+            yield return new EnergyVar(1);
         }
     }
 
