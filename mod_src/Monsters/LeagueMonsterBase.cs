@@ -26,11 +26,16 @@ public abstract class LeagueMonsterBase : MonsterModel
             {
                 return;
             }
-            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} -> {NextMonsterType.Name}");
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} died, Next={NextMonsterType.Name}, slot={creature.SlotName}");
             var next = (MonsterModel)ModelDb.GetById<MonsterModel>(ModelDb.GetId(NextMonsterType)).ToMutable();
             var newCreature = await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
-            // 让新敌人当回合立即行动（重置 SpawnedThisTurn）
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League spawned: {newCreature.Monster?.Id.Entry} slot={newCreature.SlotName}");
+            // 让新敌人当回合立即行动一次
             newCreature.Monster?.OnSideSwitch();
+            if (newCreature.IsAlive)
+            {
+                await newCreature.Monster.PerformMove();
+            }
             combatState.RemoveCreature(creature);
         }
         catch (System.Exception ex)
