@@ -23,7 +23,7 @@ public sealed class Tinkaton : LeagueMonsterBase
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom("TINKATON.intent.attack"));
+        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TINKATON.intent.attack"));
         var stun = new MoveState("STUN_MOVE", StunMove, new StunIntentCustom("TINKATON.intent.stun"));
 
         attack.FollowUpState = stun;

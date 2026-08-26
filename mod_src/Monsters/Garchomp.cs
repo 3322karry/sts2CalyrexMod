@@ -29,7 +29,7 @@ public sealed class Garchomp : LeagueMonsterBase
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
         var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("GARCHOMP.intent.buff"));
-        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom("GARCHOMP.intent.attack"));
+        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(HitDmg, "GARCHOMP.intent.attack"));
         var status = new MoveState("STATUS_MOVE", StatusMove, new StatusIntentCustom("GARCHOMP.intent.status"));
 
         buff.FollowUpState = attack;

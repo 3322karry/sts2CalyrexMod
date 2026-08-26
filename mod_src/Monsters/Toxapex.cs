@@ -31,7 +31,7 @@ public sealed class Toxapex : LeagueMonsterBase
     {
         var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("TOXAPEX.intent.debuff"));
         var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("TOXAPEX.intent.buff"));
-        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom("TOXAPEX.intent.attack"));
+        var attack = new MoveState("ATTACK_MOVE", AttackMove, new AttackIntentCustom(Hit, "TOXAPEX.intent.attack"));
         var defend = new MoveState("DEFEND_MOVE", DefendMove, new DefendIntentCustom("TOXAPEX.intent.defend"), new HealIntentCustom("TOXAPEX.intent.heal"));
 
         debuff.FollowUpState = buff;

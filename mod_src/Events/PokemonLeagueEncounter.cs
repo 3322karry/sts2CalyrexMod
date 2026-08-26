@@ -11,6 +11,8 @@ public sealed class PokemonLeagueEncounter : EncounterModel
 {
     public override RoomType RoomType => RoomType.Monster;
 
+    public override IReadOnlyList<string> Slots => new[] { "slot1", "slot2" };
+
     public override IEnumerable<MonsterModel> AllPossibleMonsters => new MonsterModel[]
     {
         ModelDb.Monster<CalyrexMod.Monsters.Incineroar>(),

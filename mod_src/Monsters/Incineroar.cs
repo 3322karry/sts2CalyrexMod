@@ -27,8 +27,8 @@ public sealed class Incineroar : LeagueMonsterBase
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
         var debuff = new MoveState("DEBUFF_MOVE", DebuffMove, new DebuffIntentCustom("INCINEROAR.intent.debuff"));
-        var big = new MoveState("BIG_HIT_MOVE", BigHitMove, new AttackIntentCustom("INCINEROAR.intent.bigHit"));
-        var small = new MoveState("SMALL_HIT_MOVE", SmallHitMove, new AttackIntentCustom("INCINEROAR.intent.smallHit"));
+        var big = new MoveState("BIG_HIT_MOVE", BigHitMove, new AttackIntentCustom(BigHit, "INCINEROAR.intent.bigHit"));
+        var small = new MoveState("SMALL_HIT_MOVE", SmallHitMove, new AttackIntentCustom(SmallHit, "INCINEROAR.intent.smallHit"));
         var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("INCINEROAR.intent.buff"));
 
         debuff.FollowUpState = big;

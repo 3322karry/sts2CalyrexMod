@@ -15,6 +15,8 @@ namespace CalyrexMod.Events;
 // 尖塔宝可梦联赛：进入战斗，成功后获得王者之证/特性膏药（随机）；或离开，下场战斗开始获得2虚弱
 public sealed class PokemonLeague : EventModel
 {
+    public override bool IsShared => true;
+
     public override bool IsAllowed(IRunState runState)
     {
         return runState.Players.All((Player p) => p.Character is CalyrexCharacter);

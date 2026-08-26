@@ -29,9 +29,9 @@ public sealed class Mimikyu : LeagueMonsterBase
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
         var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("MIMIKYU.intent.buff"));
-        var attack1 = new MoveState("ATTACK1_MOVE", Attack1Move, new AttackIntentCustom("MIMIKYU.intent.attack1"));
-        var attack2 = new MoveState("ATTACK2_MOVE", Attack2Move, new AttackIntentCustom("MIMIKYU.intent.attack2"));
-        var attack3 = new MoveState("ATTACK3_MOVE", Attack3Move, new AttackIntentCustom("MIMIKYU.intent.attack3"));
+        var attack1 = new MoveState("ATTACK1_MOVE", Attack1Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack1"));
+        var attack2 = new MoveState("ATTACK2_MOVE", Attack2Move, new AttackIntentCustom(Hit2Dmg, "MIMIKYU.intent.attack2"));
+        var attack3 = new MoveState("ATTACK3_MOVE", Attack3Move, new AttackIntentCustom(1, "MIMIKYU.intent.attack3"));
 
         buff.FollowUpState = attack1;
         attack1.FollowUpState = attack2;
