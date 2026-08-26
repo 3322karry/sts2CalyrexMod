@@ -40,5 +40,7 @@
   "ABILITY_CAPSULE.title": "Ability Capsule",
   "ABILITY_CAPSULE.description": "On pickup, add [gold]Innate[/gold] to up to 6 [gold]Power[/gold] cards. The first 2 Power cards you play each combat are free.",
   "LEAGUE_WEAK_RELIC.title": "Stage Fright",
-  "LEAGUE_WEAK_RELIC.description": "Gain 2 Weak at the start of your next combat."
+  "LEAGUE_WEAK_RELIC.description": "Gain 2 Weak at the start of your next combat.",
+  "CALYREX_OROBAS_TOUCH.title": "Touch of Orobas",
+  "CALYREX_OROBAS_TOUCH.description": "Upgrade your [gold]Black-White Carrot[/gold] into [gold]Snow Carrot[/gold], and transform [gold]Bonded Reins[/gold] into [gold]Courage Rope[/gold]."
 }

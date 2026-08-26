@@ -24,5 +24,6 @@ public sealed class CalyrexRelicPool : RelicPoolModel
         yield return ModelDb.Relic<SnowCarrot>();
         yield return ModelDb.Relic<KingRock>();
         yield return ModelDb.Relic<AbilityCapsule>();
+        yield return ModelDb.Relic<CalyrexOrobasTouch>();
     }
 }

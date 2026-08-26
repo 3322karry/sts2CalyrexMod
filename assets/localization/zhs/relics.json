@@ -40,5 +40,7 @@
   "ABILITY_CAPSULE.title": "特性膏药",
   "ABILITY_CAPSULE.description": "捡起时为最多 6 张[gold]能力牌[/gold]添加[gold]固有[/gold]。每场战斗第一回合，你的前 2 张能力牌能够免费打出。",
   "LEAGUE_WEAK_RELIC.title": "怯场",
-  "LEAGUE_WEAK_RELIC.description": "下场战斗开始时获得 2 层虚弱。"
+  "LEAGUE_WEAK_RELIC.description": "下场战斗开始时获得 2 层虚弱。",
+  "CALYREX_OROBAS_TOUCH.title": "欧罗巴斯之触",
+  "CALYREX_OROBAS_TOUCH.description": "将你的[gold]黑白萝卜[/gold]升级为[gold]灵雪萝卜[/gold]，将[gold]牵绊缰绳[/gold]化为[gold]勇气绳索[/gold]。"
 }
