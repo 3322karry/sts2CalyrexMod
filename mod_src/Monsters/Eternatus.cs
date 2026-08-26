@@ -1,17 +1,13 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
-using Godot;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Assets;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using System.Linq;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -20,83 +16,67 @@ using CalyrexMod.Powers;
 
 namespace CalyrexMod.Monsters;
 
-// 无极汰那 Eternatus（荣耀 Boss，两阶段）：
-// 阶段1 368(408)：无极巨化；死亡后下回合复活并进入阶段2（消除自身所有效果）；血量<170 眩晕一回合
-// 阶段2 768(828)：混乱（破盾给虚弱/易伤/脆弱）；震慑（本回合玩家只能打一张攻击牌）
+// 无极汰那 Eternatus（荣耀 Boss，两阶段，仿实验体多形态）：
+// 阶段1：无极巨化；死亡后下回合复活进阶段2（消除自身效果）；血量<170 眩晕一回合
+// 阶段2：混乱（破盾给虚弱/易伤/脆弱）；震慑（本回合玩家只能打一张攻击牌）
 public sealed class Eternatus : MonsterModel
 {
     private bool _isPhase2;
-    private bool _revivingNextTurn;
+    private bool _revivePending;
     private bool _stunPending;
-    private const int Phase1Hp = 368;
-    private const int Phase1HpAsc = 408;
-    private const int Phase2Hp = 768;
-    private const int Phase2HpAsc = 828;
+    private MoveState? _deadState;
+
     private const int StunThreshold = 170;
 
-    public override int MinInitialHp => _isPhase2
-        ? AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, Phase2HpAsc, Phase2Hp)
-        : AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, Phase1HpAsc, Phase1Hp);
+    public int FirstFormHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 408, 368);
+    public int SecondFormHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 828, 768);
 
+    public override int MinInitialHp => _isPhase2 ? SecondFormHp : FirstFormHp;
     public override int MaxInitialHp => MinInitialHp;
-
-    private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
 
     protected override string VisualsPath => _isPhase2
         ? "res://CalyrexMod/monsters/eternatus_eternamax.tscn"
         : "res://CalyrexMod/monsters/eternatus.tscn";
 
-    // 阶段1 buff
     public bool IsPhase2 => _isPhase2;
 
-    // 死亡后留场（可复活）
-    public override bool ShouldCreatureBeRemovedFromCombatAfterDeath(Creature creature)
+    private bool Asc => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 1, 0) > 0;
+
+    // 死亡：触发阶段转换（下回合复活）
+    public async Task TriggerDeadState()
     {
-        return false;
+        _revivePending = true;
+        if (_deadState != null)
+        {
+            SetMoveImmediate(_deadState, forceTransition: true);
+        }
+        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus died (phase1), reviving next turn");
     }
 
-
-    // 死亡：阶段1 → 下回合复活进阶段2
-    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    // 战斗开始挂复活 Power（阻止战斗结束 + 死亡触发阶段转换）
+    public override async Task AfterAddedToRoom()
     {
-        await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
-        if (!_isPhase2 && !wasRemovalPrevented)
-        {
-            _revivingNextTurn = true;
-            MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus phase1 died, reviving next turn");
-        }
+        await base.AfterAddedToRoom();
+        await PowerCmd.Apply<EternatusRevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
-    // 下回合开始：复活进阶段2
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    private async Task RespawnMove(IReadOnlyList<Creature> targets)
     {
-        if (side == CombatSide.Enemy && _revivingNextTurn && base.Creature.IsDead)
+        _revivePending = false;
+        _isPhase2 = true;
+        // 消除自身所有效果
+        foreach (var p in base.Creature.Powers.ToList())
         {
-            _revivingNextTurn = false;
-            _isPhase2 = true;
-            // 消除自身所有效果
-            foreach (var p in base.Creature.Powers.ToList())
-            {
-                await PowerCmd.Remove(p);
-            }
-            // 复活 + 阶段2 血量 + 混乱/震慑 buff
-            await CreatureCmd.SetCurrentHp(base.Creature, MinInitialHp);
-            await PowerCmd.Apply<PanicPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
-            await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
-            // 刷新视觉（无极巨化）：重新创建视觉
-            var node = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
-            if (node != null)
-            {
-                var newVisuals = PreloadManager.Cache.GetScene(VisualsPath).Instantiate<NCreatureVisuals>(PackedScene.GenEditState.Disabled);
-                newVisuals.Name = "Visuals";
-                var oldVis = node.GetNodeOrNull<NCreatureVisuals>("Visuals");
-                if (oldVis != null) node.RemoveChildSafely(oldVis);
-                node.AddChildSafely(newVisuals);
-                node.MoveChildSafely(newVisuals, 0);
-            }
-            MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus phase2 revived!");
+            await PowerCmd.Remove(p);
         }
-        await Task.CompletedTask;
+        // 复活 + 阶段2血量 + buff
+        await CreatureCmd.SetCurrentHp(base.Creature, MinInitialHp);
+        base.Creature.GetPower<EternatusRevivePower>()?.DoRevive();
+        await PowerCmd.Apply<PanicPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        // 刷新视觉（无极巨化）
+        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus phase2 revived!");
     }
 
     // 血量 < 170 后眩晕一回合（阶段1）
@@ -115,7 +95,6 @@ public sealed class Eternatus : MonsterModel
         await Task.CompletedTask;
     }
 
-    // 阶段1 意图：牌2（呼唤，抽牌堆）牌2（晕眩，抽牌堆）增（2力）→【攻（23（25））→增（1力）→攻（7*3（7*4），镰刀）→防40】
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
         if (_isPhase2)
@@ -127,6 +106,10 @@ public sealed class Eternatus : MonsterModel
 
     private MonsterMoveStateMachine GeneratePhase1()
     {
+        _deadState = new MoveState("RESPAWN_MOVE", RespawnMove, new HealIntentCustom("ETERNATUS.intent.respawn", false))
+        {
+            MustPerformOnceBeforeTransitioning = true
+        };
         var status1 = new MoveState("STATUS1_MOVE", Status1Move, new StatusIntentCustom("ETERNATUS.intent.status1", Asc));
         var buff = new MoveState("BUFF_MOVE", BuffMove, new BuffIntentCustom("ETERNATUS.intent.buff", Asc));
         var bigHit = new MoveState("BIG_HIT_MOVE", BigHitMove, new AttackIntentCustom(BigHitDmg, "ETERNATUS.intent.bigHit", Asc));
@@ -139,10 +122,10 @@ public sealed class Eternatus : MonsterModel
         multiHit.FollowUpState = defend;
         defend.FollowUpState = bigHit;
 
-        return new MonsterMoveStateMachine(new List<MonsterState> { status1, buff, bigHit, multiHit, defend }, status1);
+        // 死亡后 SetMoveImmediate(DeadState)，下回合执行 RespawnMove 复活
+        return new MonsterMoveStateMachine(new List<MonsterState> { _deadState, status1, buff, bigHit, multiHit, defend }, status1);
     }
 
-    // 阶段2 意图：【攻30（32）效（1层震慑）→防30 增（1力）→攻7*4（7*5）→回25（50）防20】
     private MonsterMoveStateMachine GeneratePhase2()
     {
         var attack = new MoveState("P2_ATTACK_MOVE", P2AttackMove, new AttackIntentCustom(P2Hit, "ETERNATUS.intent.p2attack", Asc), new EffectIntentCustom("ETERNATUS.intent.p2awe", Asc));
@@ -218,7 +201,6 @@ public sealed class Eternatus : MonsterModel
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2Hit, ValueProp.Unpowered, base.Creature, null);
         }
-        // 震慑：本回合玩家只能打一张攻击牌
         foreach (var t in targets)
         {
             if (t.Player != null)

@@ -66,5 +66,6 @@
   "ETERNATUS.intent.p2heal": "25",
   "ETERNATUS.intent.p2heal_A": "50",
   "ETERNATUS.intent.p2healdefend": "20",
-  "ETERNATUS.intent.p2healdefend_A": "20"
+  "ETERNATUS.intent.p2healdefend_A": "20",
+  "ETERNATUS.intent.respawn": "Revive"
 }

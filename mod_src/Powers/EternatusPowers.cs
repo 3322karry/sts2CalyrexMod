@@ -19,6 +19,44 @@ public sealed class EternamaxPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Single;
 }
 
+// 无极汰那复活：死亡时触发阶段转换，阻止战斗结束，留场可复活
+public sealed class EternatusRevivePower : PowerModel
+{
+    private class Data { public bool isReviving; }
+    private bool IsReviving => GetInternalData<Data>().isReviving;
+    protected override object InitInternalData() => new Data();
+
+    public override PowerType Type => PowerType.Buff;
+    public override PowerStackType StackType => PowerStackType.Single;
+
+    public void DoRevive() => GetInternalData<Data>().isReviving = false;
+
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    {
+        if (!wasRemovalPrevented && creature == base.Owner && creature.Monster is CalyrexMod.Monsters.Eternatus et)
+        {
+            GetInternalData<Data>().isReviving = true;
+            await et.TriggerDeadState();
+        }
+    }
+
+    public override bool ShouldAllowHitting(Creature creature)
+    {
+        if (creature != base.Owner) return true;
+        return !IsReviving;
+    }
+
+    public override bool ShouldStopCombatFromEnding() => true;
+
+    public override bool ShouldCreatureBeRemovedFromCombatAfterDeath(Creature creature)
+    {
+        if (creature != base.Owner) return true;
+        return false;
+    }
+
+    public override bool ShouldPowerBeRemovedAfterOwnerDeath() => false;
+}
+
 // 混乱：破盾时获得 2 虚弱 2 易伤 2 脆弱
 public sealed class PanicPower : PowerModel
 {
