@@ -62,5 +62,9 @@
   "SPOTLIGHT_POWER.title": "Spotlight",
   "SPOTLIGHT_POWER.description": "Attack damage taken is increased by 50%.",
   "PSYCHIC_NOISE_POWER.title": "Psychic Noise",
-  "PSYCHIC_NOISE_POWER.description": "Healing is negated."
+  "PSYCHIC_NOISE_POWER.description": "Healing is negated.",
+  "MOUNT_MERGE_POWER.title": "Merge",
+  "MOUNT_MERGE_POWER.description": "This steed is merging with Calyrex.",
+  "PP_RESTORE_POWER.title": "PP Restore",
+  "PP_RESTORE_POWER.description": "The first X-cost card you play each turn restores energy."
 }

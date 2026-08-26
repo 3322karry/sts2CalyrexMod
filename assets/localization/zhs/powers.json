@@ -62,5 +62,9 @@
   "SPOTLIGHT_POWER.title": "聚光灯",
   "SPOTLIGHT_POWER.description": "受到的攻击伤害增加 50%。",
   "PSYCHIC_NOISE_POWER.title": "精神噪音",
-  "PSYCHIC_NOISE_POWER.description": "接下来的回复无效。"
+  "PSYCHIC_NOISE_POWER.description": "接下来的回复无效。",
+  "MOUNT_MERGE_POWER.title": "合体",
+  "MOUNT_MERGE_POWER.description": "该马正与蕾冠王合体。",
+  "PP_RESTORE_POWER.title": "PP多项全补剂",
+  "PP_RESTORE_POWER.description": "每回合第一次打出 X 费牌时，回复能量。"
 }
