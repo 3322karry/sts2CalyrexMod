@@ -153,4 +153,24 @@ public static class CharacterPatches
         }
         return true;
     }
+
+    // CheckFifteenBossesDefeatedEpoch 对未知角色直接 throw（33194），mod 角色跳过
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Saves.Managers.ProgressSaveManager), "CheckFifteenBossesDefeatedEpoch")]
+    [HarmonyPrefix]
+    private static bool CheckFifteenBossesDefeatedEpochPrefix(Player localPlayer)
+    {
+        try
+        {
+            if (localPlayer?.Character is CalyrexCharacter)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Skip fifteen bosses epoch for CalyrexCharacter");
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] CheckFifteenBossesDefeatedEpochPrefix: {ex}");
+        }
+        return true;
+    }
 }
