@@ -204,5 +204,7 @@
   "CALYREX_POUNCE.title": "Pounce",
   "CALYREX_POUNCE.description": "Deal damage equal to your current [gold]Block[/gold].",
   "HAZE.selectionPrompt": "Choose cards to transform into Zero",
-  "PSYCH_UP.selectionPrompt": "Choose a target"
+  "PSYCH_UP.selectionPrompt": "Choose a target",
+  "DEBUG_CARD.title": "Debug",
+  "DEBUG_CARD.description": "Deal 999 damage. Replay 999 times. Exhaust."
 }

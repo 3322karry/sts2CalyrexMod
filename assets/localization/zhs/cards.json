@@ -204,5 +204,7 @@
   "CALYREX_POUNCE.title": "扑击",
   "CALYREX_POUNCE.description": "造成等量于当前[gold]格挡[/gold]值的伤害。",
   "HAZE.selectionPrompt": "选择要变为归零的牌",
-  "PSYCH_UP.selectionPrompt": "选择一个目标"
+  "PSYCH_UP.selectionPrompt": "选择一个目标",
+  "DEBUG_CARD.title": "调试",
+  "DEBUG_CARD.description": "造成 999 点伤害。重放 999 次。消耗。"
 }

@@ -131,6 +131,7 @@ public static class ModEntry
             // 卡池：先古牌（达弗给予）
             ModHelper.AddModelToPool<CalyrexCardPool, CourageRope>();
             ModHelper.AddModelToPool<CalyrexCardPool, Encore>();
+            ModHelper.AddModelToPool<CalyrexCardPool, DebugCard>();
             // 卡池：第八批
             ModHelper.AddModelToPool<CalyrexCardPool, CalyrexHaze>();
             ModHelper.AddModelToPool<CalyrexCardPool, IronDefense>();
