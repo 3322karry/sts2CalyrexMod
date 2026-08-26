@@ -24,19 +24,34 @@ public sealed class EncorePower : PowerModel
 
     public bool HasLockedMove() => _lockedStateId != null;
 
-    // 施放时记录：锁定敌人当前意图（NextMove）对应的状态
+    public void LockMove(string stateId)
+    {
+        _lockedStateId = stateId;
+    }
+
+    // 尝试锁定：优先锁定当前意图；眩晕(STUNNED)时锁定其跟进行动；均无效则不锁，等敌人恢复后由 patch 补锁
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
         try
         {
-            if (base.Owner?.Monster?.MoveStateMachine != null && _lockedStateId == null)
+            if (base.Owner?.Monster?.MoveStateMachine == null || _lockedStateId != null)
             {
-                string id = base.Owner.Monster.NextMove.Id;
-                if (base.Owner.Monster.MoveStateMachine.States.ContainsKey(id))
-                {
-                    _lockedStateId = id;
-                    MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore locked move: {id}");
-                }
+                return;
+            }
+            var machine = base.Owner.Monster.MoveStateMachine;
+            string id = base.Owner.Monster.NextMove.Id;
+            if (!machine.States.ContainsKey(id) && base.Owner.Monster.NextMove.FollowUpStateId != null)
+            {
+                id = base.Owner.Monster.NextMove.FollowUpStateId;
+            }
+            if (machine.States.ContainsKey(id))
+            {
+                _lockedStateId = id;
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore locked move: {id}");
+            }
+            else
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore lock deferred (no valid move): {base.Owner.Monster.NextMove.Id}");
             }
         }
         catch (System.Exception ex)

@@ -20,7 +20,7 @@ public static class EncoreIntentPatch
         try
         {
             var encore = __instance.Powers.FirstOrDefault((PowerModel p) => p is EncorePower) as EncorePower;
-            if (encore == null || !encore.HasLockedMove())
+            if (encore == null)
             {
                 return;
             }
@@ -29,6 +29,22 @@ public static class EncoreIntentPatch
                 return;
             }
             var machine = __instance.Monster.MoveStateMachine;
+
+            // 延迟补锁：施放时敌人眩晕/无有效行动，等恢复后锁定当前真实意图
+            if (!encore.HasLockedMove())
+            {
+                string id = __instance.Monster.NextMove.Id;
+                if (machine.States.ContainsKey(id))
+                {
+                    encore.LockMove(id);
+                    MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore deferred lock: {id}");
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             string lockedId = encore.LockedStateId;
             if (lockedId == null || !machine.States.ContainsKey(lockedId))
             {
