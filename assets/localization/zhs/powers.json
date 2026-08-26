@@ -52,5 +52,15 @@
   "PLATED_ARMOR_POWER.title": "覆甲",
   "PLATED_ARMOR_POWER.description": "回合结束时获得 {Amount} 点格挡。",
   "ENCORE_POWER.title": "再来一次",
-  "ENCORE_POWER.description": "该敌人在每回合结束后重复被锁定的行动。"
+  "ENCORE_POWER.description": "该敌人在每回合结束后重复被锁定的行动。",
+  "FLY_POWER.title": "飞行",
+  "FLY_POWER.description": "受到的攻击伤害减半。",
+  "DEFIANT_POWER.title": "不服输",
+  "DEFIANT_POWER.description": "每次被施加负面效果时，获得 1 点力量。",
+  "LAST_RESORT_POWER.title": "珍藏",
+  "LAST_RESORT_POWER.description": "每回合能量不会重置。",
+  "SPOTLIGHT_POWER.title": "聚光灯",
+  "SPOTLIGHT_POWER.description": "受到的攻击伤害增加 50%。",
+  "PSYCHIC_NOISE_POWER.title": "精神噪音",
+  "PSYCHIC_NOISE_POWER.description": "接下来的回复无效。"
 }

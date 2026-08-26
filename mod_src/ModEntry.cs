@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using CalyrexMod.CardPools;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using CalyrexMod.Cards;
 
 namespace CalyrexMod;
@@ -130,6 +131,25 @@ public static class ModEntry
             // 卡池：先古牌（达弗给予）
             ModHelper.AddModelToPool<CalyrexCardPool, CourageRope>();
             ModHelper.AddModelToPool<CalyrexCardPool, Encore>();
+            // 卡池：第八批
+            ModHelper.AddModelToPool<CalyrexCardPool, CalyrexHaze>();
+            ModHelper.AddModelToPool<CalyrexCardPool, IronDefense>();
+            ModHelper.AddModelToPool<CalyrexCardPool, Fly>();
+            ModHelper.AddModelToPool<CalyrexCardPool, PollenPuff>();
+            ModHelper.AddModelToPool<CalyrexCardPool, Defiant>();
+            ModHelper.AddModelToPool<CalyrexCardPool, DracoMeteor>();
+            ModHelper.AddModelToPool<CalyrexCardPool, LastResort>();
+            ModHelper.AddModelToPool<CalyrexCardPool, SandAttack>();
+            ModHelper.AddModelToPool<CalyrexCardPool, CalyrexPounce>();
+            ModHelper.AddModelToPool<CalyrexCardPool, EchoingWhinny>();
+            ModHelper.AddModelToPool<CalyrexCardPool, ZCelebrate>();
+            ModHelper.AddModelToPool<CalyrexCardPool, PsychUp>();
+            ModHelper.AddModelToPool<CalyrexCardPool, Spotlight>();
+            ModHelper.AddModelToPool<CalyrexCardPool, MoveRecord>();
+            ModHelper.AddModelToPool<CalyrexCardPool, IcicleCrash>();
+            ModHelper.AddModelToPool<CalyrexCardPool, TripleAxel>();
+            ModHelper.AddModelToPool<CalyrexCardPool, PsychicNoise>();
+            ModHelper.AddModelToPool<ColorlessCardPool, Zero>();
         }
         catch (Exception ex)
         {

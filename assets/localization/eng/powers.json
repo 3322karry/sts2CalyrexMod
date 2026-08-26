@@ -52,5 +52,15 @@
   "PLATED_ARMOR_POWER.title": "Plated Armor",
   "PLATED_ARMOR_POWER.description": "At the end of your turn, gain {Amount} Block.",
   "ENCORE_POWER.title": "Encore",
-  "ENCORE_POWER.description": "This enemy repeats its locked action at the end of each turn."
+  "ENCORE_POWER.description": "This enemy repeats its locked action at the end of each turn.",
+  "FLY_POWER.title": "Fly",
+  "FLY_POWER.description": "Attack damage taken is halved.",
+  "DEFIANT_POWER.title": "Defiant",
+  "DEFIANT_POWER.description": "Gain 1 Strength whenever a debuff is applied to you.",
+  "LAST_RESORT_POWER.title": "Last Resort",
+  "LAST_RESORT_POWER.description": "Energy does not reset each turn.",
+  "SPOTLIGHT_POWER.title": "Spotlight",
+  "SPOTLIGHT_POWER.description": "Attack damage taken is increased by 50%.",
+  "PSYCHIC_NOISE_POWER.title": "Psychic Noise",
+  "PSYCHIC_NOISE_POWER.description": "Healing is negated."
 }
