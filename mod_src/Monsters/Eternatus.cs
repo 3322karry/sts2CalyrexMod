@@ -59,12 +59,14 @@ public sealed class Eternatus : MonsterModel
         await base.AfterAddedToRoom();
         await PowerCmd.Apply<EternatusRevivePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
         await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        CalyrexMod.Audio.CalyrexBgmManager.PlayPhase1();
     }
 
     private async Task RespawnMove(IReadOnlyList<Creature> targets)
     {
         _revivePending = false;
         _isPhase2 = true;
+        CalyrexMod.Audio.CalyrexBgmManager.PlayPhase2();
         MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Eternatus phase2 reviving, target hp={MinInitialHp}");
         // 消除自身所有效果（保留复活 Power，最后移除）
         foreach (var p in base.Creature.Powers.ToList())

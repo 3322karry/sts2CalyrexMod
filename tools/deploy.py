@@ -66,6 +66,14 @@ def stage() -> None:
         for f in os.listdir(srcm):
             shutil.copy(os.path.join(srcm, f), os.path.join(dstm, f))
 
+    # bgm (raw pcm) -> res://CalyrexMod/audio/
+    dsta = os.path.join(root, "audio")
+    os.makedirs(dsta, exist_ok=True)
+    srca = os.path.join(ROOT, "assets", "audio")
+    if os.path.isdir(srca):
+        for f in os.listdir(srca):
+            shutil.copy(os.path.join(srca, f), os.path.join(dsta, f))
+
     # simulated game paths (energy icon, card frame, potion atlas) - pck root level
     pck_base = os.path.join(ROOT, "build", "pck_root")
     dst2 = os.path.join(pck_base, "images", "atlases", "ui_atlas.sprites", "card")
