@@ -198,4 +198,44 @@ public static class MountHelper
             await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, owner.Creature, null, silent: true);
         }
     }
+
+        // 喂养工具：两匹马各 +X 最大生命；马死亡/不在场时自动复活再喂养
+    public static async Task FeedBoth(PlayerChoiceContext choiceContext, Player owner, decimal amount)
+    {
+        await FeedOne(choiceContext, owner, amount, preferred: typeof(Glastrier));
+        await FeedOne(choiceContext, owner, amount, preferred: typeof(Spectrier));
+    }
+
+    private static async Task FeedOne(PlayerChoiceContext choiceContext, Player owner, decimal amount, Type preferred)
+    {
+        var combatState = owner.PlayerCombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+        Creature? steed = preferred == typeof(Glastrier) ? combatState.GetPet<Glastrier>() : combatState.GetPet<Spectrier>();
+        // 优先喂 preferred 马；若它活着则直接喂
+        if (steed != null && steed.IsAlive)
+        {
+            await CreatureCmd.GainMaxHp(steed, amount);
+            return;
+        }
+        // preferred 马死了：直接 GainMaxHp（内部 Heal 会复活死马）
+        if (steed != null && steed.IsDead)
+        {
+            await CreatureCmd.GainMaxHp(steed, amount);
+            return;
+        }
+        // preferred 马不在场：召唤它再喂（两匹都不在场时依次召唤）
+        if (preferred == typeof(Glastrier))
+        {
+            await PlayerCmd.AddPet<Glastrier>(owner);
+            await CreatureCmd.GainMaxHp(owner.PlayerCombatState!.GetPet<Glastrier>()!, amount);
+        }
+        else
+        {
+            await PlayerCmd.AddPet<Spectrier>(owner);
+            await CreatureCmd.GainMaxHp(owner.PlayerCombatState!.GetPet<Spectrier>()!, amount);
+        }
+    }
 }

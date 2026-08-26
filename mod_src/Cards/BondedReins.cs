@@ -46,18 +46,9 @@ public sealed class BondedReins : CardModel
             return;
         }
 
-        // 喂养：两匹马各 +X 最大生命（战死的马也会被喂养复活；已合体的马不在场则跳过）
+        // 喂养：两匹马各 +X 最大生命（死马自动复活）
         decimal feedAmount = base.DynamicVars["Feed"].IntValue;
-        var glastrier = combatState.GetPet<Glastrier>();
-        if (glastrier != null)
-        {
-            await CreatureCmd.GainMaxHp(glastrier, feedAmount);
-        }
-        var spectrier = combatState.GetPet<Spectrier>();
-        if (spectrier != null)
-        {
-            await CreatureCmd.GainMaxHp(spectrier, feedAmount);
-        }
+        await MountHelper.FeedBoth(choiceContext, base.Owner, feedAmount);
 
         // 骑马
         await MountHelper.DoMount(choiceContext, this);

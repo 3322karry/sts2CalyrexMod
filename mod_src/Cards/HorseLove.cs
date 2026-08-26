@@ -35,16 +35,7 @@ public sealed class HorseLove : CardModel
             return;
         }
         decimal feed = base.DynamicVars["Feed"].BaseValue;
-        Creature? glastrier = combatState.GetPet<Glastrier>();
-        if (glastrier != null)
-        {
-            await CreatureCmd.GainMaxHp(glastrier, feed);
-        }
-        Creature? spectrier = combatState.GetPet<Spectrier>();
-        if (spectrier != null)
-        {
-            await CreatureCmd.GainMaxHp(spectrier, feed);
-        }
+        await MountHelper.FeedBoth(choiceContext, base.Owner, feed);
     }
 
     protected override void OnUpgrade()
