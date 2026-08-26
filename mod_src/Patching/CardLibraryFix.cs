@@ -16,11 +16,11 @@ public static class CardLibraryFix
     private const string CalyrexPoolNodeName = "CalyrexPool";
     private static bool _buttonCreated;
 
-    // 打开图鉴时：创建独立按钮并替换占位值为按钮
+    // 打开图鉴/卡牌选择器时：先创建按钮并填入两个字典（游戏方法会读取它们）
     [HarmonyPatch(typeof(NCardLibrary), "OnSubmenuOpened")]
-    [HarmonyPostfix]
-    [HarmonyPriority(Priority.Last)]
-    private static void OnSubmenuOpenedPostfix(NCardLibrary __instance)
+    [HarmonyPrefix]
+    [HarmonyPriority(Priority.First)]
+    private static void OnSubmenuOpenedPrefix(NCardLibrary __instance)
     {
         try
         {
@@ -29,9 +29,10 @@ public static class CardLibraryFix
             var calyrex = ModelDb.Character<CalyrexCharacter>();
             var calyrexButton = __instance.GetNodeOrNull<NCardPoolFilter>(CalyrexPoolNodeName);
             var filtersObj = HarmonyLib.Traverse.Create(__instance).Field("_cardPoolFilters").GetValue() as IDictionary;
-            if (filtersObj != null && calyrexButton != null)
+            if (filtersObj != null)
             {
-                filtersObj[calyrex] = calyrexButton;
+                // 兜底：按钮未创建成功时用无色按钮占位，保证字典有 key 不崩溃
+                filtersObj[calyrex] = calyrexButton ?? __instance.GetNodeOrNull<NCardPoolFilter>("%ColorlessPool");
             }
         }
         catch (System.Exception ex)
