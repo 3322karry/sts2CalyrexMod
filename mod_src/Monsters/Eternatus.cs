@@ -139,11 +139,12 @@ public sealed class Eternatus : MonsterModel
 
         // 死亡后 SetMoveImmediate(DeadState)，下回合执行 RespawnMove 复活
         // 复活后经分支回到正常状态机（阶段2 用 phase2 状态；阶段1 用 status1）
+        var p2Attack = GeneratePhase2StartState();
         var reviveBranch = new ConditionalBranchState("REVIVE_BRANCH");
         _deadState.FollowUpState = reviveBranch;
         reviveBranch.AddState(status1, () => !_isPhase2);
-        reviveBranch.AddState(GeneratePhase2StartState(), () => _isPhase2);
-        return new MonsterMoveStateMachine(new List<MonsterState> { _deadState, reviveBranch, status1, buff, bigHit, multiHit, defend }, status1);
+        reviveBranch.AddState(p2Attack, () => _isPhase2);
+        return new MonsterMoveStateMachine(new List<MonsterState> { _deadState, reviveBranch, status1, buff, bigHit, multiHit, defend, p2Attack }, status1);
     }
 
     // 阶段2 起始状态（P2_ATTACK_MOVE）
