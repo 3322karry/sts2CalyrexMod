@@ -90,6 +90,8 @@ public sealed class Eternatus : MonsterModel
         // 阶段2 buff
         await PowerCmd.Apply<PanicPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
         await PowerCmd.Apply<EternamaxPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        // 阶段2 是最终阶段：移除复活 Power，此后死亡正常结束战斗（不会"阶段3"）
+        await PowerCmd.Remove<EternatusRevivePower>(base.Creature);
         // 刷新视觉（无极巨化）
         MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Eternatus phase2 revived! hp={base.Creature.CurrentHp}/{base.Creature.MaxHp}");
     }
