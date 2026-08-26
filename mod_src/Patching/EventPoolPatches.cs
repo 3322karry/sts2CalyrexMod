@@ -14,7 +14,8 @@ public static class EventPoolPatches
         var ours = new EventModel[]
         {
             ModelDb.Event<CelebiExpress>(),
-            ModelDb.Event<PokemonDaycare>()
+            ModelDb.Event<PokemonDaycare>(),
+            ModelDb.Event<PokemonLeague>()
         };
         __result = __result.Concat(ours);
     }

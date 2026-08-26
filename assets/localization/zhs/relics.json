@@ -34,5 +34,11 @@
   "DISGUISE.description": "战斗开始时获得 1 层缓冲。",
   "SNOW_CARROT.title": "灵雪萝卜",
   "SNOW_CARROT.flavor": "来自王冠雪原的冰霜萝卜。",
-  "SNOW_CARROT.description": "战斗开始时，喂养 20，并为黑/白马各增加一层标记。"
+  "SNOW_CARROT.description": "战斗开始时，喂养 20，并为黑/白马各增加一层标记。",
+  "KING_ROCK.title": "王者之证",
+  "KING_ROCK.description": "回合内每次攻击有 8% 概率[gold]击晕[/gold]目标。",
+  "ABILITY_CAPSULE.title": "特性膏药",
+  "ABILITY_CAPSULE.description": "捡起时为最多 6 张[gold]能力牌[/gold]添加[gold]固有[/gold]。每场战斗第一回合，你的前 2 张能力牌能够免费打出。",
+  "LEAGUE_WEAK_RELIC.title": "怯场",
+  "LEAGUE_WEAK_RELIC.description": "下场战斗开始时获得 2 层虚弱。"
 }

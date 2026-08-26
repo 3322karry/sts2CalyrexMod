@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Core/Nodes/Combat/NCreatureVisuals.cs" id="1_script"]
+
+[ext_resource type="Texture2D" path="res://CalyrexMod/monsters/toxapex.tres" id="1_tex"]
+
+[node name="Toxapex" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_tex")
+scale = Vector2(1, 1)
+position = Vector2(0, -120)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -120.0
+offset_top = -200.0
+offset_right = 120.0
+offset_bottom = 0.0
+mouse_filter = 2
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -100)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -230)

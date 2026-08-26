@@ -34,5 +34,11 @@
   "DISGUISE.description": "At the start of combat, gain 1 Buffer.",
   "SNOW_CARROT.title": "Snow Carrot",
   "SNOW_CARROT.flavor": "A frosty carrot from the Crown Tundra.",
-  "SNOW_CARROT.description": "At the start of combat, Feed 20 to both steeds and grant each a mark."
+  "SNOW_CARROT.description": "At the start of combat, Feed 20 to both steeds and grant each a mark.",
+  "KING_ROCK.title": "King's Rock",
+  "KING_ROCK.description": "Each attack has an 8% chance to [gold]Stun[/gold] its target.",
+  "ABILITY_CAPSULE.title": "Ability Capsule",
+  "ABILITY_CAPSULE.description": "On pickup, add [gold]Innate[/gold] to up to 6 [gold]Power[/gold] cards. The first 2 Power cards you play each combat are free.",
+  "LEAGUE_WEAK_RELIC.title": "Stage Fright",
+  "LEAGUE_WEAK_RELIC.description": "Gain 2 Weak at the start of your next combat."
 }

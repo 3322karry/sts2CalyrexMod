@@ -18,5 +18,15 @@
   "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_BAG.description": "一个名牌包包，鼓鼓囊囊的，看起来很值钱。",
   "POKEMON_DAYCARE.pages.EGG.description": "“我走的步数好像不能孵化它。”你想着。",
   "POKEMON_DAYCARE.pages.STONE.description": "某位雄性奇鲁莉安失去了他的梦想。",
-  "POKEMON_DAYCARE.pages.BAG.description": "里面没有宝可梦，但是有熟悉的香气。"
+  "POKEMON_DAYCARE.pages.BAG.description": "里面没有宝可梦，但是有熟悉的香气。",
+  "POKEMON_LEAGUE.title": "Spire Pokémon League",
+  "POKEMON_LEAGUE.pages.INITIAL.description": "The Spire is hosting a Pokémon League. Will you take a look?",
+  "POKEMON_LEAGUE.pages.INITIAL.options.ENTER.title": "Take a look (Fight)",
+  "POKEMON_LEAGUE.pages.INITIAL.options.ENTER.description": "You step toward the arena.",
+  "POKEMON_LEAGUE.pages.INITIAL.options.LEAVE.title": "Leave",
+  "POKEMON_LEAGUE.pages.INITIAL.options.LEAVE.description": "You turn away.",
+  "POKEMON_LEAGUE.pages.LEAVE.description": "You left the arena. Gain 2 [green]Weak[/green] at the start of your next combat.",
+  "POKEMON_LEAGUE.pages.ENTER.description": "You look at the Pokémon on the stage and a chill runs down your spine.",
+  "POKEMON_LEAGUE.pages.ENTER.options.FIGHT.title": "Step up!",
+  "POKEMON_LEAGUE.pages.ENTER.options.FIGHT.description": "You step onto the arena."
 }

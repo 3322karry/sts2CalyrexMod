@@ -58,6 +58,14 @@ def stage() -> None:
     if os.path.isdir(src):
         shutil.copytree(src, os.path.join(dst, "scene_images"))
 
+    # monster visuals -> res://CalyrexMod/monsters/
+    dstm = os.path.join(root, "monsters")
+    os.makedirs(dstm, exist_ok=True)
+    srcm = os.path.join(ROOT, "assets", "monsters")
+    if os.path.isdir(srcm):
+        for f in os.listdir(srcm):
+            shutil.copy(os.path.join(srcm, f), os.path.join(dstm, f))
+
     # simulated game paths (energy icon, card frame, potion atlas) - pck root level
     pck_base = os.path.join(ROOT, "build", "pck_root")
     dst2 = os.path.join(pck_base, "images", "atlases", "ui_atlas.sprites", "card")

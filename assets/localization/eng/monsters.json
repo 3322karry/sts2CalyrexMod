@@ -1,4 +1,27 @@
 {
   "GLASTRIER.name": "Glastrier",
-  "SPECTRIER.name": "Spectrier"
+  "SPECTRIER.name": "Spectrier",
+  "INCINEROAR.name": "Incineroar",
+  "INCINEROAR.intent.debuff": "Debuff (2 Str)",
+  "INCINEROAR.intent.bigHit": "Atk (15 (16))",
+  "INCINEROAR.intent.smallHit": "Atk (3 (4))",
+  "INCINEROAR.intent.buff": "Buff (self 1 Str)",
+  "GARCHOMP.name": "Garchomp",
+  "GARCHOMP.intent.buff": "Buff (self 2 Str)",
+  "GARCHOMP.intent.attack": "Atk (5x2 (4x3))",
+  "GARCHOMP.intent.status": "Card (2 Clumsy, Draw Pile)",
+  "TOXAPEX.name": "Toxapex",
+  "TOXAPEX.intent.debuff": "Debuff (2 Str) Effect (5 (6) Poison)",
+  "TOXAPEX.intent.buff": "Buff (1 Str)",
+  "TOXAPEX.intent.attack": "Atk (5 (7))",
+  "TOXAPEX.intent.defend": "Defend (self 99)",
+  "TOXAPEX.intent.heal": "Heal (15 (20))",
+  "TINKATON.name": "Tinkaton",
+  "TINKATON.intent.attack": "Atk (35 (39))",
+  "TINKATON.intent.stun": "Stun",
+  "MIMIKYU.name": "Mimikyu",
+  "MIMIKYU.intent.buff": "Buff (5 Str)",
+  "MIMIKYU.intent.attack1": "Atk (1x3 (1x4))",
+  "MIMIKYU.intent.attack2": "Atk (10 (15))",
+  "MIMIKYU.intent.attack3": "Atk (1x4 (1x5))"
 }

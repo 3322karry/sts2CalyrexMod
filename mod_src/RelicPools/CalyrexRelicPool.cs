@@ -22,5 +22,7 @@ public sealed class CalyrexRelicPool : RelicPoolModel
         yield return ModelDb.Relic<LoadedDice>();
         yield return ModelDb.Relic<Disguise>();
         yield return ModelDb.Relic<SnowCarrot>();
+        yield return ModelDb.Relic<KingRock>();
+        yield return ModelDb.Relic<AbilityCapsule>();
     }
 }

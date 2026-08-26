@@ -66,5 +66,7 @@
   "MOUNT_MERGE_POWER.title": "Merge",
   "MOUNT_MERGE_POWER.description": "This steed is merging with Calyrex.",
   "PP_RESTORE_POWER.title": "PP Restore",
-  "PP_RESTORE_POWER.description": "The first X-cost card you play each turn restores energy."
+  "PP_RESTORE_POWER.description": "The first X-cost card you play each turn restores energy.",
+  "ABILITY_CAPSULE_POWER.title": "Ability Capsule",
+  "ABILITY_CAPSULE_POWER.description": "Your first 2 Power cards cost 0 this turn."
 }

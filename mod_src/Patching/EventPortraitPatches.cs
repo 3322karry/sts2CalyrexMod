@@ -21,6 +21,10 @@ public static class EventPortraitPatches
             {
                 __result = "res://CalyrexMod/icons/events/pokemon_daycare.tres";
             }
+            else if (__instance is CalyrexMod.Events.PokemonLeague)
+            {
+                __result = "res://CalyrexMod/icons/events/pokemon_league.tres";
+            }
         }
         catch (System.Exception ex)
         {

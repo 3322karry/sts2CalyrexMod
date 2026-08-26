@@ -173,6 +173,9 @@ public static class ModEntry
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.LoadedDice));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.Disguise));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.SnowCarrot));
+            SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.KingRock));
+            SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.AbilityCapsule));
+            SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.LeagueWeakRelic));
         }
         catch (Exception ex)
         {
