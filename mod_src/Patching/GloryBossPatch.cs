@@ -9,7 +9,7 @@ using CalyrexMod.Events;
 
 namespace CalyrexMod.Patching;
 
-// 荣耀幕：无极汰那 Boss 替换原 AeonglassBoss（Boss 池）
+// 荣耀幕：无极汰那加入 Boss 池（不替换原 Boss，4 个 Boss 随机出现）
 [HarmonyPatch]
 public static class GloryBossPatch
 {
@@ -20,13 +20,13 @@ public static class GloryBossPatch
         try
         {
             var list = __result.ToList();
-            int idx = list.FindIndex((EncounterModel e) => e is AeonglassBoss);
-            if (idx >= 0)
+            if (list.Any((EncounterModel e) => e is EternatusBoss))
             {
-                list[idx] = ModelDb.Encounter<EternatusBoss>();
-                __result = list;
-                Log.Info("[CalyrexMod] Glory: AeonglassBoss -> EternatusBoss");
+                return;
             }
+            list.Add(ModelDb.Encounter<EternatusBoss>());
+            __result = list;
+            Log.Info("[CalyrexMod] Glory: added EternatusBoss to boss pool (random)");
         }
         catch (System.Exception ex)
         {
