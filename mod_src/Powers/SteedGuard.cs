@@ -15,6 +15,7 @@ public sealed class SteedGuard : PowerModel
 
     public override Creature ModifyUnblockedDamageTarget(Creature target, decimal _, ValueProp props, Creature? __)
     {
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] SteedGuard modify: target={target?.LogName} owner={base.Owner?.LogName} petOwner={base.Owner?.PetOwner?.Creature?.LogName} alive={base.Owner?.IsAlive}");
         if (target != base.Owner.PetOwner?.Creature)
         {
             return target;

@@ -36,7 +36,16 @@ public static class PowerIconPatches
             TrickPower => "res://CalyrexMod/icons/markers/trick.tres",
             PPRestorePower => "res://CalyrexMod/icons/markers/pp_restore.tres",
             FriendlyGuardPower => "res://CalyrexMod/icons/markers/friendly_guard.tres",
-            PlatedArmorPower => "res://CalyrexMod/icons/potions/plated_armor.tres",
+            PlatedArmorPower => "res://CalyrexMod/icons/markers/plated_armor.tres",
+            DefiantPower => "res://CalyrexMod/icons/markers/defiant.tres",
+            FlyPower => "res://CalyrexMod/icons/markers/fly.tres",
+            LastResortPower => "res://CalyrexMod/icons/markers/last_resort.tres",
+            PsychicNoisePower => "res://CalyrexMod/icons/markers/psychic_noise.tres",
+            SpotlightPower => "res://CalyrexMod/icons/markers/spotlight.tres",
+            CalyrexMod.Powers.PanicPower => "res://CalyrexMod/icons/markers/panic.tres",
+            CalyrexMod.Powers.AwePower => "res://CalyrexMod/icons/markers/awe.tres",
+            CalyrexMod.Powers.EternamaxPower => "res://CalyrexMod/icons/markers/eternamax.tres",
+            EncorePower => "res://CalyrexMod/icons/markers/encore.tres",
             _ => null
         };
     }
