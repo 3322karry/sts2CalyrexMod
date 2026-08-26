@@ -10,22 +10,18 @@ using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 
 namespace CalyrexMod.Powers;
 
-// 再来一次：锁定目标敌人本回合的行动，未来 X 回合（含本回合后的下个回合起）
-// 每回合结束时重复执行该行动，并替换其意图为该行动。
+// 再来一次：锁定目标敌人本回合的行动。
+// 接下来 X 个回合（X=层数），每回合开始时将其意图替换为被锁定的行动，并执行它。
 public sealed class EncorePower : PowerModel
 {
     private string? _lockedStateId;
+    private bool _tickedThisTurn;
 
     public override PowerType Type => PowerType.Debuff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    // 施放时记录：锁定的行动 = 敌人当前意图（NextMove）对应的状态
-    public override async Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
-    {
-        await Task.CompletedTask;
-    }
-
+    // 施放时记录：锁定敌人当前意图（NextMove）对应的状态
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
         try
@@ -47,7 +43,8 @@ public sealed class EncorePower : PowerModel
         await Task.CompletedTask;
     }
 
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    // 敌人回合开始：替换意图为锁定行动
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side != CombatSide.Enemy)
         {
@@ -64,15 +61,35 @@ public sealed class EncorePower : PowerModel
             {
                 return;
             }
-            // 替换意图：强制状态机进入锁定行动（替换下回合意图显示）
-            machine.ForceCurrentState(machine.States[_lockedStateId]);
-            // 重复执行该行动
-            await base.Owner.Monster.PerformMove();
+            var lockedState = machine.States[_lockedStateId] as MoveState;
+            if (lockedState == null)
+            {
+                return;
+            }
+            // 替换意图（含 UI 刷新）
+            base.Owner.Monster.SetMoveImmediate(lockedState, forceTransition: true);
+            _tickedThisTurn = true;
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Encore intent replaced: {_lockedStateId}");
         }
         catch (System.Exception ex)
         {
-            MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] EncorePower repeat move failed: {ex}");
+            MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] Encore intent replace failed: {ex}");
         }
-        await PowerCmd.TickDownDuration(this);
+        await Task.CompletedTask;
+    }
+
+    // 敌人回合结束：掉 1 层（持续回合数）
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (side != CombatSide.Enemy)
+        {
+            return;
+        }
+        if (_tickedThisTurn)
+        {
+            _tickedThisTurn = false;
+            await PowerCmd.TickDownDuration(this);
+        }
+        await Task.CompletedTask;
     }
 }
