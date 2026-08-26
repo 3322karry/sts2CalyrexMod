@@ -185,7 +185,6 @@ public static class MountHelper
             {
                 await CreatureCmd.GainMaxHp(glastrier, mg.Amount);
             }
-            await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), glastrier, 1m, owner.Creature, null, silent: true);
             await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, owner.Creature, null, silent: true);
         }
         if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedSpectrier) is PowerModel ms)
@@ -196,7 +195,6 @@ public static class MountHelper
             {
                 await CreatureCmd.GainMaxHp(spectrier, ms.Amount);
             }
-            await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), spectrier, 1m, owner.Creature, null, silent: true);
             await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, owner.Creature, null, silent: true);
         }
     }

@@ -27,6 +27,7 @@ public sealed class SteedGuard : PowerModel
         // 白马存活：伤害转白马
         if (base.Owner.IsAlive)
         {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] SteedGuard redirect to {base.Owner?.LogName}");
             return base.Owner;
         }
         // 白马已死：溢出伤害转黑马（灵幽马），黑马也死则原目标

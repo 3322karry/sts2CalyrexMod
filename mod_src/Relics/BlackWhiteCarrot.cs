@@ -84,9 +84,8 @@ public sealed class BlackWhiteCarrot : RelicModel
             await CreatureCmd.GainMaxHp(spectrier, 11m);
             Log.Info($"[CalyrexMod] BlackWhiteCarrot: fed +11 -> Glastrier hp={glastrier.CurrentHp}/{glastrier.MaxHp}, Spectrier hp={spectrier.CurrentHp}/{spectrier.MaxHp}");
 
-            // 双马替蕾冠王抵挡伤害（SteedGuard：目标=主人时改由马承受）
-            await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
-            await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
+            // 马匹守护（玩家侧）：蕾冠王受到的攻击伤害由马承受
+            await PowerCmd.Apply<SteedGuardPassive>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
 
             await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
             await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
