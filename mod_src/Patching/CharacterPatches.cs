@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Characters;
+using MegaCrit.Sts2.Core.Entities.Players;
 using CalyrexMod.Characters;
 
 namespace CalyrexMod.Patching;
@@ -130,5 +131,26 @@ public static class CharacterPatches
         {
             // ModelDb may not be initialized yet; skip.
         }
+    }
+
+    // mod 角色没有注册 Epoch（官方角色的 {CHAR}{N}_EPOCH 不存在），赢 Boss 时游戏
+    // ObtainCharUnlockEpoch 会 EpochModel.Get 崩溃。跳过 mod 角色的解锁纪元。
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Saves.Managers.ProgressSaveManager), "ObtainCharUnlockEpoch")]
+    [HarmonyPrefix]
+    private static bool ObtainCharUnlockEpochPrefix(Player localPlayer)
+    {
+        try
+        {
+            if (localPlayer?.Character is CalyrexCharacter)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Skip char unlock epoch for CalyrexCharacter");
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] ObtainCharUnlockEpochPrefix: {ex}");
+        }
+        return true;
     }
 }
