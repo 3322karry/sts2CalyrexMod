@@ -24,15 +24,12 @@ public sealed class PokemonLeagueEncounter : EncounterModel
 
     protected override IReadOnlyList<(MonsterModel, string?)> GenerateMonsters()
     {
-        var incineroar = (CalyrexMod.Monsters.Incineroar)ModelDb.Monster<CalyrexMod.Monsters.Incineroar>().ToMutable();
-        var garchomp = (CalyrexMod.Monsters.Garchomp)ModelDb.Monster<CalyrexMod.Monsters.Garchomp>().ToMutable();
-        var toxapex = ModelDb.Monster<CalyrexMod.Monsters.Toxapex>().ToMutable();
+        // 静态换人表：I→III、II→IV（IV 随机巨锻匠/谜拟丘）
+        LeagueMonsterBase.RegisterNext(typeof(Incineroar), typeof(Toxapex));
+        LeagueMonsterBase.RegisterNextRandom(typeof(Garchomp), typeof(Tinkaton), typeof(Mimikyu));
 
-        // 换人顺序：I→III、II→IV（IV 随机巨锻匠/谜拟丘，用确定性随机避免 canonical Rng 问题）
-        incineroar.NextMonsterType = typeof(CalyrexMod.Monsters.Toxapex);
-        garchomp.NextMonsterType = (System.Random.Shared.Next(2) == 0)
-            ? typeof(CalyrexMod.Monsters.Tinkaton)
-            : typeof(CalyrexMod.Monsters.Mimikyu);
+        var incineroar = (Incineroar)ModelDb.Monster<Incineroar>().ToMutable();
+        var garchomp = (Garchomp)ModelDb.Monster<Garchomp>().ToMutable();
 
         return new (MonsterModel, string?)[]
         {

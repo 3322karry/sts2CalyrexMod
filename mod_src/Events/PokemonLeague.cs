@@ -19,6 +19,11 @@ public sealed class PokemonLeague : EventModel
 
     public override bool IsAllowed(IRunState runState)
     {
+        // 荣耀（第 4 幕）专属 + 蕾冠王
+        if (runState.CurrentActIndex != 3)
+        {
+            return false;
+        }
         return runState.Players.All((Player p) => p.Character is CalyrexCharacter);
     }
 
