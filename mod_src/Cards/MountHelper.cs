@@ -120,6 +120,8 @@ public static class MountHelper
         {
             await PowerCmd.Apply<MountedSpectrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
         }
+        // 合体标记：防止马的死亡触发魂心等死亡效果
+        await PowerCmd.Apply<MountMergePower>(choiceContext, steed, 1m, owner.Creature, source);
         await CreatureCmd.Kill(steed, force: true);
         await PowerCmd.Apply<EternalWhinny>(choiceContext, owner.Creature, 1m, owner.Creature, source);
 

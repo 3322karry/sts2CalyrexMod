@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using System.Linq;
 
 namespace CalyrexMod.Powers;
 
@@ -17,6 +18,11 @@ public sealed class SoulHeartPower : PowerModel
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         if (base.Owner?.Player?.PlayerCombatState == null)
+        {
+            return;
+        }
+        // 骑马合体的马不算死亡，不触发
+        if (creature.Powers.Any((PowerModel p) => p is MountMergePower))
         {
             return;
         }

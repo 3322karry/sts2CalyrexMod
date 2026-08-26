@@ -19,15 +19,18 @@ public sealed class SteedGuard : PowerModel
         {
             return target;
         }
-        if (base.Owner.IsDead)
-        {
-            return target;
-        }
         if (!props.IsPoweredAttack())
         {
             return target;
         }
-        return base.Owner;
+        // 白马存活：伤害转白马
+        if (base.Owner.IsAlive)
+        {
+            return base.Owner;
+        }
+        // 白马已死：溢出伤害转黑马（灵幽马），黑马也死则原目标
+        var spectrier = base.Owner.PetOwner?.PlayerCombatState?.GetPet<CalyrexMod.Monsters.Spectrier>();
+        return (spectrier != null && spectrier.IsAlive) ? spectrier : target;
     }
 
     public override bool ShouldAllowHitting(Creature creature)

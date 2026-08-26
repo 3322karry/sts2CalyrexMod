@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using CalyrexMod.Monsters;
 
 namespace CalyrexMod.Cards;
 
@@ -35,6 +36,21 @@ public sealed class Boomburst : CardModel
             .TargetingAllOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
+
+        // 对两匹马也造成全额伤害（爆音波震全场）
+        if (base.Owner.PlayerCombatState != null)
+        {
+            var glastrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Glastrier>();
+            if (glastrier != null && glastrier.IsAlive)
+            {
+                await CreatureCmd.Damage(choiceContext, glastrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+            }
+            var spectrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Spectrier>();
+            if (spectrier != null && spectrier.IsAlive)
+            {
+                await CreatureCmd.Damage(choiceContext, spectrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+            }
+        }
 
         // 我方（自己）承受削减后的伤害
         int reduce = base.DynamicVars["SelfReduce"].IntValue;

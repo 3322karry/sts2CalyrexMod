@@ -32,6 +32,7 @@ public sealed class FrozenPower : PowerModel
     // 每回合结束掉一层
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Frozen AfterSideTurnEnd: side={side} owner={base.Owner?.LogName} amount={base.Amount}");
         if (side == CombatSide.Enemy)
         {
             await PowerCmd.TickDownDuration(this);
