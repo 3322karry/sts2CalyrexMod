@@ -26,15 +26,16 @@ public abstract class LeagueMonsterBase : MonsterModel
             {
                 return;
             }
-            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} died, Next={NextMonsterType.Name}, slot={creature.SlotName}");
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} died, Next={NextMonsterType.Name}, slot={creature.SlotName}, alive=[{string.Join(",", combatState.Enemies.Where((Creature e) => e.IsAlive).Select((Creature e) => e.Monster?.Id.Entry ?? "?") )}]");
             var next = (MonsterModel)ModelDb.GetById<MonsterModel>(ModelDb.GetId(NextMonsterType)).ToMutable();
             var newCreature = await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League spawned: {newCreature.Monster?.Id.Entry} slot={newCreature.SlotName}");
-            // 让新敌人当回合立即行动一次
+            // 新敌人上场先晕一回合（意图显示为晕，下回合再行动）
             newCreature.Monster?.OnSideSwitch();
             if (newCreature.IsAlive)
             {
-                await newCreature.Monster.PerformMove();
+                await CreatureCmd.Stun(newCreature, (_) => Task.CompletedTask);
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League stunned newcomer: {newCreature.Monster?.Id.Entry}");
             }
             combatState.RemoveCreature(creature);
         }
