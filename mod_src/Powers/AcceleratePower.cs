@@ -23,9 +23,9 @@ public sealed class AcceleratePower : PowerModel
             return;
         }
         _pendingEnergy += amount;
-        while (_pendingEnergy >= 2)
+        while (_pendingEnergy >= 3)
         {
-            _pendingEnergy -= 2;
+            _pendingEnergy -= 3;
             await PlayerCmd.GainEnergy(1m, base.Owner.Player);
             await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Owner, System.Math.Max(1m, base.Amount), base.Owner, null);
         }

@@ -20,7 +20,7 @@ public sealed class HeroicSacrifice : CardModel
     {
         get
         {
-            yield return new IntVar("Per10", 4m);
+            yield return new IntVar("Per2", 1m);
         }
     }
 
@@ -86,8 +86,8 @@ public sealed class HeroicSacrifice : CardModel
         await CreatureCmd.Kill(steed, force: true);
 
         // 每损失 10 血量获得 X 丰饶
-        int per10 = base.DynamicVars["Per10"].IntValue;
-        int abundance = hpLost / 10 * per10;
+        int per2 = base.DynamicVars["Per2"].IntValue;
+        int abundance = hpLost / 2 * per2;
         if (abundance > 0)
         {
             await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, abundance, base.Owner.Creature, this);
@@ -96,6 +96,7 @@ public sealed class HeroicSacrifice : CardModel
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Per10"].UpgradeValueBy(1m);
+        // 升级后只把费用降为 0
+        MockSetEnergyCost(new CardEnergyCost(this, 0, costsX: false));
     }
 }

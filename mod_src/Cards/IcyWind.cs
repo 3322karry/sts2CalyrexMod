@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -18,7 +19,7 @@ public sealed class IcyWind : CardModel
     {
         get
         {
-            yield return new IntVar("Orbs", 1m);
+            yield return new IntVar("Frost", 1m);
         }
     }
 
@@ -37,23 +38,18 @@ public sealed class IcyWind : CardModel
         }
     }
 
-protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-
-        // 生成寒冰充能球
-        int orbs = base.DynamicVars["Orbs"].IntValue;
-        for (int i = 0; i < orbs; i++)
+        // 对所有敌人施加冰冻
+        int frost = base.DynamicVars["Frost"].IntValue;
+        foreach (var enemy in base.CombatState.Enemies.Where((Creature e) => e.IsAlive))
         {
-            await OrbCmd.Channel<FrostOrb>(choiceContext, base.Owner);
+            await PowerCmd.Apply<FrozenPower>(choiceContext, enemy, frost, base.Owner.Creature, this);
         }
-
-        // 给予敌人 1 层冰冻
-        await PowerCmd.Apply<FrozenPower>(choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Orbs"].UpgradeValueBy(1m);
+        base.DynamicVars["Frost"].UpgradeValueBy(1m);
     }
 }

@@ -15,7 +15,7 @@ namespace CalyrexMod.Cards;
 public sealed class PhantomForce : CardModel
 {
     public PhantomForce()
-        : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+        : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
     }
 
@@ -41,6 +41,6 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
 
     protected override void OnUpgrade()
     {
-        MockSetEnergyCost(new CardEnergyCost(this, 0, costsX: false));
+        MockSetEnergyCost(new CardEnergyCost(this, 1, costsX: false));
     }
 }

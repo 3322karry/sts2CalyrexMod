@@ -16,13 +16,13 @@ public sealed class TeraBlast : CardModel
     {
         get
         {
-            yield return new DamageVar(12m, ValueProp.Move);
+            yield return new DamageVar(8m, ValueProp.Move);
             yield return new IntVar("Debuff", 3m);
         }
     }
 
     public TeraBlast()
-        : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+        : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
     }
 

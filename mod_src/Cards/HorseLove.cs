@@ -21,7 +21,7 @@ public sealed class HorseLove : CardModel
     }
 
     public HorseLove()
-        : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
     }
 
@@ -49,6 +49,6 @@ public sealed class HorseLove : CardModel
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Feed"].UpgradeValueBy(2m);
+        base.DynamicVars["Feed"].UpgradeValueBy(4m);
     }
 }

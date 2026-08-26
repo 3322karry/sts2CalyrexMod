@@ -16,7 +16,7 @@ public sealed class Anxious : CardModel
     {
         get
         {
-            yield return new IntVar("HpCost", 8m);
+            yield return new IntVar("HpCost", 4m);
         }
     }
 

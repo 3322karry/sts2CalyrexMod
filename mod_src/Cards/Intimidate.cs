@@ -14,7 +14,7 @@ namespace CalyrexMod.Cards;
 public sealed class Intimidate : CardModel
 {
     public Intimidate()
-        : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
+        : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
     }
 
@@ -40,6 +40,7 @@ public sealed class Intimidate : CardModel
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Retain);
+        // 升级后不消耗
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

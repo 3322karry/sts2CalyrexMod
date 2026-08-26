@@ -25,7 +25,7 @@ public sealed class SlowDown : CardModel
     }
 
     public SlowDown()
-        : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+        : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
     }
 

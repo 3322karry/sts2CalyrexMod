@@ -12,7 +12,6 @@ namespace CalyrexMod.Cards;
 
 public sealed class LongHowl : CardModel
 {
-    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
     protected override IEnumerable<DynamicVar> CanonicalVars
     {

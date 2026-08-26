@@ -16,7 +16,7 @@ public sealed class IntensivePlanting : CardModel
     {
         get
         {
-            yield return new IntVar("PerX", 2m);
+            yield return new IntVar("PerX", 3m);
             yield return new IntVar("Bonus", 0m);
         }
     }
@@ -51,8 +51,8 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         }
     }
 
-    protected override void OnUpgrade()
+        protected override void OnUpgrade()
     {
-        base.DynamicVars["Bonus"].UpgradeValueBy(2m);
+        base.DynamicVars["PerX"].UpgradeValueBy(2m);
     }
 }

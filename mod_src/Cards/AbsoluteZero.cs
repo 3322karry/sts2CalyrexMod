@@ -19,7 +19,7 @@ public sealed class AbsoluteZero : CardModel
     {
         get
         {
-            yield return new IntVar("Threshold", 12m);
+            yield return new IntVar("Threshold", 15m);
         }
     }
 

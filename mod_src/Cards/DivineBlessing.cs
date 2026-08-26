@@ -17,7 +17,7 @@ public sealed class DivineBlessing : CardModel
     {
         get
         {
-            yield return new IntVar("Abundance", 3m);
+            yield return new IntVar("Abundance", 4m);
         }
     }
 

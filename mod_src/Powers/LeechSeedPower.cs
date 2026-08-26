@@ -25,8 +25,8 @@ public sealed class LeechSeedPower : PowerModel
         var target = combatState.Enemies.FirstOrDefault((Creature e) => e.IsAlive);
         if (target != null)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, 6m * base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner, null);
-            await CreatureCmd.Heal(base.Owner, 3m * base.Amount, playAnim: false);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, 8m * base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner, null);
+            await CreatureCmd.Heal(base.Owner, 4m * base.Amount, playAnim: false);
         }
     }
 }

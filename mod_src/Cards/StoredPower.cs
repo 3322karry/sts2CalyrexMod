@@ -19,13 +19,13 @@ public sealed class StoredPower : CardModel
     {
         get
         {
-            yield return new DamageVar(9m, ValueProp.Move);
+            yield return new DamageVar(3m, ValueProp.Move);
             yield return new IntVar("PerBuff", 2m);
         }
     }
 
     public StoredPower()
-        : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+        : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 
@@ -48,6 +48,6 @@ public sealed class StoredPower : CardModel
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(4m);
+        base.DynamicVars["PerBuff"].UpgradeValueBy(1m);
     }
 }

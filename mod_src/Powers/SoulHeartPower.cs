@@ -26,7 +26,7 @@ public sealed class SoulHeartPower : PowerModel
         {
             return;
         }
-        await CardPileCmd.Draw(choiceContext, base.Amount, base.Owner.Player);
+        await CardPileCmd.Draw(choiceContext, 2m, base.Owner.Player);
         await PlayerCmd.GainEnergy(base.Amount, base.Owner.Player);
     }
 }

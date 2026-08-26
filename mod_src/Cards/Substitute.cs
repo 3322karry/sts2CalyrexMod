@@ -16,7 +16,7 @@ public sealed class Substitute : CardModel
     {
         get
         {
-            yield return new IntVar("HpLoss", 6m);
+            yield return new IntVar("HpLoss", 5m);
             yield return new IntVar("Buffer", 1m);
         }
     }
@@ -41,7 +41,7 @@ public sealed class Substitute : CardModel
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HpLoss"].UpgradeValueBy(2m);
+        base.DynamicVars["HpLoss"].UpgradeValueBy(1m);
         base.DynamicVars["Buffer"].UpgradeValueBy(1m);
     }
 }

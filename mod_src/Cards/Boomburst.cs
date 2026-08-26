@@ -52,9 +52,13 @@ public sealed class Boomburst : CardModel
             }
         }
 
-        // 我方（自己）承受削减后的伤害
+        // 我方（自己）承受削减后的伤害（升级后固定失去 7 血）
         int reduce = base.DynamicVars["SelfReduce"].IntValue;
         decimal selfDamage = base.DynamicVars.Damage.BaseValue * (100 - reduce) / 100m;
+        if (base.IsUpgraded)
+        {
+            selfDamage = 7m;
+        }
         if (selfDamage > 0m)
         {
             await CreatureCmd.Damage(choiceContext, base.Owner.Creature, selfDamage, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
@@ -64,6 +68,7 @@ public sealed class Boomburst : CardModel
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(4m);
-        base.DynamicVars["SelfReduce"].UpgradeValueBy(25m);
+        // 升级后自身固定失去 7 血
+        base.DynamicVars["SelfReduce"].BaseValue = 0m;
     }
 }

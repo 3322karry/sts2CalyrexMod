@@ -73,8 +73,14 @@ public sealed class Gallop : CardModel
             return;
         }
 
-        // 马失去 4 血量（不可格挡）
-        await CreatureCmd.Damage(choiceContext, steed, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+        // 另一匹马失去 3 血量（不可格挡）
+        Creature? other = chosen is MountChoiceGlastrier
+            ? combatState.GetPet<Spectrier>()
+            : combatState.GetPet<Glastrier>();
+        if (other != null && other.IsAlive)
+        {
+            await CreatureCmd.Damage(choiceContext, other, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+        }
 
         // 获得敏捷
         await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Dexterity"].BaseValue, base.Owner.Creature, this);

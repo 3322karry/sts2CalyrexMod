@@ -26,7 +26,7 @@ public sealed class AllOutAttack : CardModel
     }
 
     public AllOutAttack()
-        : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+        : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
     }
 

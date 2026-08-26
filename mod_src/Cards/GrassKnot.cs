@@ -24,7 +24,7 @@ public sealed class GrassKnot : CardModel
     }
 
     public GrassKnot()
-        : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+        : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 

@@ -66,6 +66,6 @@ public sealed class BondedReins : CardModel
     protected override void OnUpgrade()
     {
         base.DynamicVars["Feed"].UpgradeValueBy(2m);
-        AddKeyword(CardKeyword.Innate);
+        AddKeyword(CardKeyword.Retain);
     }
 }

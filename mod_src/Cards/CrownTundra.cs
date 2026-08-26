@@ -48,7 +48,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
 
     protected override void OnUpgrade()
     {
-        MockSetEnergyCost(new CardEnergyCost(this, 1, costsX: false));
+        // 升级后费用不变
         AddKeyword(CardKeyword.Retain);
     }
 }

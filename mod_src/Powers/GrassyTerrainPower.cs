@@ -34,6 +34,6 @@ public sealed class GrassyTerrainPower : PowerModel
             await CreatureCmd.GainMaxHp(spectrier, 3m * base.Amount);
         }
 
-        await PowerCmd.Apply<Abundance>(new ThrowingPlayerChoiceContext(), base.Owner, 2m * base.Amount, base.Owner, null);
+        await PowerCmd.Apply<Abundance>(new ThrowingPlayerChoiceContext(), base.Owner, 3m * base.Amount, base.Owner, null);
     }
 }
