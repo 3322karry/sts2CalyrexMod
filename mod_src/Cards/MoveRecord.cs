@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace CalyrexMod.Cards;
 
@@ -37,23 +38,25 @@ public sealed class MoveRecord : CardModel
         {
             return;
         }
-        // 从4张随机消耗牌中选一张加入手牌（本回合可免费打出）
-        var candidates = ModelDb.AllCards
+        // 从玩家角色卡池的消耗牌中随机选 4 张（每名角色都起效）
+        var pool = base.Owner.Character.CardPool.GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint)
+            .Concat(ModelDb.CardPool<ColorlessCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint))
             .Where((CardModel c) => c.Keywords.Contains(CardKeyword.Exhaust) && c.CanBeGeneratedInCombat && c.Type != CardType.Curse)
+            .Distinct()
             .ToList();
-        if (candidates.Count == 0)
+        if (pool.Count == 0)
         {
             return;
         }
         var rng = base.Owner.PlayerRng.Rewards;
         var options = new List<CardModel>();
-        var pool = new List<CardModel>(candidates);
+        var candidates = new List<CardModel>(pool);
         int want = base.DynamicVars["Options"].IntValue;
-        while (options.Count < want && pool.Count > 0)
+        while (options.Count < want && candidates.Count > 0)
         {
-            int idx = rng.NextInt(pool.Count);
-            options.Add(pool[idx]);
-            pool.RemoveAt(idx);
+            int idx = rng.NextInt(candidates.Count);
+            options.Add(candidates[idx]);
+            candidates.RemoveAt(idx);
         }
         if (options.Count == 0)
         {
