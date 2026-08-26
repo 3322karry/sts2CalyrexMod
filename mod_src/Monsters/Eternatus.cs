@@ -139,16 +139,18 @@ public sealed class Eternatus : MonsterModel
 
         // 死亡后 SetMoveImmediate(DeadState)，下回合执行 RespawnMove 复活
         // 复活后经分支回到正常状态机（阶段2 用 phase2 状态；阶段1 用 status1）
-        var p2Attack = GeneratePhase2StartState();
+        var p2States = GeneratePhase2StartState();
         var reviveBranch = new ConditionalBranchState("REVIVE_BRANCH");
         _deadState.FollowUpState = reviveBranch;
         reviveBranch.AddState(status1, () => !_isPhase2);
-        reviveBranch.AddState(p2Attack, () => _isPhase2);
-        return new MonsterMoveStateMachine(new List<MonsterState> { _deadState, reviveBranch, status1, buff, bigHit, multiHit, defend, p2Attack }, status1);
+        reviveBranch.AddState(p2States[0], () => _isPhase2);
+        var all = new List<MonsterState> { _deadState, reviveBranch, status1, buff, bigHit, multiHit, defend };
+        all.AddRange(p2States);
+        return new MonsterMoveStateMachine(all, status1);
     }
 
-    // 阶段2 起始状态（P2_ATTACK_MOVE）
-    private MoveState GeneratePhase2StartState()
+    // 阶段2 全部状态（P2_ATTACK_MOVE 起始，链完整）
+    private List<MoveState> GeneratePhase2StartState()
     {
         var attack = new MoveState("P2_ATTACK_MOVE", P2AttackMove, new AttackIntentCustom(P2Hit, "ETERNATUS.intent.p2attack", Asc), new EffectIntentCustom("ETERNATUS.intent.p2awe", Asc));
         var defendBuff = new MoveState("P2_DEFEND_BUFF_MOVE", P2DefendBuffMove, new DefendIntentCustom("ETERNATUS.intent.p2defend", Asc), new BuffIntentCustom("ETERNATUS.intent.p2buff", Asc));
@@ -159,13 +161,13 @@ public sealed class Eternatus : MonsterModel
         defendBuff.FollowUpState = multiHit;
         multiHit.FollowUpState = healDefend;
         healDefend.FollowUpState = attack;
-        return attack;
+        return new List<MoveState> { attack, defendBuff, multiHit, healDefend };
     }
 
     private MonsterMoveStateMachine GeneratePhase2()
     {
-        var attack = GeneratePhase2StartState();
-        return new MonsterMoveStateMachine(new List<MonsterState> { attack }, attack);
+        var states = GeneratePhase2StartState();
+        return new MonsterMoveStateMachine(states, states[0]);
     }
 
     private int BigHitDmg => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 25, 23);
