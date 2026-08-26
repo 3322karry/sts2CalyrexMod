@@ -46,6 +46,7 @@ public sealed class Toxapex : LeagueMonsterBase
 
     private async Task DebuffMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackDebuffTrigger", 0.3f);
         foreach (var t in targets)
         {
             await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), t, -StrDebuff, base.Creature, null);
@@ -55,11 +56,13 @@ public sealed class Toxapex : LeagueMonsterBase
 
     private async Task BuffMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "BuffTrigger", 0.3f);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
     private async Task AttackMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackSingle", 0.2f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit, ValueProp.Unpowered, base.Creature, null);
@@ -68,6 +71,7 @@ public sealed class Toxapex : LeagueMonsterBase
 
     private async Task DefendMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "BlockTrigger", 0.3f);
         await CreatureCmd.GainBlock(base.Creature, DefendAmt, ValueProp.Unpowered, null);
         await CreatureCmd.Heal(base.Creature, HealAmt, playAnim: true);
     }

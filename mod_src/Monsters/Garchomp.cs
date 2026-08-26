@@ -43,11 +43,13 @@ public sealed class Garchomp : LeagueMonsterBase
 
     private async Task BuffMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "BuffTrigger", 0.3f);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, BuffAmount, base.Creature, null);
     }
 
     private async Task AttackMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackMulti", 0.3f);
         for (int i = 0; i < HitCount; i++)
         {
             foreach (var t in targets)

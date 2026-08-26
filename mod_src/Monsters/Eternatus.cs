@@ -180,6 +180,7 @@ public sealed class Eternatus : MonsterModel
 
     private async Task Status1Move(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackDebuffTrigger", 0.3f);
         var players = base.CombatState?.Players;
         if (players == null) return;
         foreach (var player in players)
@@ -199,11 +200,13 @@ public sealed class Eternatus : MonsterModel
 
     private async Task BuffMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "BuffTrigger", 0.3f);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 2m, base.Creature, null);
     }
 
     private async Task BigHitMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackHeavy", 0.25f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHitDmg, ValueProp.Unpowered, base.Creature, null);
@@ -212,6 +215,7 @@ public sealed class Eternatus : MonsterModel
 
     private async Task MultiHitMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackMulti", 0.3f);
         for (int i = 0; i < 3; i++)
         {
             foreach (var t in targets)
@@ -223,11 +227,13 @@ public sealed class Eternatus : MonsterModel
 
     private async Task DefendMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "BlockTrigger", 0.3f);
         await CreatureCmd.GainBlock(base.Creature, 40m, ValueProp.Unpowered, null);
     }
 
     private async Task P2AttackMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackHeavy", 0.25f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2Hit, ValueProp.Unpowered, base.Creature, null);
@@ -243,12 +249,14 @@ public sealed class Eternatus : MonsterModel
 
     private async Task P2DefendBuffMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackBlock", 0.3f);
         await CreatureCmd.GainBlock(base.Creature, 30m, ValueProp.Unpowered, null);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
     private async Task P2MultiMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "AttackMulti", 0.35f);
         for (int i = 0; i < 4; i++)
         {
             foreach (var t in targets)
@@ -260,6 +268,7 @@ public sealed class Eternatus : MonsterModel
 
     private async Task P2HealMove(IReadOnlyList<Creature> targets)
     {
+        await CreatureCmd.TriggerAnim(base.Creature, "HealTrigger", 0.3f);
         await CreatureCmd.Heal(base.Creature, P2HealAmt, playAnim: true);
         await CreatureCmd.GainBlock(base.Creature, 20m, ValueProp.Unpowered, null);
     }
