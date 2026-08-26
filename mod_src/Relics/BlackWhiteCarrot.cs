@@ -86,7 +86,10 @@ public sealed class BlackWhiteCarrot : RelicModel
 
             // 马匹守护（玩家侧）：蕾冠王受到的攻击伤害由马承受
             await PowerCmd.Apply<SteedGuardPassive>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
+            Log.Info($"[CalyrexMod] SteedGuardPassive applied: {base.Owner.Creature.Powers.Any((PowerModel p) => p is SteedGuardPassive)}");
 
+            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
+            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
             await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
             await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
             Log.Info("[CalyrexMod] BlackWhiteCarrot: DieForYou + marks applied");
