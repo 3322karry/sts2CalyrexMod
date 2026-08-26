@@ -70,7 +70,7 @@ public sealed class Garchomp : LeagueMonsterBase
         {
             for (int i = 0; i < 2; i++)
             {
-                var stun = combatState.CreateCard<MegaCrit.Sts2.Core.Models.Cards.Clumsy>(player);
+                var stun = combatState.CreateCard<MegaCrit.Sts2.Core.Models.Cards.Dazed>(player);
                 await CardPileCmd.AddGeneratedCardsToCombat(new[] { stun }, PileType.Draw, player);
             }
         }

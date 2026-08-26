@@ -68,5 +68,11 @@
   "PP_RESTORE_POWER.title": "PP Restore",
   "PP_RESTORE_POWER.description": "The first X-cost card you play each turn restores energy.",
   "ABILITY_CAPSULE_POWER.title": "Ability Capsule",
-  "ABILITY_CAPSULE_POWER.description": "Your first 2 Power cards cost 0 this turn."
+  "ABILITY_CAPSULE_POWER.description": "Your first 2 Power cards cost 0 this turn.",
+  "ETERNATAMAX_POWER.title": "Eternamax",
+  "ETERNATAMAX_POWER.description": "Eternatus enters its Eternamax form.",
+  "PANIC_POWER.title": "Panic",
+  "PANIC_POWER.description": "When its Block breaks, you gain 2 Weak, 2 Vulnerable and 2 Frail.",
+  "AWE_POWER.title": "Awe",
+  "AWE_POWER.description": "You can only play one Attack card this turn."
 }

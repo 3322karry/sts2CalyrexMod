@@ -68,5 +68,11 @@
   "PP_RESTORE_POWER.title": "PP多项全补剂",
   "PP_RESTORE_POWER.description": "每回合第一次打出 X 费牌时，回复能量。",
   "ABILITY_CAPSULE_POWER.title": "特性膏药",
-  "ABILITY_CAPSULE_POWER.description": "第一回合前 2 张能力牌免费打出。"
+  "ABILITY_CAPSULE_POWER.description": "第一回合前 2 张能力牌免费打出。",
+  "ETERNATAMAX_POWER.title": "无极巨化",
+  "ETERNATAMAX_POWER.description": "无极汰那展开无极巨化形态。",
+  "PANIC_POWER.title": "慌乱",
+  "PANIC_POWER.description": "被破盾时获得 2 虚弱、2 易伤、2 脆弱。",
+  "AWE_POWER.title": "震慑",
+  "AWE_POWER.description": "本回合只能打出一张攻击牌。"
 }
