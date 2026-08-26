@@ -1,0 +1,16 @@
+{
+  "CALYREX_CHARACTER.title": "蕾冠王",
+  "CALYREX_CHARACTER.titleObject": "蕾冠王",
+  "CALYREX_CHARACTER.description": "丰收之王。与两匹忠实的骏马一同出征，通过合体粉碎敌人。",
+  "CALYREX_CHARACTER.pronounObject": "它",
+  "CALYREX_CHARACTER.possessiveAdjective": "它的",
+  "CALYREX_CHARACTER.pronounPossessive": "它的",
+  "CALYREX_CHARACTER.pronounSubject": "它",
+  "CALYREX_CHARACTER.cardsModifierTitle": "蕾冠王",
+  "CALYREX_CHARACTER.cardsModifierDescription": "蕾冠王卡牌",
+  "CALYREX_CHARACTER.eventDeathPrevention": "蕾冠王拒绝放弃。",
+  "CALYREX_CHARACTER.goldMonologue": "这些金币会喂饱我的骏马。",
+  "CALYREX_CHARACTER.aromaPrinciple": "[sine][purple]丰收丰饶。[/purple][/sine]",
+  "CALYREX_CHARACTER.banter.alive.endTurnPing": "速速行动！",
+  "CALYREX_CHARACTER.banter.dead.endTurnPing": "……"
+}

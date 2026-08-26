@@ -18,23 +18,23 @@ assets/*.tres
 .godot/
 *.translation
 
-# 游戏挂载（junction 链接，不提交）
-scenes/
-images/
-themes/
-materials/
-animations/
-fonts/
-localization/
-shaders/
-banks/
-models/
-debug_audio/
-steam/
-addons/
-src/
-game/
-game_link/
+# 游戏挂载（junction 链接，不提交）——仅根目录
+/scenes/
+/images/
+/themes/
+/materials/
+/animations/
+/fonts/
+/localization/
+/shaders/
+/banks/
+/models/
+/debug_audio/
+/steam/
+/addons/
+/src/
+/game/
+/game_link/
 
 # 反编译参考
 decompiled/

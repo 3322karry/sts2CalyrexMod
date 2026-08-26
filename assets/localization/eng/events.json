@@ -1,0 +1,22 @@
+{
+  "CELEBI_EXPRESS.title": "时拉比速递",
+  "CELEBI_EXPRESS.pages.INITIAL.description": "(｡･∀･)ﾉﾞ嗨蕾冠王，我穿越时空给你送点东西，来看看吧~",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_RELIC.title": "收下神秘包裹（获得随机一件专属遗物）",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_RELIC.description": "时拉比从时间裂缝里掏出一个精致的包裹。",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_POTIONS.title": "收下两瓶药水（获得2瓶专属药水）",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_POTIONS.description": "时拉比变出了两瓶冒着气泡的药剂。",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_GOLD.title": "收下谢礼（获得100金币）",
+  "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_GOLD.description": "时拉比递给你一小袋沉甸甸的金币。",
+  "CELEBI_EXPRESS.pages.DONE.description": "“加油哦，大家都很看好你呢~”说着，时拉比穿过一个绿色的洞，消失了...",
+  "POKEMON_DAYCARE.title": "宝可梦培育屋",
+  "POKEMON_DAYCARE.pages.INITIAL.description": "眼前浮现了来自另外一个世界的建筑，你走了进去，选择哪一个东西...",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_EGG.title": "皮丘的蛋（为一张牌附魔华彩2）",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_EGG.description": "一枚带着爱心花纹的蛋，正在轻轻晃动。",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_STONE.title": "觉醒之石（升级2张牌）",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_STONE.description": "一块散发光芒的石头，蕴藏着进化的力量。",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_BAG.title": "小优的包包（失去100金币，获得3个专属遗物）",
+  "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_BAG.description": "一个名牌包包，鼓鼓囊囊的，看起来很值钱。",
+  "POKEMON_DAYCARE.pages.EGG.description": "“我走的步数好像不能孵化它。”你想着。",
+  "POKEMON_DAYCARE.pages.STONE.description": "某位雄性奇鲁莉安失去了他的梦想。",
+  "POKEMON_DAYCARE.pages.BAG.description": "里面没有宝可梦，但是有熟悉的香气。"
+}

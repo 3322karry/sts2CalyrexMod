@@ -1,0 +1,16 @@
+{
+  "CALYREX_CHARACTER.title": "Calyrex",
+  "CALYREX_CHARACTER.titleObject": "Calyrex",
+  "CALYREX_CHARACTER.description": "The King of Bountiful Harvests. Rides forth with two loyal steeds, merging with them to crush his foes.",
+  "CALYREX_CHARACTER.pronounObject": "it",
+  "CALYREX_CHARACTER.possessiveAdjective": "its",
+  "CALYREX_CHARACTER.pronounPossessive": "its",
+  "CALYREX_CHARACTER.pronounSubject": "it",
+  "CALYREX_CHARACTER.cardsModifierTitle": "Calyrex",
+  "CALYREX_CHARACTER.cardsModifierDescription": "Calyrex cards",
+  "CALYREX_CHARACTER.eventDeathPrevention": "Calyrex refuses to give up.",
+  "CALYREX_CHARACTER.goldMonologue": "These coins will feed my steeds well.",
+  "CALYREX_CHARACTER.aromaPrinciple": "[sine][purple]The harvest is plentiful.[/purple][/sine]",
+  "CALYREX_CHARACTER.banter.alive.endTurnPing": "Make haste!",
+  "CALYREX_CHARACTER.banter.dead.endTurnPing": "..."
+}

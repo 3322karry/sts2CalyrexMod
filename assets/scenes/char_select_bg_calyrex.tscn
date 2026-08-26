@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://CalyrexMod/icons/scene_images/char_select_bg_calyrex.tres" id="1_tex"]
+
+[node name="CalyrexSelectBg" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
