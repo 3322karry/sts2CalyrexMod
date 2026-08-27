@@ -51,8 +51,8 @@ public sealed class CelebiExpress : EventModel
     {
         var pool = ModelDb.RelicPool<CalyrexRelicPool>();
         var owned = base.Owner.Relics.Select((RelicModel r) => r.Id).ToHashSet();
-        // 排除联赛专属遗物（王者之证/特性膏药），它们只在宝可梦联赛获得
-        var candidates = pool.AllRelics.Where((RelicModel r) => !owned.Contains(r.Id) && r is not KingRock && r is not AbilityCapsule).ToList();
+        // 排除联赛专属遗物（王者之证/特性膏药）与初始遗物（黑白萝卜/灵雪萝卜）
+        var candidates = pool.AllRelics.Where((RelicModel r) => !owned.Contains(r.Id) && r is not KingRock && r is not AbilityCapsule && r is not BlackWhiteCarrot && r is not SnowCarrot).ToList();
         if (candidates.Count == 0)
         {
             return;
