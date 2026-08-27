@@ -78,6 +78,8 @@
 **尺寸：1000×760（横向）**。游戏从 `res://images/atlases/card_atlas.sprites/calyrex/{slug}.tres` 读取卡面，
 当前缺失时回退到通用卡面。
 
+**背景要求**：卡面必须使用**不透明背景**（纯白或美术背景均可，**不能是透明/PNG Alpha 通道**——游戏卡面底板是暗色纹理，透明图会显示异常）。小尺寸图会被脚本等比放大并居中铺白底，但会糊，**正式素材请直接按 1000×760 出图**。
+
 > 用法：将 `{slug}.png` 放入 `assets/icons/card_portraits/`（如 `calyrex_strike.png`），
 > 部署时由脚本生成 .tres 并模拟进 atlas 路径打进 pck。
 
