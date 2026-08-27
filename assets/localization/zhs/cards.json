@@ -143,7 +143,7 @@
   "GLACIAL_WORLD.title": "冰封世界",
   "GLACIAL_WORLD.description": "所有[blue]冰冻[/blue]翻倍。",
   "ABSOLUTE_ZERO.title": "绝对零度",
-  "ABSOLUTE_ZERO.description": "使冰冻层数 ≥ {Threshold:diff()} 的敌人死亡。",
+  "ABSOLUTE_ZERO.description": "冰冻层数 × {Multiplier:diff()} ≥ 自身血量的敌人立即死亡。",
   "WISH_GRANT.title": "祈愿",
   "WISH_GRANT.description": "抽到时无法打出；若上回合被[gold]保留[/gold]，则可以打出。获得 {Energy:energyIcons()}。",
   "SHADOW_BALL.title": "暗影球",

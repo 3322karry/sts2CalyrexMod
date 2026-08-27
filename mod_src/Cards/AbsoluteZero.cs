@@ -19,7 +19,7 @@ public sealed class AbsoluteZero : CardModel
     {
         get
         {
-            yield return new IntVar("Threshold", 15m);
+            yield return new IntVar("Multiplier", 10m);
         }
     }
 
@@ -40,14 +40,15 @@ public sealed class AbsoluteZero : CardModel
 
 protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 冰冻层数 ≥ 12 的敌人死亡
+        // 冰冻层数 × 10（升级后 11）≥ 自身血量 的敌人死亡
         if (base.CombatState == null)
         {
             return;
         }
-        int threshold = base.DynamicVars["Threshold"].IntValue;
+        int multiplier = base.DynamicVars["Multiplier"].IntValue;
         var doomed = base.CombatState.Enemies
-            .Where((Creature e) => e.IsAlive && e.Powers.FirstOrDefault((PowerModel p) => p is FrozenPower)?.Amount >= threshold)
+            .Where((Creature e) => e.IsAlive
+                && e.Powers.FirstOrDefault((PowerModel p) => p is FrozenPower)?.Amount * multiplier >= e.CurrentHp)
             .ToList();
         foreach (var enemy in doomed)
         {
@@ -57,6 +58,6 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Retain);
+        base.DynamicVars["Multiplier"].UpgradeValueBy(1m);
     }
 }

@@ -1,6 +1,13 @@
 # Changelog / 更新日志
 
+## v1.2.15.107.1 (2026-08-27)
+
+### Changes / 改动
+- **绝对零度**：改为冰冻层数 ×10（升级后 ×11）≥ 自身血量的敌人立即死亡
+- **冰冻血条覆盖层**：有冰冻的敌人血条显示淡蓝色致死线（层数×10 对应的血量区域，仿灾厄 doom 层）
+
 ## v1.2.14.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **进入第三层卡死**（v1.2.12 起）：PatchAll 因 AssetCache.GetAsset 泛型重载歧义整体失败（Ambiguous match），全部 patch 失效——移除 GetAsset patch，改用无重载的 GetTexture2D 层重定向；run_history 图标重定向 queen_boss，兼容 PikaMod 同名 EternatusBoss（Id 判定）
