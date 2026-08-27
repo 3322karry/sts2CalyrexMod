@@ -1,5 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.1hotfix (2026-08-27)
+
+### Fixes / 修复
+- **骑马喂养**: 喂养不再复活合体中的马（骑黑马时只复活/喂养在场白马，不会把黑马重新召唤），骑马选择不再出现两匹马 / Feeding no longer revives the mounted (merged) steed; only the alive steed is fed/revived, so mounting shows only the correct steed.
+
+# Changelog / 更新日志
+
 ## v1.2 (2026-08-27)
 
 ### Fixes / 修复

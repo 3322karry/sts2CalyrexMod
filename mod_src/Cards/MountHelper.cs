@@ -202,8 +202,17 @@ public static class MountHelper
         // 喂养工具：两匹马各 +X 最大生命；马死亡/不在场时自动复活再喂养
     public static async Task FeedBoth(PlayerChoiceContext choiceContext, Player owner, decimal amount)
     {
-        await FeedOne(choiceContext, owner, amount, preferred: typeof(Glastrier));
-        await FeedOne(choiceContext, owner, amount, preferred: typeof(Spectrier));
+        // 合体中的马（MountedGlastrier/Spectrier）不算宠物：不召唤、不复活，只喂在场的那匹
+        bool gMounted = owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier);
+        bool sMounted = owner.Creature.Powers.Any((PowerModel p) => p is MountedSpectrier);
+        if (!gMounted)
+        {
+            await FeedOne(choiceContext, owner, amount, preferred: typeof(Glastrier));
+        }
+        if (!sMounted)
+        {
+            await FeedOne(choiceContext, owner, amount, preferred: typeof(Spectrier));
+        }
     }
 
     private static async Task FeedOne(PlayerChoiceContext choiceContext, Player owner, decimal amount, Type preferred)
