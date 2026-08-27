@@ -93,3 +93,57 @@ public static class EternatusVisualPatches
         }
     }
 }
+
+// 地图 Boss 图标：用官方 placeholder（Aeonglass 图标）+ hsv 变色（无极汰那紫色调）
+public static class EternatusBossMapPatch
+{
+    public const string PlaceholderIconPath = "res://images/map/placeholder/aeonglass_boss_icon";
+
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "get_BossNodePath")]
+    [HarmonyPostfix]
+    private static void BossNodePathPostfix(EncounterModel __instance, ref string __result)
+    {
+        try
+        {
+            if (__instance is CalyrexMod.Events.EternatusBoss)
+            {
+                __result = PlaceholderIconPath;
+            }
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Nodes.Screens.Map.NBossMapPoint), "_Ready")]
+    [HarmonyPostfix]
+    private static void BossMapPointReadyPostfix(MegaCrit.Sts2.Core.Nodes.Screens.Map.NBossMapPoint __instance)
+    {
+        try
+        {
+            var trav = HarmonyLib.Traverse.Create(__instance);
+            var runState = trav.Property("_runState").GetValue<MegaCrit.Sts2.Core.Runs.IRunState>();
+            if (runState?.Act?.BossEncounter is CalyrexMod.Events.EternatusBoss)
+            {
+                var placeholder = __instance.GetNodeOrNull<Godot.TextureRect>("%PlaceholderImage");
+                if (placeholder != null)
+                {
+                    var shader = Godot.ResourceLoader.Load<Godot.Shader>("res://shaders/hsv.gdshader", null, Godot.ResourceLoader.CacheMode.Reuse);
+                    if (shader != null)
+                    {
+                        var mat = new Godot.ShaderMaterial { Shader = shader };
+                        mat.SetShaderParameter("h", 0.78f);
+                        mat.SetShaderParameter("s", 1.0f);
+                        mat.SetShaderParameter("v", 1.0f);
+                        placeholder.Material = mat;
+                        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus boss map icon: hue-shifted");
+                    }
+                }
+            }
+        }
+        catch (System.Exception ex)
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] BossMapPointReady: {ex.Message}");
+        }
+    }
+}
