@@ -36,7 +36,6 @@ public sealed class Tinkaton : LeagueMonsterBase
 
     private async Task AttackMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackHeavy", 0.25f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit, ValueProp.Unpowered, base.Creature, null);
@@ -45,7 +44,6 @@ public sealed class Tinkaton : LeagueMonsterBase
 
     private async Task StunMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackDebuffTrigger", 0.3f);
         foreach (var t in targets)
         {
             await CreatureCmd.Stun(t, (_) => Task.CompletedTask);

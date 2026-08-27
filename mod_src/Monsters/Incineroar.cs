@@ -47,12 +47,10 @@ public sealed class Incineroar : LeagueMonsterBase
         {
             await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), t, -StrDebuff, base.Creature, null);
         }
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackDebuffTrigger", 0.3f);
     }
 
     private async Task BigHitMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackHeavy", 0.25f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHit, ValueProp.Unpowered, base.Creature, null);
@@ -61,7 +59,6 @@ public sealed class Incineroar : LeagueMonsterBase
 
     private async Task SmallHitMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackSingle", 0.2f);
         foreach (var t in targets)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, SmallHit, ValueProp.Unpowered, base.Creature, null);
@@ -70,7 +67,6 @@ public sealed class Incineroar : LeagueMonsterBase
 
     private async Task BuffMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "BuffTrigger", 0.3f);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 }

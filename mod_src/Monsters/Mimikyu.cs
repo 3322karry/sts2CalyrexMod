@@ -50,13 +50,11 @@ public sealed class Mimikyu : LeagueMonsterBase
 
     private async Task BuffMove(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "BuffTrigger", 0.3f);
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 5m, base.Creature, null);
     }
 
     private async Task Attack1Move(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackMulti", 0.3f);
         for (int i = 0; i < Hit1Count; i++)
         {
             foreach (var t in targets)
@@ -68,7 +66,6 @@ public sealed class Mimikyu : LeagueMonsterBase
 
     private async Task Attack2Move(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackSingle", 0.2f);
         foreach (var t in targets)
         {
             var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit2Dmg, ValueProp.Unpowered, base.Creature, null);
@@ -87,7 +84,6 @@ public sealed class Mimikyu : LeagueMonsterBase
 
     private async Task Attack3Move(IReadOnlyList<Creature> targets)
     {
-        await CreatureCmd.TriggerAnim(base.Creature, "AttackSingle", 0.2f);
         foreach (var t in targets)
         {
             var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null);

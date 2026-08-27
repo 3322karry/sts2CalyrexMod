@@ -15,7 +15,7 @@ namespace CalyrexMod.Cards;
 public sealed class GlacialWorld : CardModel
 {
     public GlacialWorld()
-        : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
     }
 
