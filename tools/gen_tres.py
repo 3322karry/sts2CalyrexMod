@@ -39,14 +39,15 @@ def main() -> None:
     generated = 0
     for dirpath, _dirnames, filenames in os.walk(ROOT):
         for name in filenames:
-            if not name.lower().endswith(".png"):
+            ext = os.path.splitext(name)[1].lower()
+            if ext not in (".png", ".jpg", ".jpeg"):
                 continue
-            base = name[:-4]
+            base = os.path.splitext(name)[0]
             tres_path = os.path.join(dirpath, base + ".tres")
-            png_path = os.path.join(dirpath, name)
-            if os.path.exists(tres_path) and os.path.getmtime(tres_path) >= os.path.getmtime(png_path):
+            src_path = os.path.join(dirpath, name)
+            if os.path.exists(tres_path) and os.path.getmtime(tres_path) >= os.path.getmtime(src_path):
                 continue
-            img = Image.open(png_path).convert("RGBA")
+            img = Image.open(src_path).convert("RGBA")
             write_tres(img, tres_path)
             generated += 1
             print(f"generated {os.path.relpath(tres_path, ROOT)} ({img.size[0]}x{img.size[1]})")
