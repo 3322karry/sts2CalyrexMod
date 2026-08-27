@@ -77,7 +77,7 @@ public sealed class Boomburst : CardModel
 protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(4m);
-        // 升级后自身固定失去 7 血
-        base.DynamicVars["SelfReduce"].BaseValue = 0m;
+        // 升级后自身受到的伤害再减 25%（共减 50%）
+        base.DynamicVars["SelfReduce"].UpgradeValueBy(25m);
     }
 }
