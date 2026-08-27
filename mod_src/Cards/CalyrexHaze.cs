@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
@@ -37,7 +38,15 @@ public sealed class CalyrexHaze : CardModel
         }
     }
 
-    protected override void OnUpgrade()
+        protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return HoverTipFactory.FromCard<Zero>();
+        }
+    }
+
+protected override void OnUpgrade()
     {
         // 升级：归零+（Zero 自动升级）
     }
