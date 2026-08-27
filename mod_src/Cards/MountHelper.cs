@@ -223,28 +223,34 @@ public static class MountHelper
             return;
         }
         Creature? steed = preferred == typeof(Glastrier) ? combatState.GetPet<Glastrier>() : combatState.GetPet<Spectrier>();
+        string steedName = preferred == typeof(Glastrier) ? "Glastrier" : "Spectrier";
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): steed={(steed == null ? "null" : (steed.IsAlive ? "alive" : "DEAD"))} hp={steed?.CurrentHp}/{steed?.MaxHp}");
         // 优先喂 preferred 马；若它活着则直接喂
         if (steed != null && steed.IsAlive)
         {
             await CreatureCmd.GainMaxHp(steed, amount);
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): fed alive, hp={steed.CurrentHp}/{steed.MaxHp}");
             return;
         }
         // preferred 马死了：直接 GainMaxHp（内部 Heal 会复活死马）
         if (steed != null && steed.IsDead)
         {
             await CreatureCmd.GainMaxHp(steed, amount);
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): revived dead, hp={steed.CurrentHp}/{steed.MaxHp} alive={steed.IsAlive}");
             return;
         }
         // preferred 马不在场：召唤它再喂（两匹都不在场时依次召唤）
         if (preferred == typeof(Glastrier))
         {
-            await PlayerCmd.AddPet<Glastrier>(owner);
-            await CreatureCmd.GainMaxHp(owner.PlayerCombatState!.GetPet<Glastrier>()!, amount);
+            var g = await PlayerCmd.AddPet<Glastrier>(owner);
+            await CreatureCmd.GainMaxHp(g, amount);
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={g.CurrentHp}/{g.MaxHp} alive={g.IsAlive}");
         }
         else
         {
-            await PlayerCmd.AddPet<Spectrier>(owner);
-            await CreatureCmd.GainMaxHp(owner.PlayerCombatState!.GetPet<Spectrier>()!, amount);
+            var sp = await PlayerCmd.AddPet<Spectrier>(owner);
+            await CreatureCmd.GainMaxHp(sp, amount);
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={sp.CurrentHp}/{sp.MaxHp} alive={sp.IsAlive}");
         }
     }
 }

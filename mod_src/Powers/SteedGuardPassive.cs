@@ -112,4 +112,11 @@ public sealed class SteedTargetablePower : PowerModel
     {
         return creature.IsAlive;
     }
+
+    // 马死亡后留在场上（死体），喂养时 GainMaxHp 直接复活；
+    // 骑马合体（Kill force + MountMergePower）的死亡正常移除，避免卸载时槽位混乱
+    public override bool ShouldCreatureBeRemovedFromCombatAfterDeath(Creature creature)
+    {
+        return creature.Powers.Any((PowerModel p) => p is MountMergePower);
+    }
 }
