@@ -58,7 +58,7 @@
   "LAST_RESORT_POWER.title": "珍藏",
   "LAST_RESORT_POWER.description": "每回合能量不会重置。",
   "SPOTLIGHT_POWER.title": "聚光灯",
-  "SPOTLIGHT_POWER.description": "受到的攻击伤害增加 50%。",
+  "SPOTLIGHT_POWER.description": "受到的全体伤害增加 50%（升级后 100%）。",
   "PSYCHIC_NOISE_POWER.title": "精神噪音",
   "PSYCHIC_NOISE_POWER.description": "接下来的回复效果无效。",
   "MOUNT_MERGE_POWER.title": "合体",

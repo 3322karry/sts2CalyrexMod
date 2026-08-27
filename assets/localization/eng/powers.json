@@ -58,7 +58,7 @@
   "LAST_RESORT_POWER.title": "Last Resort",
   "LAST_RESORT_POWER.description": "Energy does not reset each turn.",
   "SPOTLIGHT_POWER.title": "Spotlight",
-  "SPOTLIGHT_POWER.description": "Attack damage taken is increased by 50%.",
+  "SPOTLIGHT_POWER.description": "Takes +50% AOE damage (100% when upgraded).",
   "PSYCHIC_NOISE_POWER.title": "Psychic Noise",
   "PSYCHIC_NOISE_POWER.description": "Healing effects are negated.",
   "MOUNT_MERGE_POWER.title": "Merge",

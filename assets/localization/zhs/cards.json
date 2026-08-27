@@ -188,7 +188,7 @@
   "PSYCH_UP.title": "自我暗示",
   "PSYCH_UP.description": "从任意存活单位随机复制一个[green]正面效果[/green]到自身。",
   "SPOTLIGHT.title": "聚光灯",
-  "SPOTLIGHT.description": "受到[gold]全体伤害[/gold]时，伤害 +{Increase:diff()}%。",
+  "SPOTLIGHT.description": "指定一名敌人。只要它存活，对所有敌人的伤害只命中它，且它受到的这种伤害 +{Increase:diff()}%。",
   "MOVE_RECORD.title": "招式记录",
   "MOVE_RECORD.description": "从 4 张随机消耗牌中选一张加入手牌，本回合可以免费打出。",
   "MOVE_RECORD.selectionPrompt": "选择一张牌",

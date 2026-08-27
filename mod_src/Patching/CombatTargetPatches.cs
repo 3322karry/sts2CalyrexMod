@@ -8,9 +8,42 @@ using CalyrexMod.Monsters;
 namespace CalyrexMod.Patching;
 
 // 让宠物马成为可攻击/可指定目标（花粉团可奶马、爆音波 AOE 波及马）
+// 聚光灯：场上有聚光灯目标时，AOE 只命中该目标
 [HarmonyPatch]
 public static class CombatTargetPatches
 {
+    public static Creature? GetSpotlightTarget(CombatState combatState)
+    {
+        try
+        {
+            return combatState.Enemies.FirstOrDefault((Creature e) => e.IsAlive && e.HasPower<CalyrexMod.Powers.SpotlightPower>());
+        }
+        catch (System.Exception)
+        {
+            return null;
+        }
+    }
+
+    [HarmonyPatch(typeof(CombatState), "GetOpponentsOf")]
+    [HarmonyPostfix]
+    private static void GetOpponentsOfPostfix(CombatState __instance, Creature creature, ref System.Collections.Generic.IReadOnlyList<Creature> __result)
+    {
+        try
+        {
+            if (creature.IsPlayer)
+            {
+                var spot = GetSpotlightTarget(__instance);
+                if (spot != null && __result.Any((Creature e) => e == spot))
+                {
+                    __result = new Creature[] { spot };
+                }
+            }
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
     [HarmonyPatch(typeof(CombatState), "get_HittableEnemies")]
     [HarmonyPostfix]
     private static void HittableEnemiesPostfix(CombatState __instance, ref System.Collections.Generic.IReadOnlyList<Creature> __result)

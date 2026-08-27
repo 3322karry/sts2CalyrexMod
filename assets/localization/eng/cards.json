@@ -188,7 +188,7 @@
   "PSYCH_UP.title": "Psych Up",
   "PSYCH_UP.description": "Copy a random positive effect from any living unit onto yourself.",
   "SPOTLIGHT.title": "Spotlight",
-  "SPOTLIGHT.description": "When you take [gold]AOE damage[/gold], take +{Increase:diff()}%.",
+  "SPOTLIGHT.description": "Target an enemy. While it lives, damage that hits all enemies only hits it, and it takes +{Increase:diff()}% of that damage.",
   "MOVE_RECORD.title": "Move Record",
   "MOVE_RECORD.description": "Choose 1 of 4 random Exhaust cards to add to your hand; it costs 0 this turn.",
   "MOVE_RECORD.selectionPrompt": "Choose a card",
