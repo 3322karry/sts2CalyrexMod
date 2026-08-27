@@ -33,6 +33,12 @@ public static class ModEntry
             {
                 var info = HarmonyLib.Harmony.GetPatchInfo(ri);
                 Log.Info($"[{ModInfo.ModId}] RefreshBossIcon prefixes={info?.Prefixes?.Count ?? 0} postfixes={info?.Postfixes?.Count ?? 0}");
+            foreach (var prop in new[] { "VisualsPath", "TrailPath", "IconTexture", "CharacterSelectTransitionPath", "EnergyCounterPath" })
+            {
+                var g = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Models.CharacterModel), prop);
+                bool ok = g != null && HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == g);
+                Log.Info($"[{ModInfo.ModId}] check: CharacterModel.{prop} patched={ok}");
+            }
                 if (info != null)
                 {
                     foreach (var pr in info.Prefixes)

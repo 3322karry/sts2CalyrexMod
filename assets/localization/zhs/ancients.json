@@ -86,5 +86,15 @@
   "NEOW.talk.CALYREX_CHARACTER.2-0.next": "继续",
   "NEOW.talk.CALYREX_CHARACTER.2-1.char": "[i][font_size=22]蕾冠王没有说话。两匹马同时扬起了蹄。[/font_size][/i]",
   "NEOW.talk.CALYREX_CHARACTER.2-1.next": "继续",
-  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...很好....[/sine]"
+  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...很好....[/sine]",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.ancient": "我见过无数世界崩解，也曾重塑它们。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.char": "那么，请看看我的道路是否坚固。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.next": "继续",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.1-0.ancient": "冠之王者，你的道路仍未完成。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.1-0.char": "我明白。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.ancient": "冠之王者，你的力量来自羁绊，而非砖石。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.char": "……我从未忘记这一点。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.next": "继续",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-2.ancient": "去吧。我的造物会检验你的决心。",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-2.char": "荣幸之至。"
 }

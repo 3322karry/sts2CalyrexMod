@@ -19,13 +19,10 @@ public static class ArchitectDialogueFix
         {
             if (characterId.Entry == "CALYREX_CHARACTER" && !__result.Any())
             {
-                __result = new AncientDialogue[]
-                {
-                    new AncientDialogue("event:/sfx/ui/enchant_simple")
-                    {
-                        IsRepeating = true
-                    }
-                };
+                // 兜底：返回完整的蕾冠王对话（3 行），由 PopulateLines 填充本地化文本
+                var dialogue = new AncientDialogue("", "", "");
+                dialogue.PopulateLines("THE_ARCHITECT", "CALYREX_CHARACTER", 0);
+                __result = new AncientDialogue[] { dialogue };
             }
         }
         catch (System.Exception ex)

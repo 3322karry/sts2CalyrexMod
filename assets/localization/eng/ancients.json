@@ -86,5 +86,15 @@
   "NEOW.talk.CALYREX_CHARACTER.2-0.next": "Continue",
   "NEOW.talk.CALYREX_CHARACTER.2-1.char": "[i][font_size=22]Calyrex says nothing. Both steeds raise their hooves at once. [/font_size][/i]",
   "NEOW.talk.CALYREX_CHARACTER.2-1.next": "Continue",
-  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...good....[/sine]"
+  "NEOW.talk.CALYREX_CHARACTER.2-2.ancient": "[sine]...good....[/sine]",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.ancient": "I have watched worlds collapse and rebuilt them anew.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.char": "Then judge whether my path holds firm.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-0.next": "Continue",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.1-0.ancient": "Crowned one, your path is unfinished.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.1-0.char": "I understand.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.ancient": "Crowned one, your strength comes from bonds, not stone.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.char": "...I have never forgotten that.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-1.next": "Continue",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-2.ancient": "Go. My creations will test your resolve.",
+  "THE_ARCHITECT.talk.CALYREX_CHARACTER.0-2.char": "I welcome the trial."
 }

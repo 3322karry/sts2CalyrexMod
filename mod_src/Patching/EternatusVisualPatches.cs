@@ -129,6 +129,24 @@ public static class EternatusBossMapPatch
         }
     }
 
+    // NTopBarRoomIcon 用 GetCompressedTexture2D 加载 run_history 图标，同样重定向
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Assets.AssetCache), "GetCompressedTexture2D")]
+    [HarmonyPrefix]
+    private static void GetCompressedTexture2DPrefix(ref string path)
+    {
+        try
+        {
+            if (path != null && path.Contains("run_history/eternatus_boss"))
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] run_history compressed redirect: {path}");
+                path = path.Replace("run_history/eternatus_boss", "run_history/queen_boss");
+            }
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
     [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "get_BossNodePath")]
     [HarmonyPostfix]
     private static void BossNodePathPostfix(EncounterModel __instance, ref string __result)
