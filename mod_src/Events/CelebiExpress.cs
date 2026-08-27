@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using CalyrexMod.Characters;
 using CalyrexMod.RelicPools;
+using CalyrexMod.Relics;
 using CalyrexMod.PotionPools;
 
 namespace CalyrexMod.Events;
@@ -22,6 +23,7 @@ public sealed class CelebiExpress : EventModel
     {
         return new EventOption[]
         {
+            new EventOption(this, GiveRelic, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_RELIC"),
             new EventOption(this, GivePotions, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_POTIONS"),
             new EventOption(this, GiveGold, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_GOLD")
         };
@@ -49,7 +51,8 @@ public sealed class CelebiExpress : EventModel
     {
         var pool = ModelDb.RelicPool<CalyrexRelicPool>();
         var owned = base.Owner.Relics.Select((RelicModel r) => r.Id).ToHashSet();
-        var candidates = pool.AllRelics.Where((RelicModel r) => !owned.Contains(r.Id)).ToList();
+        // 排除联赛专属遗物（王者之证/特性膏药），它们只在宝可梦联赛获得
+        var candidates = pool.AllRelics.Where((RelicModel r) => !owned.Contains(r.Id) && r is not KingRock && r is not AbilityCapsule).ToList();
         if (candidates.Count == 0)
         {
             return;
