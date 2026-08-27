@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.13.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **进入第三层仍卡死**：地图 Boss 图标 patch 因类缺少 [HarmonyPatch] 标注未被 PatchAll 扫描，实际未生效——已补类级标注，确认 `EncounterModel.get_BossNodePath patched=True`
+
 ## v1.2.12.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **第二层进入第三层（荣耀幕）卡死**：无极汰那 Boss 的地图节点资源缺失（eternatus_boss_node_skel_data.tres 不存在），地图生成 Boss 节点时崩溃——改用官方 placeholder Boss 图标（Aeonglass）+ hsv 着色（无极汰那紫色调）代替

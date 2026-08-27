@@ -95,6 +95,7 @@ public static class EternatusVisualPatches
 }
 
 // 地图 Boss 图标：用官方 placeholder（Aeonglass 图标）+ hsv 变色（无极汰那紫色调）
+[HarmonyPatch]
 public static class EternatusBossMapPatch
 {
     public const string PlaceholderIconPath = "res://images/map/placeholder/aeonglass_boss_icon";

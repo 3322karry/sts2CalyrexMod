@@ -23,6 +23,16 @@ public static class ModEntry
         Log.Info($"[{ModInfo.ModId}] {ModInfo.ModName} {ModInfo.Version} loaded!");
         try
         {
+            var bp = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "BossNodePath");
+            bool bpPatched = HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == bp);
+            Log.Info($"[{ModInfo.ModId}] check: EncounterModel.get_BossNodePath patched={bpPatched}");
+        }
+        catch (System.Exception ex)
+        {
+            Log.Info($"[{ModInfo.ModId}] check bossnode: {ex.Message}");
+        }
+        try
+        {
             var hasImagePatch = HarmonyLib.AccessTools.Method(typeof(PotionModel), "get_Image") != null;
             bool potionPatched = HarmonyLib.Harmony.GetAllPatchedMethods()
                 .Any((System.Reflection.MethodBase m) => m.DeclaringType == typeof(PotionModel));
