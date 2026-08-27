@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
@@ -11,5 +12,13 @@ public sealed class MountChoiceGlastrier : CardModel
     {
     }
 
-    public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
+    public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return KeywordTipHelper.MountedGlastrierTip;
+        }
+    }
+
+
 }

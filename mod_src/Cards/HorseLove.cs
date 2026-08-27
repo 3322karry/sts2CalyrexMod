@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 using CalyrexMod.Monsters;
 
 namespace CalyrexMod.Cards;
@@ -38,7 +39,15 @@ public sealed class HorseLove : CardModel
         await MountHelper.FeedBoth(choiceContext, base.Owner, feed);
     }
 
-    protected override void OnUpgrade()
+        protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return KeywordTipHelper.FeedTip;
+        }
+    }
+
+protected override void OnUpgrade()
     {
         base.DynamicVars["Feed"].UpgradeValueBy(4m);
     }

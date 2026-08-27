@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using CalyrexMod.Powers;
 
@@ -36,7 +37,15 @@ public sealed class Zero : CardModel
         await CardPileCmd.Draw(choiceContext, base.DynamicVars["Cards"].BaseValue, base.Owner);
     }
 
-    protected override void OnUpgrade()
+        protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return KeywordTipHelper.AbundanceTip;
+        }
+    }
+
+protected override void OnUpgrade()
     {
         base.DynamicVars["Abundance"].UpgradeValueBy(2m);
         base.DynamicVars["Cards"].UpgradeValueBy(1m);

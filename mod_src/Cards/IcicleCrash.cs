@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.ValueProps;
 using CalyrexMod.Powers;
 
@@ -40,7 +41,15 @@ public sealed class IcicleCrash : CardModel
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
+        protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return KeywordTipHelper.FrozenTip;
+        }
+    }
+
+protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(2m);
         base.DynamicVars["PerFrost"].UpgradeValueBy(1m);

@@ -24,7 +24,7 @@ public sealed class MaleficCurse : CardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get
         {

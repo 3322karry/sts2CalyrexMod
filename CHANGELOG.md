@@ -1,6 +1,13 @@
 # Changelog / 更新日志
 
+## v1.2.1.02 (2026-08-27)
+
+### New / 新增
+- **升级后描述**：29 张卡补充升级说明（费用变化/固有/保留/不再消耗/自伤变化等，中英）
+- **词条提示**：补齐骑马选择（骑白马/骑黑马/下马）、归零（丰饶）、喂养类（马匹之爱/种子炸弹/奉献/Z-庆祝/草场）等 11 张卡的 hover tips
+
 ## v1.2.1hotfix (2026-08-27)
+
 
 ### Fixes / 修复
 - **骑马喂养**: 喂养不再复活合体中的马（骑黑马时只复活/喂养在场白马，不会把黑马重新召唤），骑马选择不再出现两匹马 / Feeding no longer revives the mounted (merged) steed; only the alive steed is fed/revived, so mounting shows only the correct steed.
