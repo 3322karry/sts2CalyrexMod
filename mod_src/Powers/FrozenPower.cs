@@ -15,10 +15,10 @@ public sealed class FrozenPower : PowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    // 受到伤害减少 35%
+    // 被冰冻的目标攻击时，其造成的伤害减少 35%
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != base.Owner)
+        if (dealer != base.Owner)
         {
             return 1m;
         }

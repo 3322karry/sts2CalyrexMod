@@ -28,7 +28,7 @@
   "ICE_WALL_POWER.title": "冰墙",
   "ICE_WALL_POWER.description": "回合结束时获得 8 点[gold]格挡[/gold]。取消骑马时失效。",
   "FROZEN_POWER.title": "冰冻",
-  "FROZEN_POWER.description": "受到的伤害减少 35%。可与虚弱叠加。每回合结束减少 1 层。",
+  "FROZEN_POWER.description": "造成的伤害减少 35%。可与虚弱叠加。每回合结束减少 1 层。",
   "ACCELERATE_POWER.title": "加速",
   "ACCELERATE_POWER.description": "每使用 2 费，获得 1 费 1 点力量。",
   "SLOW_DOWN_POWER.title": "减速",

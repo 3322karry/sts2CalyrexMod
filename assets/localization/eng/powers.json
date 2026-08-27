@@ -28,7 +28,7 @@
   "ICE_WALL_POWER.title": "Ice Wall",
   "ICE_WALL_POWER.description": "At the end of your turn, gain 8 [gold]Block[/gold]. Lost when you unmount.",
   "FROZEN_POWER.title": "Frozen",
-  "FROZEN_POWER.description": "Damage taken is reduced by 35%. Stacks with Weak. Loses 1 stack at the end of each turn.",
+  "FROZEN_POWER.description": "Damage dealt is reduced by 35%. Stacks with Weak. Loses 1 stack at the end of each turn.",
   "ACCELERATE_POWER.title": "Accelerate",
   "ACCELERATE_POWER.description": "Every 2 Energy you spend, gain 1 Energy and 1 Strength.",
   "SLOW_DOWN_POWER.title": "Slow Down",
