@@ -21,7 +21,7 @@ public sealed class FakeOut : CardModel
     }
 
     public FakeOut()
-        : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+        : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 

@@ -22,7 +22,7 @@ public sealed class Protect : CardModel
     }
 
     public Protect()
-        : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
     }
 

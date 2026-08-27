@@ -31,7 +31,7 @@ public static class FrozenOverlayPatch
             int frozen = creature.Powers.FirstOrDefault((MegaCrit.Sts2.Core.Models.PowerModel p) => p is FrozenPower)?.Amount ?? 0;
             var bar = trav.Field("_hpForeground").GetValue<Control>();
             var overlay = GetOrCreateOverlay(__instance, creature, bar);
-            if (frozen <= 0 || bar == null)
+            if (frozen <= 0 || bar == null || bar.GetParent() == null)
             {
                 overlay.Visible = false;
                 return;
@@ -45,14 +45,19 @@ public static class FrozenOverlayPatch
             }
             catch (System.Exception)
             {
-                fgWidth = maxFgWidth * (frozen * FrozenMultiplier) / 100f;
+                fgWidth = Mathf.Min(maxFgWidth, maxFgWidth * (frozen * FrozenMultiplier) / 100f);
             }
-            // 淡蓝色覆盖：从血条右端向左覆盖致死区域
-            overlay.OffsetLeft = Mathf.Max(0f, fgWidth - maxFgWidth) + bar.OffsetLeft;
-            overlay.OffsetRight = bar.OffsetRight;
+            // 挂到血条容器（bar 的 parent），锚点复制血条前景，Offset 与 doom 前景层一致
+            overlay.AnchorLeft = bar.AnchorLeft;
+            overlay.AnchorTop = bar.AnchorTop;
+            overlay.AnchorRight = bar.AnchorRight;
+            overlay.AnchorBottom = bar.AnchorBottom;
+            overlay.OffsetLeft = bar.OffsetLeft;
+            overlay.OffsetRight = Mathf.Min(0f, fgWidth - maxFgWidth) + bar.OffsetRight;
             overlay.OffsetTop = bar.OffsetTop;
             overlay.OffsetBottom = bar.OffsetBottom;
             overlay.Visible = true;
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Frozen overlay: {creature.LogName} frozen={frozen} fgWidth={fgWidth:0.0}");
         }
         catch (System.Exception)
         {
