@@ -33,11 +33,18 @@ public static class ModEntry
             {
                 var info = HarmonyLib.Harmony.GetPatchInfo(ri);
                 Log.Info($"[{ModInfo.ModId}] RefreshBossIcon prefixes={info?.Prefixes?.Count ?? 0} postfixes={info?.Postfixes?.Count ?? 0}");
-            foreach (var prop in new[] { "VisualsPath", "TrailPath", "IconTexture", "CharacterSelectTransitionPath", "EnergyCounterPath" })
+            foreach (var prop in new[] { "VisualsPath", "TrailPath", "IconTexture", "CharacterSelectTransitionPath", "EnergyCounterPath", "MerchantAnimPath", "RestSiteAnimPath" })
             {
-                var g = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Models.CharacterModel), prop);
-                bool ok = g != null && HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == g);
-                Log.Info($"[{ModInfo.ModId}] check: CharacterModel.{prop} patched={ok}");
+                try
+                {
+                    var g = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Models.CharacterModel), prop);
+                    bool ok = g != null && HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == g);
+                    Log.Info($"[{ModInfo.ModId}] check: CharacterModel.{prop} patched={ok}");
+                }
+                catch (System.Exception ex)
+                {
+                    Log.Info($"[{ModInfo.ModId}] check {prop}: {ex.Message}");
+                }
             }
                 if (info != null)
                 {

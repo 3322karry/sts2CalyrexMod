@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.20.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **敌人死亡后不移除（尸体留场、意图继续播放）**：SteedTargetablePower.ShouldCreatureBeRemovedFromCombatAfterDeath 逻辑错误——hook 对"所有死亡生物"调用，非马时误返回 false 阻止移除。已改为非自己（马）时返回 true（不干预官方移除流程）。该 bug 自 v1.2 引入马匹守护 v3 起存在
+
 ## v1.2.19.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **敌人死后不消失/显示意图不行动**：移除所有怪物动作的 TriggerAnim 调用（静态精灵无 Animator，动画触发可能中断动作流程）

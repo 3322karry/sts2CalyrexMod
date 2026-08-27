@@ -57,6 +57,15 @@ public abstract class LeagueMonsterBase : MonsterModel
             }
             var aliveList = string.Join(",", combatState.Enemies.Where((Creature e) => e.IsAlive).Select((Creature e) => e.Monster?.Id.Entry ?? "?"));
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League swap: {creature.Monster?.Id.Entry} died, Next={nextType.Name}, slot={creature.SlotName}, alive=[{aliveList}]");
+            // 先移除死亡敌人（释放槽位），再召唤下一个，避免槽位冲突卡住死亡流程
+            try
+            {
+                combatState.RemoveCreature(creature);
+            }
+            catch (System.Exception rex)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] League RemoveCreature: {rex.Message}");
+            }
             var next = (MonsterModel)ModelDb.GetById<MonsterModel>(ModelDb.GetId(nextType)).ToMutable();
             var newCreature = await CreatureCmd.Add(next, combatState, CombatSide.Enemy, creature.SlotName);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League spawned: {newCreature.Monster?.Id.Entry} slot={newCreature.SlotName}");
@@ -67,7 +76,6 @@ public abstract class LeagueMonsterBase : MonsterModel
                 await CreatureCmd.Stun(newCreature, (_) => Task.CompletedTask);
                 MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] League stunned newcomer: {newCreature.Monster?.Id.Entry}");
             }
-            combatState.RemoveCreature(creature);
         }
         catch (System.Exception ex)
         {

@@ -36,12 +36,20 @@ public sealed class SteedGuardPassive : PowerModel
         {
             return amount;
         }
-        _pendingDamage = amount;
+        try
+        {
+            _pendingDamage = amount;
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-SG] ModifyHpLost: {amount} dmg -> pending (dealer={dealer?.LogName})");
+        }
+        catch (System.Exception)
+        {
+        }
         return 0m;
     }
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-SG] AfterDamageReceived: target={target?.LogName} pending={_pendingDamage} transferring={_isTransferring}");
         if (target != base.Owner || _isTransferring)
         {
             return;
@@ -71,6 +79,7 @@ public sealed class SteedGuardPassive : PowerModel
             return;
         }
         MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] SteedGuardPassive: transferring {remaining} dmg to steeds");
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-SG] Transfer START {remaining}");
 
         // 白马先承受，溢出转黑马，再溢出转玩家
         var glastrier = player.PlayerCombatState.GetPet<Glastrier>();
@@ -92,6 +101,7 @@ public sealed class SteedGuardPassive : PowerModel
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] SteedGuardPassive: no steeds alive, player takes {remaining}");
             base.Owner.LoseHpInternal(remaining, ValueProp.Unblockable | ValueProp.Unpowered);
         }
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-SG] Transfer END remaining={remaining}");
     }
 
     // 打马并返回溢出伤害
@@ -115,8 +125,13 @@ public sealed class SteedTargetablePower : PowerModel
 
     // 马死亡后留在场上（死体），喂养时 GainMaxHp 直接复活；
     // 骑马合体（Kill force + MountMergePower）的死亡正常移除，避免卸载时槽位混乱
+    // 注意：hook 会对所有死亡的生物调用，非自己（马）时必须返回 true（不干预移除）
     public override bool ShouldCreatureBeRemovedFromCombatAfterDeath(Creature creature)
     {
+        if (creature != base.Owner)
+        {
+            return true;
+        }
         return creature.Powers.Any((PowerModel p) => p is MountMergePower);
     }
 }

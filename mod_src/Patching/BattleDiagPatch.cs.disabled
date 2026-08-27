@@ -1,0 +1,75 @@
+using System.Linq;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+
+namespace CalyrexMod.Patching;
+
+// 临时诊断：敌人回合/死亡移除/HP 变化流程日志
+[HarmonyPatch]
+public static class BattleDiagPatch
+{
+    [HarmonyPatch(typeof(CombatManager), "ExecuteEnemyTurn")]
+    [HarmonyPrefix]
+    private static void EnemyTurnPrefix(CombatManager __instance)
+    {
+        try
+        {
+            var state = __instance.DebugOnlyGetState();
+            if (state != null)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] ExecuteEnemyTurn: enemies={string.Join(",", state.Enemies.Where((Creature e) => e.IsAlive).Select((Creature e) => e.LogName))}");
+            }
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
+    [HarmonyPatch(typeof(CombatManager), "ExecuteEnemyTurn")]
+    [HarmonyPostfix]
+    private static void EnemyTurnPostfix()
+    {
+        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod-DIAG] ExecuteEnemyTurn COMPLETE");
+    }
+
+    [HarmonyPatch(typeof(CombatState), "RemoveCreature")]
+    [HarmonyPrefix]
+    private static void RemoveCreaturePrefix(CombatState __instance, Creature creature)
+    {
+        try
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] RemoveCreature: {creature?.LogName}");
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
+    [HarmonyPatch(typeof(Creature), "AfterCurrentHpChanged")]
+    [HarmonyPostfix]
+    private static void HpChangedPostfix(Creature __instance, decimal delta)
+    {
+        try
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] HP {__instance?.LogName}: {__instance?.CurrentHp}/{__instance?.MaxHp} (delta {delta})");
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
+    [HarmonyPatch(typeof(Creature), "TakeTurn")]
+    [HarmonyPrefix]
+    private static void TakeTurnPrefix(Creature __instance)
+    {
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] TakeTurn start: {__instance?.LogName}");
+    }
+
+    [HarmonyPatch(typeof(Creature), "TakeTurn")]
+    [HarmonyPostfix]
+    private static void TakeTurnPostfix(Creature __instance)
+    {
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] TakeTurn end: {__instance?.LogName}");
+    }
+}
