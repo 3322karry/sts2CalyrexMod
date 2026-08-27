@@ -58,10 +58,12 @@ public static class CombatTargetPatches
             if (steeds.Count > 0)
             {
                 __result = __result.Concat(steeds).ToList();
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] HittableEnemies: added {steeds.Count} steeds, total {__result.Count}");
             }
         }
-        catch (System.Exception)
+        catch (System.Exception ex)
         {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] HittableEnemies patch: {ex.Message}");
         }
     }
 }

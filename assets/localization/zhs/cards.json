@@ -170,7 +170,7 @@
   "FLY.title": "飞翔",
   "FLY.description": "获得 {Fly:diff()} 层[gold]飞行[/gold]：受到的攻击伤害减半。",
   "POLLEN_PUFF.title": "花粉团",
-  "POLLEN_PUFF.description": "指定一名敌人或马：对敌人造成 {Damage:diff()} 点伤害；对马回复其 {HealPct:diff()}% 最大生命。",
+  "POLLEN_PUFF.description": "指定一名敌人：造成 {Damage:diff()} 点伤害，你的两匹马回复 {HealPct:diff()}% 最大生命。",
   "DEFIANT.title": "不服输",
   "DEFIANT.description": "每次被施加负面效果时，获得 1 点[green]力量[/green]。",
   "DRACO_METEOR.title": "流星群",

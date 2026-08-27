@@ -30,18 +30,32 @@ public sealed class PollenPuff : CardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        decimal healPct = base.DynamicVars["HealPct"].IntValue / 100m;
         if (cardPlay.Target.PetOwner != null)
         {
-            // 马：回复 33% 血量
-            await CreatureCmd.Heal(cardPlay.Target, cardPlay.Target.MaxHp * base.DynamicVars["HealPct"].IntValue / 100m, playAnim: true);
+            // 目标就是马：回复其 33%（升级 50%）最大生命
+            await CreatureCmd.Heal(cardPlay.Target, cardPlay.Target.MaxHp * healPct, playAnim: true);
+            return;
         }
-        else
+        // 敌人：造成 9（升级 12）点伤害
+        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
+        // 花粉飘散：两匹马也回复 33%（升级 50%）最大生命
+        if (base.Owner.PlayerCombatState != null)
         {
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            var glastrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Glastrier>();
+            if (glastrier != null && glastrier.IsAlive)
+            {
+                await CreatureCmd.Heal(glastrier, glastrier.MaxHp * healPct, playAnim: true);
+            }
+            var spectrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Spectrier>();
+            if (spectrier != null && spectrier.IsAlive)
+            {
+                await CreatureCmd.Heal(spectrier, spectrier.MaxHp * healPct, playAnim: true);
+            }
         }
     }
 

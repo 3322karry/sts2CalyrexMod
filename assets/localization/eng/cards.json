@@ -170,7 +170,7 @@
   "FLY.title": "Fly",
   "FLY.description": "Gain {Fly:diff()} [gold]Fly[/gold]: attack damage taken is halved.",
   "POLLEN_PUFF.title": "Pollen Puff",
-  "POLLEN_PUFF.description": "Target an enemy or steed: deal {Damage:diff()} damage to an enemy, or heal a steed for {HealPct:diff()}% of its Max HP.",
+  "POLLEN_PUFF.description": "Target an enemy: deal {Damage:diff()} damage, and both of your steeds heal {HealPct:diff()}% of their Max HP.",
   "DEFIANT.title": "Defiant",
   "DEFIANT.description": "Whenever a debuff is applied to you, gain 1 [green]Strength[/green].",
   "DRACO_METEOR.title": "Draco Meteor",
