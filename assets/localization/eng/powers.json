@@ -20,7 +20,7 @@
   "HELPING_HAND_POWER.title": "Helping Hand",
   "HELPING_HAND_POWER.description": "Temporary Strength: +{Amount} Strength this turn.",
   "GRASSY_TERRAIN_POWER.title": "Grassy Terrain",
-  "GRASSY_TERRAIN_POWER.description": "At the start of your turn, Feed 3 and gain 3 Abundance.",
+  "GRASSY_TERRAIN_POWER.description": "At the start of your turn, Feed 3 and gain 2 Abundance.",
   "TRUCE_POWER.title": "Truce",
   "TRUCE_POWER.description": "You cannot play Attack cards this turn.",
   "FUTURE_SIGHT_POWER.title": "Future Sight",

@@ -17,10 +17,8 @@ public sealed class PartingShot : CardModel
 
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
 
-    // 升级后去除消耗
-    public override IEnumerable<CardKeyword> CanonicalKeywords => base.IsUpgraded
-        ? System.Array.Empty<CardKeyword>()
-        : new[] { CardKeyword.Exhaust };
+    // canonical 固定带消耗；升级后在 mutable 实例移除（CanonicalKeywords 阶段 IsUpgraded 恒 false）
+    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -32,5 +30,7 @@ public sealed class PartingShot : CardModel
 
     protected override void OnUpgrade()
     {
+        // 升级后不再消耗
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

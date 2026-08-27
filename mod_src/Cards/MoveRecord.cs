@@ -27,6 +27,10 @@ public sealed class MoveRecord : CardModel
     {
     }
 
+    protected override void OnUpgrade()
+    {
+    }
+
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
@@ -38,10 +42,12 @@ public sealed class MoveRecord : CardModel
         {
             return;
         }
-        // 从玩家角色卡池的消耗牌中随机选 4 张（每名角色都起效）
+        // 从玩家角色卡池的消耗牌中随机选 4 张（排除先古/无色/调试卡）
         var pool = base.Owner.Character.CardPool.GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint)
-            .Concat(ModelDb.CardPool<ColorlessCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint))
-            .Where((CardModel c) => c.Keywords.Contains(CardKeyword.Exhaust) && c.CanBeGeneratedInCombat && c.Type != CardType.Curse)
+            .Where((CardModel c) => c.Keywords.Contains(CardKeyword.Exhaust) && c.CanBeGeneratedInCombat && c.Type != CardType.Curse
+                && c.Rarity != CardRarity.Ancient
+                && c.Pool is not ColorlessCardPool
+                && c is not DebugCard)
             .Distinct()
             .ToList();
         if (pool.Count == 0)
@@ -62,7 +68,16 @@ public sealed class MoveRecord : CardModel
         {
             return;
         }
-        var choiceCards = options.Select((CardModel c) => combatState.CreateCard(c, base.Owner)).ToList();
+        var choiceCards = options.Select((CardModel c) =>
+        {
+            var card = combatState.CreateCard(c, base.Owner);
+            // 升级后：选项为升级版消耗牌
+            if (base.IsUpgraded)
+            {
+                CardCmd.Upgrade(card);
+            }
+            return card;
+        }).ToList();
         var prefs = new CardSelectorPrefs(new LocString("cards", "MOVE_RECORD.selectionPrompt"), 1);
         var chosen = (await CardSelectCmd.FromSimpleGrid(choiceContext, choiceCards, base.Owner, prefs)).FirstOrDefault();
         if (chosen == null)

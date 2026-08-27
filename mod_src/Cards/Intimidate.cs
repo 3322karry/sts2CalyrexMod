@@ -34,13 +34,14 @@ public sealed class Intimidate : CardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -2m, base.Owner.Creature, this);
+        int strLoss = base.IsUpgraded ? 1 : 2;
+        await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -strLoss, base.Owner.Creature, this);
         await PowerCmd.Apply<FrozenPower>(choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级后不消耗
+        // 升级后：力量 -1（原 -2），不再消耗（可重复打出）
         RemoveKeyword(CardKeyword.Exhaust);
     }
 }

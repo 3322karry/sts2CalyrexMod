@@ -20,7 +20,7 @@
   "HELPING_HAND_POWER.title": "帮助",
   "HELPING_HAND_POWER.description": "临时力量：本回合 +{Amount} 点力量。",
   "GRASSY_TERRAIN_POWER.title": "青草场地",
-  "GRASSY_TERRAIN_POWER.description": "回合开始时，喂养 3 并获得 3 层丰饶。",
+  "GRASSY_TERRAIN_POWER.description": "回合开始时，喂养 3 并获得 2 层丰饶。",
   "TRUCE_POWER.title": "休战",
   "TRUCE_POWER.description": "本回合不能打出攻击牌。",
   "FUTURE_SIGHT_POWER.title": "预知未来",

@@ -20,7 +20,7 @@ public sealed class GrassyGlide : CardModel
         get
         {
             yield return new DamageVar(3m, ValueProp.Move);
-            yield return new IntVar("PerAbundance", 4m);
+            yield return new IntVar("PerAbundance", 2m);
         }
     }
 

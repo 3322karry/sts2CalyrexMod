@@ -17,8 +17,8 @@ public sealed class IcicleCrash : CardModel
     {
         get
         {
-            yield return new DamageVar(9m, ValueProp.Move);
-            yield return new IntVar("PerFrost", 5m);
+            yield return new DamageVar(3m, ValueProp.Move);
+            yield return new IntVar("PerFrost", 3m);
         }
     }
 
@@ -51,7 +51,6 @@ public sealed class IcicleCrash : CardModel
 
 protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(2m);
         base.DynamicVars["PerFrost"].UpgradeValueBy(1m);
     }
 }
