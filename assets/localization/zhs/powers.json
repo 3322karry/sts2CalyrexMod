@@ -14,7 +14,7 @@
   "STEED_GUARD.title": "骏马守护",
   "STEED_GUARD.description": "这匹马守护蕾冠王：对蕾冠王造成的未格挡伤害改由这匹马承受。",
   "DYNAMAX_FORM_POWER.title": "极巨形态",
-  "DYNAMAX_FORM_POWER.description": "到下回合结束前，你的伤害 ×3。",
+  "DYNAMAX_FORM_POWER.description": "持续 3 回合，你的伤害 ×3。",
   "TEMPORARY_THORNS_POWER.title": "临时荆棘",
   "TEMPORARY_THORNS_POWER.description": "受到攻击时，反伤 {Amount} 点。回合结束消失。",
   "HELPING_HAND_POWER.title": "帮助",

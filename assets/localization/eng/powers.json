@@ -14,7 +14,7 @@
   "STEED_GUARD.title": "Steed Guard",
   "STEED_GUARD.description": "This steed shields Calyrex: unblocked damage to Calyrex is redirected to this steed instead.",
   "DYNAMAX_FORM_POWER.title": "Dynamax Form",
-  "DYNAMAX_FORM_POWER.description": "Your damage is tripled until the end of next turn.",
+  "DYNAMAX_FORM_POWER.description": "For 3 turns, your damage is tripled.",
   "TEMPORARY_THORNS_POWER.title": "Temporary Thorns",
   "TEMPORARY_THORNS_POWER.description": "When attacked, deal {Amount} damage back. Fades at the end of your turn.",
   "HELPING_HAND_POWER.title": "Helping Hand",

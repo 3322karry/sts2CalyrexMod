@@ -39,7 +39,7 @@
   "PROTECT.title": "Protect",
   "PROTECT.description": "Usable only if you haven't played a card this turn. Gain 999 [gold]Block[/gold]. End your turn. [orange]Exhaust[/orange].",
   "DYNAMAX_FORM.title": "Dynamax Form",
-  "DYNAMAX_FORM.description": "Until the end of next turn, all damage you deal is tripled.",
+  "DYNAMAX_FORM.description": "For 3 turns, all damage you deal is tripled.",
   "BATON_PASS.title": "Baton Pass",
   "BATON_PASS.description": "Retain your [gold]Block[/gold] and temporary effects for one turn.",
   "HELPING_HAND.title": "Helping Hand",

@@ -39,7 +39,7 @@
   "PROTECT.title": "守住",
   "PROTECT.description": "仅当本回合未使用过牌时可用。获得 999 点[gold]格挡[/gold]，结束你的回合。",
   "DYNAMAX_FORM.title": "极巨形态",
-  "DYNAMAX_FORM.description": "到下回合结束前，你造成的所有伤害 ×3。",
+  "DYNAMAX_FORM.description": "持续 3 回合，你造成的所有伤害 ×3。",
   "BATON_PASS.title": "接棒",
   "BATON_PASS.description": "保留[gold]格挡[/gold]和临时效果一回合。",
   "HELPING_HAND.title": "帮助",
