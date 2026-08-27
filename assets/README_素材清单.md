@@ -83,76 +83,77 @@
 
 > ⭐ = **先古卡**（`CardRarity.Ancient`，由达弗/古旧之书给予）
 
-全部 69 张卡（类名 → 卡面 slug）：
+全部 70 张卡（类名 → 卡面 slug → 中文名）：
 
-| 类名 | slug |
-|---|---|
-| `AbsoluteZero` | `absolute_zero` |
-| `Accelerate` | `accelerate` |
-| `AllOutAttack` | `all_out_attack` |
-| `Anxious` | `anxious` |
-| `BatonPass` | `baton_pass` |
-| `BondedReins` | `bonded_reins` |
-| `Boomburst` | `boomburst` |
-| `CalyrexDefend` | `calyrex_defend` |
-| `CalyrexStrike` | `calyrex_strike` |
-| `CatastrophicBlow` | `catastrophic_blow` |
-| `CleanUpFirst` | `clean_up_first` |
-| `CourageRope` ⭐ | `courage_rope` |
-| `CrownTundra` | `crown_tundra` |
-| `DarkGleam` | `dark_gleam` |
-| `DefendPosition` | `defend_position` |
-| `DivineBlessing` | `divine_blessing` |
-| `DynamaxForm` | `dynamax_form` |
-| `Encore` ⭐ | `encore` |
-| `ExtremeSpeed` | `extreme_speed` |
-| `FakeOut` | `fake_out` |
-| `FriendlyGuard` | `friendly_guard` |
-| `Frost` | `frost` |
-| `FutureSight` | `future_sight` |
-| `Gallop` | `gallop` |
-| `GlacialWorld` | `glacial_world` |
-| `GrassKnot` | `grass_knot` |
-| `GrassyGlide` | `grassy_glide` |
-| `GrassyTerrain` | `grassy_terrain` |
-| `Harvest` | `harvest` |
-| `HelpingHand` | `helping_hand` |
-| `HeroicSacrifice` | `heroic_sacrifice` |
-| `HighHorsepower` | `high_horsepower` |
-| `HorseLove` | `horse_love` |
-| `IcyWind` | `icy_wind` |
-| `Ingrain` | `ingrain` |
-| `IntensivePlanting` | `intensive_planting` |
-| `Intimidate` | `intimidate` |
-| `LeechSeed` | `leech_seed` |
-| `LonePath` | `lone_path` |
-| `LongHowl` | `long_howl` |
-| `MaleficCurse` | `malefic_curse` |
-| `PPRestoreCard` | `pp_restore_card` |
-| `PaleLance` | `pale_lance` |
-| `PartingShot` | `parting_shot` |
-| `PhantomForce` | `phantom_force` |
-| `PlantCarrot` | `plant_carrot` |
-| `Pressure` | `pressure` |
-| `Protect` | `protect` |
-| `Psychic` | `psychic` |
-| `QuickAttack` | `quick_attack` |
-| `Recall` | `recall` |
-| `RoyalFavor` | `royal_favor` |
-| `SeedBomb` | `seed_bomb` |
-| `ShadowBall` | `shadow_ball` |
-| `SlowDown` | `slow_down` |
-| `SoulBlast` | `soul_blast` |
-| `SoulHeart` | `soul_heart` |
-| `SpikyDefense` | `spiky_defense` |
-| `StoredPower` | `stored_power` |
-| `StrengthSap` | `strength_sap` |
-| `Substitute` | `substitute` |
-| `TeraBlast` | `tera_blast` |
-| `Tribute` | `tribute` |
-| `Trick` | `trick` |
-| `Truce` | `truce` |
-| `UproarRoar` | `uproar_roar` |
-| `WideGuard` | `wide_guard` |
-| `WishGrant` | `wish_grant` |
-| `ZenHeadbutt` | `zen_headbutt` |
+| 类名 | slug | 中文名 |
+|---|---|---|
+| `AbsoluteZero` | `absolute_zero` | 绝对零度 |
+| `Accelerate` | `accelerate` | 加速！！ |
+| `AllOutAttack` | `all_out_attack` | 全力一击 |
+| `Anxious` | `anxious` | 焦急 |
+| `BatonPass` | `baton_pass` | 接棒 |
+| `BondedReins` | `bonded_reins` | 牵绊缰绳 |
+| `Boomburst` | `boomburst` | 爆音波 |
+| `CalyrexDefend` | `calyrex_defend` | 防御 |
+| `CalyrexStrike` | `calyrex_strike` | 打击 |
+| `CatastrophicBlow` | `catastrophic_blow` | 大灾难 |
+| `CleanUpFirst` | `clean_up_first` | 我先请？！ |
+| `CourageRope` ⭐ | `courage_rope` | 勇气绳索 |
+| `CrownTundra` | `crown_tundra` | 王冠雪原 |
+| `DebugCard` ⭐ | `debug_card` | 调试 |
+| `DarkGleam` | `dark_gleam` | 漆黑闪耀 |
+| `DefendPosition` | `defend_position` | 固守 |
+| `DivineBlessing` | `divine_blessing` | 神祝 |
+| `DynamaxForm` | `dynamax_form` | 极巨形态 |
+| `Encore` ⭐ | `encore` | 再来一次 |
+| `ExtremeSpeed` | `extreme_speed` | 极速 |
+| `FakeOut` | `fake_out` | 击掌奇袭 |
+| `FriendlyGuard` | `friendly_guard` | 友情防守 |
+| `Frost` | `frost` | 寒霜 |
+| `FutureSight` | `future_sight` | 预知未来 |
+| `Gallop` | `gallop` | 奔驰 |
+| `GlacialWorld` | `glacial_world` | 冰封世界 |
+| `GrassKnot` | `grass_knot` | 打草结 |
+| `GrassyGlide` | `grassy_glide` | 青草滑梯 |
+| `GrassyTerrain` | `grassy_terrain` | 青草场地 |
+| `Harvest` | `harvest` | 收获 |
+| `HelpingHand` | `helping_hand` | 帮助 |
+| `HeroicSacrifice` | `heroic_sacrifice` | 英勇牺牲 |
+| `HighHorsepower` | `high_horsepower` | 十万马力 |
+| `HorseLove` | `horse_love` | 亲马爱 |
+| `IcyWind` | `icy_wind` | 冰冻之风 |
+| `Ingrain` | `ingrain` | 扎根 |
+| `IntensivePlanting` | `intensive_planting` | 倾力种植 |
+| `Intimidate` | `intimidate` | 威吓 |
+| `LeechSeed` | `leech_seed` | 寄生种子 |
+| `LonePath` | `lone_path` | 孤行 |
+| `LongHowl` | `long_howl` | 长嚎 |
+| `MaleficCurse` | `malefic_curse` | 诅咒 |
+| `PPRestoreCard` | `pp_restore_card` | PP多项全补剂 |
+| `PaleLance` | `pale_lance` | 苍白利矛 |
+| `PartingShot` | `parting_shot` | 抛下狠话 |
+| `PhantomForce` | `phantom_force` | 虚化 |
+| `PlantCarrot` | `plant_carrot` | 种植萝卜 |
+| `Pressure` | `pressure` | 压迫感 |
+| `Protect` | `protect` | 守住 |
+| `Psychic` | `psychic` | 精神强念 |
+| `QuickAttack` | `quick_attack` | 电光火石 |
+| `Recall` | `recall` | 回忆 |
+| `RoyalFavor` | `royal_favor` | 王恩 |
+| `SeedBomb` | `seed_bomb` | 种子炸弹 |
+| `ShadowBall` | `shadow_ball` | 暗影球 |
+| `SlowDown` | `slow_down` | 减速！！ |
+| `SoulBlast` | `soul_blast` | 魂舞烈音爆 |
+| `SoulHeart` | `soul_heart` | 魂心 |
+| `SpikyDefense` | `spiky_defense` | 尖刺防守 |
+| `StoredPower` | `stored_power` | 辅助力量 |
+| `StrengthSap` | `strength_sap` | 吸取力量 |
+| `Substitute` | `substitute` | 替身 |
+| `TeraBlast` | `tera_blast` | 太晶爆发 |
+| `Tribute` | `tribute` | 供养 |
+| `Trick` | `trick` | 戏法 |
+| `Truce` | `truce` | 休战 |
+| `UproarRoar` | `uproar_roar` | 大声咆哮 |
+| `WideGuard` | `wide_guard` | 广域防守 |
+| `WishGrant` | `wish_grant` | 祈愿 |
+| `ZenHeadbutt` | `zen_headbutt` | 意念头锤 |
