@@ -26,6 +26,21 @@ public static class ModEntry
             var bp = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "BossNodePath");
             bool bpPatched = HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == bp);
             Log.Info($"[{ModInfo.ModId}] check: EncounterModel.get_BossNodePath patched={bpPatched}");
+            var ri = HarmonyLib.AccessTools.Method(typeof(MegaCrit.sts2.Core.Nodes.TopBar.NTopBarBossIcon), "RefreshBossIcon");
+            bool riPatched = HarmonyLib.Harmony.GetAllPatchedMethods().Any((System.Reflection.MethodBase m) => m == ri);
+            Log.Info($"[{ModInfo.ModId}] check: NTopBarBossIcon.RefreshBossIcon patched={riPatched}");
+            if (riPatched)
+            {
+                var info = HarmonyLib.Harmony.GetPatchInfo(ri);
+                Log.Info($"[{ModInfo.ModId}] RefreshBossIcon prefixes={info?.Prefixes?.Count ?? 0} postfixes={info?.Postfixes?.Count ?? 0}");
+                if (info != null)
+                {
+                    foreach (var pr in info.Prefixes)
+                    {
+                        Log.Info($"[{ModInfo.ModId}]   prefix owner: {pr.owner}");
+                    }
+                }
+            }
         }
         catch (System.Exception ex)
         {

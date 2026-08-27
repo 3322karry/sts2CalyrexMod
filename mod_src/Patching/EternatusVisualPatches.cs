@@ -100,15 +100,28 @@ public static class EternatusBossMapPatch
 {
     public const string PlaceholderIconPath = "res://images/map/placeholder/aeonglass_boss_icon";
 
-    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "get_BossNodePath")]
-    [HarmonyPostfix]
-    private static void BossNodePathPostfix(EncounterModel __instance, ref string __result)
+    // 无极汰那缺少 run_history 图标：GetTexture2D 层重定向到官方荣耀幕 Boss（queen_boss）
+    // 注意：不能 patch AssetCache.GetAsset（有泛型重载会 Ambiguous match 导致 PatchAll 全挂）
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Assets.AssetCache), "GetTexture2D")]
+    [HarmonyPrefix]
+    private static void GetTexture2DPrefix(ref string path)
     {
         try
         {
-            if (__instance is CalyrexMod.Events.EternatusBoss)
+            if (path == null)
             {
-                __result = PlaceholderIconPath;
+                return;
+            }
+            if (path.Contains("run_history/eternatus_boss"))
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] run_history redirect: {path}");
+                path = path.Replace("run_history/eternatus_boss", "run_history/queen_boss");
+            }
+            else if (path.Contains("placeholder/aeonglass_boss_icon"))
+            {
+                // 无极汰那地图 Boss 图标：官方 placeholder（沙漏）替换为专属图标
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] boss icon redirect: {path}");
+                path = "res://CalyrexMod/icons/eternatus_boss_icon.tres";
             }
         }
         catch (System.Exception)
@@ -116,35 +129,22 @@ public static class EternatusBossMapPatch
         }
     }
 
-    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Nodes.Screens.Map.NBossMapPoint), "_Ready")]
+    [HarmonyPatch(typeof(MegaCrit.Sts2.Core.Models.EncounterModel), "get_BossNodePath")]
     [HarmonyPostfix]
-    private static void BossMapPointReadyPostfix(MegaCrit.Sts2.Core.Nodes.Screens.Map.NBossMapPoint __instance)
+    private static void BossNodePathPostfix(EncounterModel __instance, ref string __result)
     {
         try
         {
-            var trav = HarmonyLib.Traverse.Create(__instance);
-            var runState = trav.Property("_runState").GetValue<MegaCrit.Sts2.Core.Runs.IRunState>();
-            if (runState?.Act?.BossEncounter is CalyrexMod.Events.EternatusBoss)
+            // 按 Id 判定（PikaMod 也有同 Entry 的 EternatusBoss，类型判定会漏）
+            if (__instance?.Id?.Entry == "ETERNATUS_BOSS")
             {
-                var placeholder = __instance.GetNodeOrNull<Godot.TextureRect>("%PlaceholderImage");
-                if (placeholder != null)
-                {
-                    var shader = Godot.ResourceLoader.Load<Godot.Shader>("res://shaders/hsv.gdshader", null, Godot.ResourceLoader.CacheMode.Reuse);
-                    if (shader != null)
-                    {
-                        var mat = new Godot.ShaderMaterial { Shader = shader };
-                        mat.SetShaderParameter("h", 0.78f);
-                        mat.SetShaderParameter("s", 1.0f);
-                        mat.SetShaderParameter("v", 1.0f);
-                        placeholder.Material = mat;
-                        MegaCrit.Sts2.Core.Logging.Log.Info("[CalyrexMod] Eternatus boss map icon: hue-shifted");
-                    }
-                }
+                __result = PlaceholderIconPath;
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] BossNodePath -> {__result}");
             }
         }
         catch (System.Exception ex)
         {
-            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] BossMapPointReady: {ex.Message}");
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] BossNodePath patch: {ex.Message}");
         }
     }
 }

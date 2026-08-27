@@ -1,6 +1,13 @@
 # Changelog / 更新日志
 
+## v1.2.14.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **进入第三层卡死**（v1.2.12 起）：PatchAll 因 AssetCache.GetAsset 泛型重载歧义整体失败（Ambiguous match），全部 patch 失效——移除 GetAsset patch，改用无重载的 GetTexture2D 层重定向；run_history 图标重定向 queen_boss，兼容 PikaMod 同名 EternatusBoss（Id 判定）
+- **地图 Boss 图标**：placeholder 沙漏替换为无极汰那专属图标（官方精灵紫色调处理）
+
 ## v1.2.13.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **进入第三层仍卡死**：地图 Boss 图标 patch 因类缺少 [HarmonyPatch] 标注未被 PatchAll 扫描，实际未生效——已补类级标注，确认 `EncounterModel.get_BossNodePath patched=True`
