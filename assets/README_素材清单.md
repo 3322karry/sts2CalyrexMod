@@ -85,7 +85,7 @@
 
 > ⭐ = **先古卡**（`CardRarity.Ancient`，由达弗/古旧之书给予）
 
-全部 70 张卡（类名 → 卡面 slug → 中文名）：
+全部 88 张卡（类名 → 卡面 slug → 中文名）：
 
 | 类名 | slug | 中文名 |
 |---|---|---|
@@ -159,11 +159,29 @@
 | `WideGuard` | `wide_guard` | 广域防守 |
 | `WishGrant` | `wish_grant` | 祈愿 |
 | `ZenHeadbutt` | `zen_headbutt` | 意念头锤 |
+| `CalyrexHaze` | `calyrex_haze` | 黑雾 |
+| `IronDefense` | `iron_defense` | 铁壁 |
+| `Fly` | `fly` | 飞翔 |
+| `PollenPuff` | `pollen_puff` | 花粉团 |
+| `Defiant` | `defiant` | 不服输 |
+| `DracoMeteor` | `draco_meteor` | 流星群 |
+| `LastResort` | `last_resort` | 珍藏 |
+| `SandAttack` | `sand_attack` | 泼沙 |
+| `CalyrexPounce` | `calyrex_pounce` | 扑击 |
+| `EchoingWhinny` | `echoing_whinny` | 回响嘶鸣 |
+| `ZCelebrate` | `z_celebrate` | Z-庆祝 |
+| `PsychUp` | `psych_up` | 自我暗示 |
+| `Spotlight` | `spotlight` | 聚光灯 |
+| `MoveRecord` | `move_record` | 招式记录 |
+| `IcicleCrash` | `icicle_crash` | 冰柱坠击 |
+| `TripleAxel` | `triple_axel` | 三旋击 |
+| `PsychicNoise` | `psychic_noise` | 精神噪音 |
+| `Zero` | `zero` | 归零 |
 
 
 ### 卡面缺失清单（需补充素材）
 
-以下 7 张卡暂无卡面（显示默认卡面），按 slug 命名放入 `assets/icons/card_portraits/`：
+以下 22 张卡暂无卡面（显示默认卡面），按 slug 命名放入 `assets/icons/card_portraits/`：
 
 | slug | 中文名 | 类名 |
 |---|---|---|
@@ -174,3 +192,21 @@
 | `substitute` | 替身 | Substitute |
 | `tera_blast` | 太晶爆发 | TeraBlast |
 | `wish_grant` | 祈愿 | WishGrant |
+| `calyrex_haze` | 黑雾 | CalyrexHaze |
+| `iron_defense` | 铁壁 | IronDefense |
+| `fly` | 飞翔 | Fly |
+| `pollen_puff` | 花粉团 | PollenPuff |
+| `defiant` | 不服输 | Defiant |
+| `draco_meteor` | 流星群 | DracoMeteor |
+| `last_resort` | 珍藏 | LastResort |
+| `sand_attack` | 泼沙 | SandAttack |
+| `calyrex_pounce` | 扑击 | CalyrexPounce |
+| `echoing_whinny` | 回响嘶鸣 | EchoingWhinny |
+| `z_celebrate` | Z-庆祝 | ZCelebrate |
+| `psych_up` | 自我暗示 | PsychUp |
+| `spotlight` | 聚光灯 | Spotlight |
+| `move_record` | 招式记录 | MoveRecord |
+| `icicle_crash` | 冰柱坠击 | IcicleCrash |
+| `triple_axel` | 三旋击 | TripleAxel |
+| `psychic_noise` | 精神噪音 | PsychicNoise |
+| `zero` | 归零 | Zero |
