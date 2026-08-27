@@ -33,8 +33,7 @@ public sealed class PokemonDaycare : EventModel
         return new EventOption[]
         {
             new EventOption(this, TakeEgg, "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_EGG", HoverTipFactory.FromEnchantment<Glam>(2)),
-            new EventOption(this, TakeStone, "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_STONE"),
-            new EventOption(this, TakeBag, "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_BAG")
+            new EventOption(this, TakeStone, "POKEMON_DAYCARE.pages.INITIAL.options.TAKE_STONE")
         };
     }
 

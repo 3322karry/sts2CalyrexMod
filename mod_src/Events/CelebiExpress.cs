@@ -22,7 +22,6 @@ public sealed class CelebiExpress : EventModel
     {
         return new EventOption[]
         {
-            new EventOption(this, GiveRelic, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_RELIC"),
             new EventOption(this, GivePotions, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_POTIONS"),
             new EventOption(this, GiveGold, "CELEBI_EXPRESS.pages.INITIAL.options.GIVE_GOLD")
         };
