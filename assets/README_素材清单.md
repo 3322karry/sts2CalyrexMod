@@ -157,3 +157,18 @@
 | `WideGuard` | `wide_guard` | 广域防守 |
 | `WishGrant` | `wish_grant` | 祈愿 |
 | `ZenHeadbutt` | `zen_headbutt` | 意念头锤 |
+
+
+### 卡面缺失清单（需补充素材）
+
+以下 7 张卡暂无卡面（显示默认卡面），按 slug 命名放入 `assets/icons/card_portraits/`：
+
+| slug | 中文名 | 类名 |
+|---|---|---|
+| `debug_card` | 调试 | DebugCard |
+| `helping_hand` | 帮手 | HelpingHand |
+| `protect` | 守住 | Protect |
+| `psychic` | 精神强念 | Psychic |
+| `substitute` | 替身 | Substitute |
+| `tera_blast` | 太晶爆发 | TeraBlast |
+| `wish_grant` | 祈愿 | WishGrant |
