@@ -1,6 +1,15 @@
 # Changelog / 更新日志
 
+## v1.2.21.107.1 (2026-08-27) - 阶段收尾
+
+### Polish / 收尾
+- 恢复 CombatTargetPatches（花粉团选马/爆音波 AOE 波及马/聚光灯目标收敛，此前为定位 bug 临时禁用）
+- 清理诊断代码（BattleDiagPatch 移除、测试禁用标记清理）
+- Steam 简介彻底重写并加入 Wiki 链接
+- Wiki 完整 PDF 收录于仓库
+
 ## v1.2.20.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **敌人死亡后不移除（尸体留场、意图继续播放）**：SteedTargetablePower.ShouldCreatureBeRemovedFromCombatAfterDeath 逻辑错误——hook 对"所有死亡生物"调用，非马时误返回 false 阻止移除。已改为非自己（马）时返回 true（不干预官方移除流程）。该 bug 自 v1.2 引入马匹守护 v3 起存在
