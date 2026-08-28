@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.28.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **新一局涅奥选完遗物卡住（无前进按钮）**：LargeCapsule（大胶囊）遗物 GetStrikeForCharacter/GetDefendForCharacter 的 First 查询对蕾冠王角色失败——patch 为蕾冠王返回专属打击/防御
+
 ## v1.2.27.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **骑黑马后青草场地每回合召唤黑马**：青草场地喂养检查骑马状态（合体中的马不召唤），与 FeedBoth 一致
