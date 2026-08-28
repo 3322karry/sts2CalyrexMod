@@ -10,6 +10,7 @@ namespace CalyrexMod.Patching;
 public static class PetPositionPatches
 {
     private const float RightOffset = 90f;
+    private const float PlayerLeftOffset = 45f;
 
     [HarmonyPatch(typeof(NCombatRoom), "AddCreature")]
     [HarmonyPostfix]
@@ -17,6 +18,17 @@ public static class PetPositionPatches
     {
         try
         {
+            // 蕾冠王（玩家）向左移动一点，给宠物让出更多空间
+            if (creature.IsPlayer)
+            {
+                var playerNode = __instance.GetCreatureNode(creature);
+                if (playerNode != null)
+                {
+                    var ppos = playerNode.Position;
+                    ppos.X -= PlayerLeftOffset;
+                    playerNode.Position = ppos;
+                }
+            }
             if (creature.PetOwner == null)
             {
                 return;

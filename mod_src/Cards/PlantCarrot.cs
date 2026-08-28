@@ -86,13 +86,13 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
             return;
         }
 
-        if (chosen is MountChoiceGlastrier && glastrier != null)
+        if (chosen is MountChoiceGlastrier)
         {
-            await PowerCmd.Apply<HeavyLance>(choiceContext, glastrier, 1m, base.Owner.Creature, this);
+            await PowerCmd.Apply<HeavyLance>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
         }
-        else if (chosen is MountChoiceSpectrier && spectrier != null)
+        else if (chosen is MountChoiceSpectrier)
         {
-            await PowerCmd.Apply<QuickSight>(choiceContext, spectrier, 1m, base.Owner.Creature, this);
+            await PowerCmd.Apply<QuickSight>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
         }
     }
 

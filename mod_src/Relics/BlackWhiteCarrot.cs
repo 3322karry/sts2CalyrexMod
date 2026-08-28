@@ -88,7 +88,16 @@ public sealed class BlackWhiteCarrot : RelicModel
             await PowerCmd.Apply<SteedGuardPassive>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
             Log.Info($"[CalyrexMod] SteedGuardPassive applied: {base.Owner.Creature.Powers.Any((PowerModel p) => p is SteedGuardPassive)}");
 
-            Log.Info("[CalyrexMod] BlackWhiteCarrot: marks applied via SpawnSteed");
+            // 洗入机制挂在蕾冠王身上（迅捷之视/重装之矛）
+            if (!base.Owner.Creature.Powers.Any((PowerModel p) => p is HeavyLance))
+            {
+                await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
+            }
+            if (!base.Owner.Creature.Powers.Any((PowerModel p) => p is QuickSight))
+            {
+                await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
+            }
+            Log.Info($"[CalyrexMod] BlackWhiteCarrot: player marks HL={(base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance) as PowerModel)?.Amount ?? -1} QS={(base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is QuickSight) as PowerModel)?.Amount ?? -1}");
             Log.Info("[CalyrexMod] BlackWhiteCarrot: DieForYou + marks applied");
         }
         catch (Exception ex)

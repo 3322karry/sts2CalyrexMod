@@ -96,14 +96,15 @@ public static class MountHelper
         int shuffleCount = 0;
         int heavyLanceLayers = 0;
         bool isSpectrier = steed.Monster is Spectrier;
+        // 迅捷之视/重装之矛挂在蕾冠王身上
         if (isSpectrier)
         {
-            var qs = steed.Powers.FirstOrDefault((PowerModel p) => p is QuickSight);
+            var qs = owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is QuickSight);
             shuffleCount = qs?.Amount ?? 0;
         }
         else
         {
-            var hl = steed.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance);
+            var hl = owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance);
             shuffleCount = hl?.Amount ?? 0;
             heavyLanceLayers = hl?.Amount ?? 0;
         }
@@ -217,20 +218,6 @@ public static class MountHelper
             ? await PlayerCmd.AddPet<Glastrier>(owner)
             : await PlayerCmd.AddPet<Spectrier>(owner);
         await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
-        if (type == typeof(Glastrier))
-        {
-            if (!steed.Powers.Any((PowerModel p) => p is HeavyLance))
-            {
-                await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
-            }
-        }
-        else
-        {
-            if (!steed.Powers.Any((PowerModel p) => p is QuickSight))
-            {
-                await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
-            }
-        }
         return steed;
     }
 

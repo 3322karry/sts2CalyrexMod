@@ -32,9 +32,17 @@ public sealed class SnowCarrot : RelicModel
         await CreatureCmd.GainMaxHp(glastrier, 20m);
         await CreatureCmd.GainMaxHp(spectrier, 20m);
 
-        // 双马挡伤 + 标记：雪暴马+重装之矛（+1），灵幽马+迅疾之视（+1）
+        // 双马挡伤 + 洗入机制（挂蕾冠王身上）
         await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
         await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
+        if (!base.Owner.Creature.Powers.Any((PowerModel p) => p is HeavyLance))
+        {
+            await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
+        }
+        if (!base.Owner.Creature.Powers.Any((PowerModel p) => p is QuickSight))
+        {
+            await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
+        }
 
     }
 }
