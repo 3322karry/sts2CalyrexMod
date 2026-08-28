@@ -85,8 +85,8 @@ public static class CharacterPatches
     {
         if (IsCalyrex(__instance))
         {
-            // 官方商人角色是 Spine 动画，Sprite2D 场景会导致 NMerchantCharacter 异常
-            __result = "res://merchant/characters/ironclad_merchant";
+            // 场景内包含 SpineSprite（官方骨架，隐藏） + 蕾冠王静态图覆盖
+            __result = "res://CalyrexMod/scenes/calyrex_merchant.tscn";
         }
     }
 
