@@ -107,6 +107,7 @@ public static class MountHelper
             shuffleCount = hl?.Amount ?? 0;
             heavyLanceLayers = hl?.Amount ?? 0;
         }
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Mount: steed={steed.LogName} isSpectrier={isSpectrier} shuffleCount={shuffleCount}");
 
         if (steed.Monster is Glastrier)
         {
@@ -244,10 +245,24 @@ public static class MountHelper
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): fed alive, hp={steed.CurrentHp}/{steed.MaxHp}");
             return;
         }
-        // preferred 马死了：直接 GainMaxHp（内部 Heal 会复活死马）
+        // preferred 马死了：直接 GainMaxHp（内部 Heal 会复活死马）；复活后确保带迅捷之视/重装之矛
         if (steed != null && steed.IsDead)
         {
             await CreatureCmd.GainMaxHp(steed, amount);
+            if (preferred == typeof(Glastrier))
+            {
+                if (!steed.Powers.Any((PowerModel p) => p is HeavyLance))
+                {
+                    await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
+                }
+            }
+            else
+            {
+                if (!steed.Powers.Any((PowerModel p) => p is QuickSight))
+                {
+                    await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
+                }
+            }
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): revived dead, hp={steed.CurrentHp}/{steed.MaxHp} alive={steed.IsAlive}");
             return;
         }

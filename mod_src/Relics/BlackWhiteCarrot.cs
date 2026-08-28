@@ -92,6 +92,7 @@ public sealed class BlackWhiteCarrot : RelicModel
             await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
             await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
             await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
+            Log.Info($"[CalyrexMod] BlackWhiteCarrot marks: glastrier QS={(glastrier.Powers.FirstOrDefault((PowerModel p) => p is QuickSight) as PowerModel)?.Amount ?? -1} HL={(glastrier.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance) as PowerModel)?.Amount ?? -1} | spectrier QS={(spectrier.Powers.FirstOrDefault((PowerModel p) => p is QuickSight) as PowerModel)?.Amount ?? -1} HL={(spectrier.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance) as PowerModel)?.Amount ?? -1}");
             Log.Info("[CalyrexMod] BlackWhiteCarrot: DieForYou + marks applied");
         }
         catch (Exception ex)
