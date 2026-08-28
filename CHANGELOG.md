@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.29.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **商店角色 SpineSprite 异常（死亡结算关联卡住）**：MerchantAnimPath 改回官方 ironclad 商人动画（Sprite2D 场景与官方 Spine 期望不兼容）
+
 ## v1.2.28.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **新一局涅奥选完遗物卡住（无前进按钮）**：LargeCapsule（大胶囊）遗物 GetStrikeForCharacter/GetDefendForCharacter 的 First 查询对蕾冠王角色失败——patch 为蕾冠王返回专属打击/防御
