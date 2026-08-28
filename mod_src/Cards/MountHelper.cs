@@ -243,12 +243,16 @@ public static class MountHelper
         if (preferred == typeof(Glastrier))
         {
             var g = await PlayerCmd.AddPet<Glastrier>(owner);
+            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), g, 1m, owner.Creature, null, silent: true);
+            await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), g, 1m, owner.Creature, null, silent: true);
             await CreatureCmd.GainMaxHp(g, amount);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={g.CurrentHp}/{g.MaxHp} alive={g.IsAlive}");
         }
         else
         {
             var sp = await PlayerCmd.AddPet<Spectrier>(owner);
+            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), sp, 1m, owner.Creature, null, silent: true);
+            await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), sp, 1m, owner.Creature, null, silent: true);
             await CreatureCmd.GainMaxHp(sp, amount);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={sp.CurrentHp}/{sp.MaxHp} alive={sp.IsAlive}");
         }
