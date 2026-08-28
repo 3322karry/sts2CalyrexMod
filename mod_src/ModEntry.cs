@@ -189,6 +189,9 @@ public static class ModEntry
             ModHelper.AddModelToPool<CalyrexCardPool, TripleAxel>();
             ModHelper.AddModelToPool<CalyrexCardPool, PsychicNoise>();
             ModHelper.AddModelToPool<ColorlessCardPool, Zero>();
+            // 星碎/雪矛：显式注册确保 ModelDb 存在（骑马洗入用），无色奖励由 ColorlessPoolFix 过滤
+            ModHelper.AddModelToPool<ColorlessCardPool, AstralBarrage>();
+            ModHelper.AddModelToPool<ColorlessCardPool, GlacialLance>();
         }
         catch (Exception ex)
         {

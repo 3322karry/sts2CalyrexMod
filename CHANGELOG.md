@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.23.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **骑马不洗入星碎/雪矛**：AstralBarrage/GlacialLance 显式注册进 ColorlessCardPool（确保 ModelDb 存在，此前仅依赖模型扫描）；骑马洗入逻辑加保护与日志
+
 ## v1.2.22.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **马死亡后喂养复活不完整**：AddPet 召唤的新马补挂完整标记（SteedTargetablePower 可被打/留场 + HeavyLance/QuickSight）——修复新马不被守护、死亡即移除、骑马不洗入星碎/雪矛的问题

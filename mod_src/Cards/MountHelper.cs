@@ -133,14 +133,26 @@ public static class MountHelper
         var combatState2 = owner.Creature.CombatState;
         if (combatState2 != null && shuffleCount > 0)
         {
-            var cards = new List<CardModel>();
-            for (int i = 0; i < shuffleCount; i++)
+            try
             {
-                cards.Add(isSpectrier
-                    ? (CardModel)combatState2.CreateCard<AstralBarrage>(owner)
-                    : combatState2.CreateCard<GlacialLance>(owner));
+                var cards = new List<CardModel>();
+                for (int i = 0; i < shuffleCount; i++)
+                {
+                    cards.Add(isSpectrier
+                        ? (CardModel)combatState2.CreateCard<AstralBarrage>(owner)
+                        : combatState2.CreateCard<GlacialLance>(owner));
+                }
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, owner, CardPilePosition.Random));
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Mount: shuffled {cards.Count} {(isSpectrier ? "AstralBarrage" : "GlacialLance")}");
             }
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, owner, CardPilePosition.Random));
+            catch (System.Exception ex)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Error($"[CalyrexMod] Mount shuffle failed: {ex}");
+            }
+        }
+        else
+        {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Mount: no shuffle (shuffleCount={shuffleCount})");
         }
 
         // 单敌战斗（战斗开始只有 1 个敌人）：合体瞬间给 2 虚弱 2 易伤
