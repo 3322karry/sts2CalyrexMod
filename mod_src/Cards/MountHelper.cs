@@ -193,26 +193,48 @@ public static class MountHelper
         if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedGlastrier) is PowerModel mg)
         {
             await PowerCmd.Remove<MountedGlastrier>(owner.Creature);
-            Creature glastrier = await PlayerCmd.AddPet<Glastrier>(owner);
+            Creature glastrier = await SpawnSteed(owner, typeof(Glastrier));
             if (mg.Amount > 0m)
             {
                 await CreatureCmd.GainMaxHp(glastrier, mg.Amount);
             }
-            await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, owner.Creature, null, silent: true);
         }
         if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedSpectrier) is PowerModel ms)
         {
             await PowerCmd.Remove<MountedSpectrier>(owner.Creature);
-            Creature spectrier = await PlayerCmd.AddPet<Spectrier>(owner);
+            Creature spectrier = await SpawnSteed(owner, typeof(Spectrier));
             if (ms.Amount > 0m)
             {
                 await CreatureCmd.GainMaxHp(spectrier, ms.Amount);
             }
-            await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, owner.Creature, null, silent: true);
         }
     }
 
-        // 喂养工具：两匹马各 +X 最大生命；马死亡/不在场时自动复活再喂养
+        // 生成马并附加完整效果（可被打/留场/迅捷之视/重装之矛）
+    public static async Task<Creature> SpawnSteed(Player owner, System.Type type)
+    {
+        Creature steed = type == typeof(Glastrier)
+            ? await PlayerCmd.AddPet<Glastrier>(owner)
+            : await PlayerCmd.AddPet<Spectrier>(owner);
+        await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
+        if (type == typeof(Glastrier))
+        {
+            if (!steed.Powers.Any((PowerModel p) => p is HeavyLance))
+            {
+                await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
+            }
+        }
+        else
+        {
+            if (!steed.Powers.Any((PowerModel p) => p is QuickSight))
+            {
+                await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), steed, 1m, owner.Creature, null, silent: true);
+            }
+        }
+        return steed;
+    }
+
+    // 喂养工具：两匹马各 +X 最大生命；马死亡/不在场时自动复活再喂养
     public static async Task FeedBoth(PlayerChoiceContext choiceContext, Player owner, decimal amount)
     {
         // 合体中的马（MountedGlastrier/Spectrier）不算宠物：不召唤、不复活，只喂在场的那匹
@@ -269,17 +291,13 @@ public static class MountHelper
         // preferred 马不在场：召唤它再喂（两匹都不在场时依次召唤）
         if (preferred == typeof(Glastrier))
         {
-            var g = await PlayerCmd.AddPet<Glastrier>(owner);
-            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), g, 1m, owner.Creature, null, silent: true);
-            await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), g, 1m, owner.Creature, null, silent: true);
+            var g = await SpawnSteed(owner, typeof(Glastrier));
             await CreatureCmd.GainMaxHp(g, amount);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={g.CurrentHp}/{g.MaxHp} alive={g.IsAlive}");
         }
         else
         {
-            var sp = await PlayerCmd.AddPet<Spectrier>(owner);
-            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), sp, 1m, owner.Creature, null, silent: true);
-            await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), sp, 1m, owner.Creature, null, silent: true);
+            var sp = await SpawnSteed(owner, typeof(Spectrier));
             await CreatureCmd.GainMaxHp(sp, amount);
             MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedOne({steedName}): AddPet spawn, hp={sp.CurrentHp}/{sp.MaxHp} alive={sp.IsAlive}");
         }

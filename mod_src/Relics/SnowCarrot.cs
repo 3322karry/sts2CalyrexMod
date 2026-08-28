@@ -25,8 +25,8 @@ public sealed class SnowCarrot : RelicModel
             return;
         }
 
-        Creature glastrier = await PlayerCmd.AddPet<Glastrier>(base.Owner);
-        Creature spectrier = await PlayerCmd.AddPet<Spectrier>(base.Owner);
+        Creature glastrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(base.Owner, typeof(CalyrexMod.Monsters.Glastrier));
+        Creature spectrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(base.Owner, typeof(CalyrexMod.Monsters.Spectrier));
 
         // 喂养 20
         await CreatureCmd.GainMaxHp(glastrier, 20m);
@@ -35,7 +35,6 @@ public sealed class SnowCarrot : RelicModel
         // 双马挡伤 + 标记：雪暴马+重装之矛（+1），灵幽马+迅疾之视（+1）
         await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
         await PowerCmd.Apply<SteedGuard>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
-        await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
-        await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
+
     }
 }

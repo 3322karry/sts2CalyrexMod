@@ -76,8 +76,8 @@ public sealed class BlackWhiteCarrot : RelicModel
 
         try
         {
-            Creature glastrier = await PlayerCmd.AddPet<Glastrier>(base.Owner);
-            Creature spectrier = await PlayerCmd.AddPet<Spectrier>(base.Owner);
+            Creature glastrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(base.Owner, typeof(CalyrexMod.Monsters.Glastrier));
+            Creature spectrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(base.Owner, typeof(CalyrexMod.Monsters.Spectrier));
 
             // 开局喂养 11：两匹马各 +11 最大生命（当前生命同步 +11）
             await CreatureCmd.GainMaxHp(glastrier, 11m);
@@ -88,11 +88,7 @@ public sealed class BlackWhiteCarrot : RelicModel
             await PowerCmd.Apply<SteedGuardPassive>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, null, silent: true);
             Log.Info($"[CalyrexMod] SteedGuardPassive applied: {base.Owner.Creature.Powers.Any((PowerModel p) => p is SteedGuardPassive)}");
 
-            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
-            await PowerCmd.Apply<SteedTargetablePower>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
-            await PowerCmd.Apply<HeavyLance>(new ThrowingPlayerChoiceContext(), glastrier, 1m, base.Owner.Creature, null, silent: true);
-            await PowerCmd.Apply<QuickSight>(new ThrowingPlayerChoiceContext(), spectrier, 1m, base.Owner.Creature, null, silent: true);
-            Log.Info($"[CalyrexMod] BlackWhiteCarrot marks: glastrier QS={(glastrier.Powers.FirstOrDefault((PowerModel p) => p is QuickSight) as PowerModel)?.Amount ?? -1} HL={(glastrier.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance) as PowerModel)?.Amount ?? -1} | spectrier QS={(spectrier.Powers.FirstOrDefault((PowerModel p) => p is QuickSight) as PowerModel)?.Amount ?? -1} HL={(spectrier.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance) as PowerModel)?.Amount ?? -1}");
+            Log.Info("[CalyrexMod] BlackWhiteCarrot: marks applied via SpawnSteed");
             Log.Info("[CalyrexMod] BlackWhiteCarrot: DieForYou + marks applied");
         }
         catch (Exception ex)

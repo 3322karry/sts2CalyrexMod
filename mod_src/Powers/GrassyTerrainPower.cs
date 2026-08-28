@@ -23,14 +23,27 @@ public sealed class GrassyTerrainPower : PowerModel
             return;
         }
 
-        Creature? glastrier = base.Owner.Player!.PlayerCombatState!.GetPet<Glastrier>();
+        var player = base.Owner.Player!;
+        var pcs = player.PlayerCombatState!;
+        Creature? glastrier = pcs.GetPet<Glastrier>();
         if (glastrier != null)
         {
             await CreatureCmd.GainMaxHp(glastrier, 3m * base.Amount);
         }
-        Creature? spectrier = base.Owner.Player!.PlayerCombatState!.GetPet<Spectrier>();
+        else
+        {
+            // 白马不在场：重新召唤再喂养
+            glastrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(player, typeof(CalyrexMod.Monsters.Glastrier));
+            await CreatureCmd.GainMaxHp(glastrier, 3m * base.Amount);
+        }
+        Creature? spectrier = pcs.GetPet<Spectrier>();
         if (spectrier != null)
         {
+            await CreatureCmd.GainMaxHp(spectrier, 3m * base.Amount);
+        }
+        else
+        {
+            spectrier = await CalyrexMod.Cards.MountHelper.SpawnSteed(player, typeof(CalyrexMod.Monsters.Spectrier));
             await CreatureCmd.GainMaxHp(spectrier, 3m * base.Amount);
         }
 
