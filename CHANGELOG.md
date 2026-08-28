@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.31.107.1 (2026-08-27)
+
+### Changes / 改动
+- **暗影球**：充能球效果改为给予 3 层脆弱（升级 4）
+
 ## v1.2.30.107.1 (2026-08-27)
+
 
 ### Changes / 改动
 - **商店恢复蕾冠王形象**：calyrex_merchant.tscn 重写为 SpineSprite（官方骨架，隐藏）+ 蕾冠王静态图覆盖——通过 NMerchantCharacter 的 Spine 校验且显示蕾冠王

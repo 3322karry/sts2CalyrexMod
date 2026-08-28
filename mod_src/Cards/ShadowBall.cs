@@ -18,6 +18,7 @@ public sealed class ShadowBall : CardModel
         get
         {
             yield return new DamageVar(8m, ValueProp.Move);
+            yield return new IntVar("Frail", 3m);
         }
     }
 
@@ -34,8 +35,8 @@ public sealed class ShadowBall : CardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        // 生成黑暗充能球
-        await OrbCmd.Channel<DarkOrb>(choiceContext, base.Owner);
+        // 给予脆弱
+        await PowerCmd.Apply<FrailPower>(choiceContext, cardPlay.Target, base.DynamicVars["Frail"].IntValue, base.Owner.Creature, this);
 
         // 造成伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
@@ -48,5 +49,6 @@ public sealed class ShadowBall : CardModel
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(3m);
+        base.DynamicVars["Frail"].UpgradeValueBy(1m);
     }
 }

@@ -147,7 +147,7 @@
   "WISH_GRANT.title": "Wish",
   "WISH_GRANT.description": "Cannot be played when drawn unless it was [gold]Retained[/gold] last turn. Gain {Energy:energyIcons()}.",
   "SHADOW_BALL.title": "Shadow Ball",
-  "SHADOW_BALL.description": "Channel a [purple]Dark Orb[/purple]. Deal {Damage:diff()} damage. [orange]Retain[/orange].",
+  "SHADOW_BALL.description": "Deal {Damage:diff()} damage and apply {Frail:diff()} [green]Frail[/green].",
   "P_P_RESTORE_CARD.title": "PP Restore",
   "P_P_RESTORE_CARD.description": "The first time you play an X-cost card each turn, gain 4 energy.",
   "WIDE_GUARD.title": "Wide Guard",

@@ -147,7 +147,7 @@
   "WISH_GRANT.title": "祈愿",
   "WISH_GRANT.description": "抽到时无法打出；若上回合被[gold]保留[/gold]，则可以打出。获得 {Energy:energyIcons()}。",
   "SHADOW_BALL.title": "暗影球",
-  "SHADOW_BALL.description": "生成一个[purple]黑暗充能球[/purple]，造成 {Damage:diff()} 点伤害。",
+  "SHADOW_BALL.description": "造成 {Damage:diff()} 点伤害，给予 {Frail:diff()} 层[green]脆弱[/green]。",
   "P_P_RESTORE_CARD.title": "PP多项全补剂",
   "P_P_RESTORE_CARD.description": "每回合第一次打出 X 费牌时，回复 4 点能量。",
   "WIDE_GUARD.title": "广域防守",
