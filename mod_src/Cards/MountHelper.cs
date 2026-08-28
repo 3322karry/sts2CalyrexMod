@@ -122,6 +122,7 @@ public static class MountHelper
         {
             await PowerCmd.Apply<MountedSpectrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
         }
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Mount: mounted power applied, player has MG={owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier)} MS={owner.Creature.Powers.Any((PowerModel p) => p is MountedSpectrier)}");
         // 合体标记：防止马的死亡触发魂心等死亡效果
         await PowerCmd.Apply<MountMergePower>(choiceContext, steed, 1m, owner.Creature, source);
         await CreatureCmd.Kill(steed, force: true);
@@ -227,6 +228,7 @@ public static class MountHelper
         // 合体中的马（MountedGlastrier/Spectrier）不算宠物：不召唤、不复活，只喂在场的那匹
         bool gMounted = owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier);
         bool sMounted = owner.Creature.Powers.Any((PowerModel p) => p is MountedSpectrier);
+        MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] FeedBoth: gMounted={gMounted} sMounted={sMounted}");
         if (!gMounted)
         {
             await FeedOne(choiceContext, owner, amount, preferred: typeof(Glastrier));
