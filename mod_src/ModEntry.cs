@@ -83,7 +83,7 @@ public static class ModEntry
     {
         try
         {
-            _harmony = new Harmony($"com.vibeprograms.{ModInfo.ModId}");
+            _harmony = new Harmony($"com.LampyStar_灯星兰.{ModInfo.ModId}");
             _harmony.PatchAll();
         }
         catch (Exception ex)
