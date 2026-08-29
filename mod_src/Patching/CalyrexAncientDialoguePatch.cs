@@ -25,11 +25,13 @@ public static class CalyrexAncientDialoguePatch
             }
 
             // 三组对话：初见(0)、重复(1)、特殊(2)。每组行数不同，空串 sfx 走 fallback。
+            // 必须设置 VisitIndex——GetValidDialogues 按 d.VisitIndex == charVisits 筛选，
+            // 不设置（null）会导致对话被过滤而显示官方通用文本
             var dialogues = new AncientDialogue[]
             {
-                new AncientDialogue("", ""),
-                new AncientDialogue(""),
-                new AncientDialogue("", "", "")
+                new AncientDialogue("", "") { VisitIndex = 0 },
+                new AncientDialogue("") { VisitIndex = 1 },
+                new AncientDialogue("", "", "") { VisitIndex = 2 }
             };
             __result.CharacterDialogues[charKey] = dialogues;
 
@@ -56,6 +58,10 @@ public static class CalyrexAncientDialoguePatch
                         line.NextButtonText = new LocString("ancients", baseKey + ".next");
                     }
                 }
+            }
+            if (entry == "NEOW" && dialogues.Length > 0 && dialogues[0].Lines.Count > 0)
+            {
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] NEOW dialog raw0 = '{dialogues[0].Lines[0].LineText?.GetRawText()}'");
             }
             Log.Info($"[CalyrexMod] Injected Calyrex dialogues into {entry}");
         }

@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.36.107.1 (2026-08-27)
+
+### Fixes / 修复
+- **先古对话显示通用文本**：注入的 AncientDialogue 未设置 VisitIndex，GetValidDialogues 按 `VisitIndex == charVisits` 筛选时被过滤，回落到官方通用——已设置 0/1/2 三组 VisitIndex
+
 ## v1.2.35.107.1 (2026-08-27)
+
 
 ### Changes / 改动
 - 先古对话更新（涅奥/欧洛巴斯/佩尔/特兹卡塔拉/达弗/诺奴佩普/坦克斯/瓦库，中英）

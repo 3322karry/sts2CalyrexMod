@@ -17,10 +17,11 @@ public static class ArchitectDialogueFix
     {
         try
         {
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod-DIAG] GetValidDialogues: char={characterId.Entry} resultCount={__result.Count()} inst={__instance.GetType().Name}");
             if (characterId.Entry == "CALYREX_CHARACTER" && !__result.Any())
             {
                 // 兜底：返回完整的蕾冠王对话（3 行），由 PopulateLines 填充本地化文本
-                var dialogue = new AncientDialogue("", "", "");
+                var dialogue = new AncientDialogue("", "", "") { VisitIndex = 0 };
                 dialogue.PopulateLines("THE_ARCHITECT", "CALYREX_CHARACTER", 0);
                 __result = new AncientDialogue[] { dialogue };
             }
