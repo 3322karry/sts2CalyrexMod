@@ -21,7 +21,7 @@ public static class MountHelper
         await DoMount(choiceContext, source.Owner, source);
     }
 
-    public static async Task DoMount(PlayerChoiceContext choiceContext, Player owner, CardModel? source)
+    public static async Task DoMount(PlayerChoiceContext choiceContext, Player owner, CardModel? source, Creature? preselectedSteed = null)
     {
         var combatState = owner.PlayerCombatState;
         if (combatState == null || owner.Creature.CombatState == null)
@@ -38,37 +38,48 @@ public static class MountHelper
         bool mountedGlastrier = owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier);
         bool mountedSpectrier = owner.Creature.Powers.Any((PowerModel p) => p is MountedSpectrier);
 
-        var choices = new List<CardModel>();
-        Creature? liveGlastrier = combatState.GetPet<Glastrier>();
-        if (liveGlastrier != null && liveGlastrier.IsAlive)
+        Creature? steed = preselectedSteed;
+        if (steed == null)
         {
-            choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceGlastrier>(owner));
-        }
-        Creature? liveSpectrier = combatState.GetPet<Spectrier>();
-        if (liveSpectrier != null && liveSpectrier.IsAlive)
-        {
-            choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceSpectrier>(owner));
-        }
-        if (mountedGlastrier || mountedSpectrier)
-        {
-            choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceUnmount>(owner));
-        }
+            var choices = new List<CardModel>();
+            Creature? liveGlastrier = combatState.GetPet<Glastrier>();
+            if (liveGlastrier != null && liveGlastrier.IsAlive)
+            {
+                choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceGlastrier>(owner));
+            }
+            Creature? liveSpectrier = combatState.GetPet<Spectrier>();
+            if (liveSpectrier != null && liveSpectrier.IsAlive)
+            {
+                choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceSpectrier>(owner));
+            }
+            if (mountedGlastrier || mountedSpectrier)
+            {
+                choices.Add(owner.Creature.CombatState.CreateCard<MountChoiceUnmount>(owner));
+            }
 
-        if (choices.Count == 0)
-        {
-            return;
-        }
+            if (choices.Count == 0)
+            {
+                return;
+            }
 
-        CardModel? chosen = await CardSelectCmd.FromChooseACardScreen(choiceContext, choices, owner, canSkip: true);
-        if (chosen == null)
-        {
-            return;
-        }
+            CardModel? chosen = await CardSelectCmd.FromChooseACardScreen(choiceContext, choices, owner, canSkip: true);
+            if (chosen == null)
+            {
+                return;
+            }
 
-        if (chosen is MountChoiceUnmount)
-        {
-            await DoUnmount(choiceContext, owner);
-            return;
+            if (chosen is MountChoiceUnmount)
+            {
+                await DoUnmount(choiceContext, owner);
+                return;
+            }
+
+            steed = chosen switch
+            {
+                MountChoiceGlastrier => combatState.GetPet<Glastrier>(),
+                MountChoiceSpectrier => combatState.GetPet<Spectrier>(),
+                _ => null
+            };
         }
 
         if (mountedGlastrier)
@@ -80,12 +91,6 @@ public static class MountHelper
             await DoUnmount(choiceContext, owner);
         }
 
-        Creature? steed = chosen switch
-        {
-            MountChoiceGlastrier => combatState.GetPet<Glastrier>(),
-            MountChoiceSpectrier => combatState.GetPet<Spectrier>(),
-            _ => null
-        };
         if (steed == null || !steed.IsAlive)
         {
             return;

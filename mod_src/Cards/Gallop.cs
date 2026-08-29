@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -7,7 +6,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using CalyrexMod.Monsters;
 
@@ -20,7 +18,6 @@ public sealed class Gallop : CardModel
         get
         {
             yield return new IntVar("HpLoss", 4m);
-            yield return new IntVar("Dexterity", 1m);
         }
     }
 
@@ -73,21 +70,19 @@ public sealed class Gallop : CardModel
             return;
         }
 
-        // 另一匹马失去 3 血量（不可格挡）
-        Creature? other = chosen is MountChoiceGlastrier
-            ? combatState.GetPet<Spectrier>()
-            : combatState.GetPet<Glastrier>();
-        if (other != null && other.IsAlive)
+        // 选中的马失去血量（不可格挡）
+        await CreatureCmd.Damage(choiceContext, steed, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+        if (!steed.IsAlive)
         {
-            await CreatureCmd.Damage(choiceContext, other, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+            return;
         }
 
-        // 获得敏捷
-        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Dexterity"].BaseValue, base.Owner.Creature, this);
+        // 然后骑马合体
+        await MountHelper.DoMount(choiceContext, base.Owner, this, steed);
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Dexterity"].UpgradeValueBy(1m);
+        base.DynamicVars["HpLoss"].UpgradeValueBy(-1m);
     }
 }
