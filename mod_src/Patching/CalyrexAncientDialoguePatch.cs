@@ -24,40 +24,36 @@ public static class CalyrexAncientDialoguePatch
                 return;
             }
 
-            // 三组对话：初见(0)、重复(1)、特殊(2)。每组行数不同，空串 sfx 走 fallback。
-            // 必须设置 VisitIndex——GetValidDialogues 按 d.VisitIndex == charVisits 筛选，
-            // 不设置（null）会导致对话被过滤而显示官方通用文本
-            var dialogues = new AncientDialogue[]
-            {
-                new AncientDialogue("", "") { VisitIndex = 0 },
-                new AncientDialogue("") { VisitIndex = 1, IsRepeating = true },
-                new AncientDialogue("", "", "") { VisitIndex = 2 }
-            };
-            __result.CharacterDialogues[charKey] = dialogues;
-
-            // 手动填充本地化文本（DialogueSet 已 Populate 过，需补我们的）
-            // 直接构造 LocString（不查 Exists——注入时机可能早于 mod 表合并，渲染时再解析）
-            // 行结构：偶数行 ancient（先古说话）、奇数行 char（蕾冠王说话）；第 1 组（重复）key 带 r 后缀
             string entry = __instance.Id.Entry;
-            for (int i = 0; i < dialogues.Length; i++)
+            // 按用户提供的对话：单组（行数按先古：涅奥 3 行、其他 1 行）
+            // VisitIndex=0 + IsRepeating=true：任意访问次数都显示同一段对话
+            // 涅奥有蕾冠王回复（char 行），其他先古只有一句
+            int lineCount = (entry == "NEOW") ? 3 : 1;
+            string[] sfx = new string[lineCount];
+            for (int k = 0; k < lineCount; k++)
             {
-                string groupSuffix = (i == 1) ? "r" : "";
-                for (int j = 0; j < dialogues[i].Lines.Count; j++)
+                sfx[k] = "";
+            }
+            var dialogue = new AncientDialogue(sfx) { VisitIndex = 0, IsRepeating = true };
+            __result.CharacterDialogues[charKey] = new[] { dialogue };
+
+            // 直接构造 LocString（不查 Exists——注入时机可能早于 mod 表合并，渲染时再解析）
+            // 行结构：偶数行 ancient（先古说话）、奇数行 char（蕾冠王说话）
+            for (int j = 0; j < dialogue.Lines.Count; j++)
+            {
+                string baseKey = $"{entry}.talk.{charKey}.0-{j}";
+                var line = dialogue.Lines[j];
+                bool isAncientLine = (j % 2 == 0);
+                line.LineText = new LocString("ancients", baseKey + (isAncientLine ? ".ancient" : ".char"));
+                line.Speaker = isAncientLine ? AncientDialogueSpeaker.Ancient : AncientDialogueSpeaker.Character;
+                if (j < dialogue.Lines.Count - 1)
                 {
-                    string baseKey = $"{entry}.talk.{charKey}.{i}-{j}{groupSuffix}";
-                    var line = dialogues[i].Lines[j];
-                    bool isAncientLine = (j % 2 == 0);
-                    line.LineText = new LocString("ancients", baseKey + (isAncientLine ? ".ancient" : ".char"));
-                    line.Speaker = isAncientLine ? AncientDialogueSpeaker.Ancient : AncientDialogueSpeaker.Character;
-                    if (j < dialogues[i].Lines.Count - 1)
-                    {
-                        line.NextButtonText = new LocString("ancients", baseKey + ".next");
-                    }
+                    line.NextButtonText = new LocString("ancients", baseKey + ".next");
                 }
             }
-            if (entry == "NEOW" && dialogues.Length > 0 && dialogues[0].Lines.Count > 0)
+            if (entry == "NEOW")
             {
-                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] NEOW dialog raw0 = '{dialogues[0].Lines[0].LineText?.GetRawText()}'");
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] NEOW dialog raw0 = '{dialogue.Lines[0].LineText?.GetRawText()}'");
             }
             Log.Info($"[CalyrexMod] Injected Calyrex dialogues into {entry}");
         }
