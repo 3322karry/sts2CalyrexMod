@@ -51,10 +51,7 @@ public static class CalyrexAncientDialoguePatch
                     line.NextButtonText = new LocString("ancients", baseKey + ".next");
                 }
             }
-            if (entry == "NEOW")
-            {
-                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] NEOW dialog raw0 = '{dialogue.Lines[0].LineText?.GetRawText()}'");
-            }
+            MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] {entry} dialog raw0 = '{dialogue.Lines[0].LineText?.GetRawText()}'");
             Log.Info($"[CalyrexMod] Injected Calyrex dialogues into {entry}");
         }
         catch (System.Exception ex)

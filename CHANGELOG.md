@@ -1,6 +1,12 @@
 # Changelog / 更新日志
 
+## v1.2.39.107.1 (2026-08-27)
+
+### Fixes / 修复
+- 规避 StS2ZhFont/BaseLib 的先古名横幅（NAncientNameBanner）patch 崩溃（跳过 banner 动画），修复部分先古（佩尔/诺奴佩普等）事件 UI 被中断、对话不显示的问题
+
 ## v1.2.38.107.1 (2026-08-27)
+
 
 ### Changes / 改动
 - 先古对话改为单组注入（按用户提供内容，涅奥 3 行/其他 1 行），VisitIndex=0 + IsRepeating=true——任意访问次数显示同一段对话，不再自造重复/特殊对话
