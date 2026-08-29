@@ -29,6 +29,8 @@ public sealed class BondedReins : CardModel
 
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get
@@ -57,6 +59,7 @@ public sealed class BondedReins : CardModel
     protected override void OnUpgrade()
     {
         base.DynamicVars["Feed"].UpgradeValueBy(2m);
-        AddKeyword(CardKeyword.Retain);
+        // 升级后固有（消耗保留）
+        AddKeyword(CardKeyword.Innate);
     }
 }

@@ -27,7 +27,7 @@
   "ROYAL_GLEAM.title": "Royal Gleam",
   "ROYAL_GLEAM.description": "Gain {Block:diff()} [gold]Block[/gold]. Deal {Damage:diff()} damage.",
   "BONDED_REINS.title": "Bonded Reins",
-  "BONDED_REINS.description": "Feed {Feed:diff()}, then Mount.",
+  "BONDED_REINS.description": "Feed {Feed:diff()}, then Mount. Exhaust. (Upgraded: Innate.)",
   "ASTRAL_BARRAGE.title": "Astral Barrage",
   "ASTRAL_BARRAGE.description": "[orange]X[/orange]. Deal X+{Hits:diff()} hits of X damage to ALL enemies and apply 1 [green]Weak[/green] to each. Usable only while riding Spectrier.",
   "GLACIAL_LANCE.title": "Glacial Lance",
