@@ -30,29 +30,25 @@ public static class CalyrexAncientDialoguePatch
             var dialogues = new AncientDialogue[]
             {
                 new AncientDialogue("", "") { VisitIndex = 0 },
-                new AncientDialogue("") { VisitIndex = 1 },
+                new AncientDialogue("") { VisitIndex = 1, IsRepeating = true },
                 new AncientDialogue("", "", "") { VisitIndex = 2 }
             };
             __result.CharacterDialogues[charKey] = dialogues;
 
             // 手动填充本地化文本（DialogueSet 已 Populate 过，需补我们的）
+            // 直接构造 LocString（不查 Exists——注入时机可能早于 mod 表合并，渲染时再解析）
+            // 行结构：偶数行 ancient（先古说话）、奇数行 char（蕾冠王说话）；第 1 组（重复）key 带 r 后缀
             string entry = __instance.Id.Entry;
             for (int i = 0; i < dialogues.Length; i++)
             {
+                string groupSuffix = (i == 1) ? "r" : "";
                 for (int j = 0; j < dialogues[i].Lines.Count; j++)
                 {
-                    string baseKey = $"{entry}.talk.{charKey}.{i}-{j}";
+                    string baseKey = $"{entry}.talk.{charKey}.{i}-{j}{groupSuffix}";
                     var line = dialogues[i].Lines[j];
-                    if (LocString.Exists("ancients", baseKey + ".ancient"))
-                    {
-                        line.LineText = new LocString("ancients", baseKey + ".ancient");
-                        line.Speaker = AncientDialogueSpeaker.Ancient;
-                    }
-                    else
-                    {
-                        line.LineText = new LocString("ancients", baseKey + ".char");
-                        line.Speaker = AncientDialogueSpeaker.Character;
-                    }
+                    bool isAncientLine = (j % 2 == 0);
+                    line.LineText = new LocString("ancients", baseKey + (isAncientLine ? ".ancient" : ".char"));
+                    line.Speaker = isAncientLine ? AncientDialogueSpeaker.Ancient : AncientDialogueSpeaker.Character;
                     if (j < dialogues[i].Lines.Count - 1)
                     {
                         line.NextButtonText = new LocString("ancients", baseKey + ".next");

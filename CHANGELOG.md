@@ -1,6 +1,13 @@
 # Changelog / 更新日志
 
+## v1.2.37.107.1 (2026-08-27)
+
+### Fixes / 修复
+- 先古对话填充直接构造 LocString（注入时机可能早于 mod 表合并导致选错 key 显示键名）
+- 重复对话（第 1 组）设置 IsRepeating=true（多次访问显示重复对话而非通用）
+
 ## v1.2.36.107.1 (2026-08-27)
+
 
 ### Fixes / 修复
 - **先古对话显示通用文本**：注入的 AncientDialogue 未设置 VisitIndex，GetValidDialogues 按 `VisitIndex == charVisits` 筛选时被过滤，回落到官方通用——已设置 0/1/2 三组 VisitIndex
