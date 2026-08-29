@@ -57,3 +57,7 @@ decompiled/         sts2 反编译工程（不提交）
 ## 致谢
 
 游戏：《Slay the Spire 2》MegaCrit。宝可梦内容版权归任天堂/Game Freak 所有，本模组为粉丝自制，非商业用途。
+
+## 版本更新说明
+
+每个版本的独立详细更新说明见 `docs/releases/`（从 v0.9 到当前全部版本），汇总见 `CHANGELOG.md`。
