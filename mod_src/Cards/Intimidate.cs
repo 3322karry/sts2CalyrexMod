@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using CalyrexMod.Powers;
 
@@ -13,6 +14,14 @@ namespace CalyrexMod.Cards;
 
 public sealed class Intimidate : CardModel
 {
+    protected override System.Collections.Generic.IEnumerable<DynamicVar> CanonicalVars
+    {
+        get
+        {
+            yield return new IntVar("StrDebuff", 2m);
+        }
+    }
+
     public Intimidate()
         : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
@@ -34,14 +43,14 @@ public sealed class Intimidate : CardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        int strLoss = base.IsUpgraded ? 1 : 2;
-        await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -strLoss, base.Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -base.DynamicVars["StrDebuff"].IntValue, base.Owner.Creature, this);
         await PowerCmd.Apply<FrozenPower>(choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级后：力量 -1（原 -2），不再消耗（可重复打出）
+        // 升级后：力量 -1（diff 绿色显示），不再消耗（卡面自动）
+        base.DynamicVars["StrDebuff"].UpgradeValueBy(-1m);
         RemoveKeyword(CardKeyword.Exhaust);
     }
 }
