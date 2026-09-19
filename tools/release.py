@@ -84,12 +84,9 @@ def check_preconditions(ver: str) -> None:
     if not VER_RE.match(ver):
         sys.exit(f"版本号格式不对: {ver}（示例 v1.2.41.107.1）")
     st = run("git status --porcelain", check=False).stdout.strip()
-    if st and not DRY:
-        log("   警告: 工作区不干净，发版前建议先提交或 stash：")
-        for line in st.splitlines()[:10]:
-            log(f"     {line}")
-        if "--force-dirty" not in sys.argv:
-            sys.exit("   已中止（加 --force-dirty 忽略）")
+    if st:
+        n = len(st.splitlines())
+        log(f"   工作区有 {n} 个未提交改动，将随本次发版一并提交")
     for p in ["mod_src/ModInfo.cs", "CalyrexMod.json", "CHANGELOG.md"]:
         if not os.path.exists(os.path.join(ROOT, p)):
             sys.exit(f"缺少文件: {p}")

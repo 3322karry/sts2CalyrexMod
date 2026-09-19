@@ -1,6 +1,8 @@
 using System.Linq;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization.Formatters;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Runs;
 using SmartFormat.Core.Extensions;
 using MegaCrit.Sts2.Core.Logging;
 
@@ -8,6 +10,7 @@ namespace CalyrexMod.Patching;
 
 // 描述中的费用图标：官方 [img] 加载 png 需要 .import（mod 无法提供），
 // 改为输出我们自己的 .tres 图片路径（ImageTexture，可被 ResourceLoader 加载）。
+// 仅当图标前缀为 calyrex（蕾冠王卡池 / 蕾冠王角色）时替换，其余角色卡牌走官方原版图标。
 [HarmonyPatch]
 public static class EnergyIconFormatterPatch
 {
@@ -19,11 +22,28 @@ public static class EnergyIconFormatterPatch
     {
         try
         {
-            int count;
+            // 解析图标前缀（与官方逻辑一致）：卡牌自带 ColorPrefix，否则取本地角色卡池前缀
+            string? prefix = null;
             object currentValue = formattingInfo.CurrentValue;
-            if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.EnergyVar energyVar)
+            if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.EnergyVar energyVar
+                && !string.IsNullOrEmpty(energyVar.ColorPrefix))
             {
-                count = (int)energyVar.PreviewValue;
+                prefix = energyVar.ColorPrefix;
+            }
+            if (string.IsNullOrEmpty(prefix) || prefix == "colorless")
+            {
+                prefix = RunManager.Instance.GetLocalCharacterEnergyIconPrefix();
+            }
+            // 非蕾冠王：交回官方逻辑（原版 *_energy_icon.png）
+            if (prefix != "calyrex")
+            {
+                return true;
+            }
+
+            int count;
+            if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.EnergyVar ev)
+            {
+                count = (int)ev.PreviewValue;
             }
             else if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.DynamicVar dynVar)
             {
