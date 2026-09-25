@@ -22,10 +22,15 @@ public static class EnergyIconFormatterPatch
     {
         try
         {
-            // 解析图标前缀（与官方逻辑一致）：卡牌自带 ColorPrefix，否则取本地角色卡池前缀
+            // 解析图标前缀（与官方逻辑一致）：卡牌自带 ColorPrefix → energyPrefix 字符串变量 → 本地角色卡池前缀
             string? prefix = null;
             object currentValue = formattingInfo.CurrentValue;
-            if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.EnergyVar energyVar
+            if (currentValue is string strVal && !string.IsNullOrEmpty(strVal))
+            {
+                // {energyPrefix:energyIcons(N)}：字符串值本身就是前缀（卡牌库等无 run 场景也能用）
+                prefix = strVal;
+            }
+            else if (currentValue is MegaCrit.Sts2.Core.Localization.DynamicVars.EnergyVar energyVar
                 && !string.IsNullOrEmpty(energyVar.ColorPrefix))
             {
                 prefix = energyVar.ColorPrefix;

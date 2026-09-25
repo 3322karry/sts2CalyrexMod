@@ -34,7 +34,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WIKI_DIR = r"D:\vibeprograms\sts2CalyrexMod-wiki"
-UPLOADER_DIR = r"D:\db\ModUploader-win-x64"
+UPLOADER_DIR = r"D:\vibeprograms\ModUploader-win-x64"
 UPLOADER_WORKSPACE = os.path.join(UPLOADER_DIR, "sts2CalyrexMod")
 GAME_MODS = r"D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\CalyrexMod"
 
@@ -99,8 +99,12 @@ def bump_version(ver: str) -> None:
     s = read_file(p)
     s2 = re.sub(r'(public const string Version = ")v[\d.]+(";)', rf"\g<1>{ver}\g<2>", s)
     if s2 == s:
-        sys.exit("ModInfo.cs 版本号替换失败")
-    write_file(p, s2)
+        if re.search(rf'public const string Version = "{re.escape(ver)}";', s):
+            log(f"   ModInfo.cs 已是 {ver}，跳过")
+        else:
+            sys.exit("ModInfo.cs 版本号替换失败")
+    else:
+        write_file(p, s2)
 
     p = os.path.join(ROOT, "CalyrexMod.json")
     d = json.loads(read_file(p))
@@ -184,7 +188,7 @@ def git_commit_push(ver: str, notes: list[str], cwd: str = ROOT, push: bool = Tr
     log(f"   {'commit+push' if push else 'commit'}: {msg}")
 
 
-def steam_upload(ver: str, notes: list[str]) -> None:
+def steam_upload(ver: str, notes: list[str], steam_note: str | None = None) -> None:
     if not os.path.isdir(UPLOADER_WORKSPACE):
         log("   ModUploader workspace 不存在，跳过")
         return
@@ -202,7 +206,7 @@ def steam_upload(ver: str, notes: list[str]) -> None:
     # changeNote
     p = os.path.join(UPLOADER_WORKSPACE, "workshop.json")
     d = json.loads(read_file(p))
-    d["changeNote"] = f"{ver}: " + "；".join(notes[:3])
+    d["changeNote"] = steam_note or (f"{ver}: " + "；".join(notes[:3]))
     write_file(p, json.dumps(d, ensure_ascii=False, indent=2))
     # 上传（长任务，容忍失败——元数据可能成功而内容 Invalid）
     log("   ModUploader 上传中（可能需要几分钟）...")
@@ -225,6 +229,7 @@ def main() -> None:
     ap.add_argument("--note", action="append", default=[], help="改动条目（可多次）")
     ap.add_argument("--notes-file", help="从文件读取改动条目（每行一条）")
     ap.add_argument("--wiki-summary", help="版本列表里的简短说明（默认第一条 note）")
+    ap.add_argument("--steam-note", help="Steam changeNote（默认用 notes 拼接）")
     ap.add_argument("--skip-steam", action="store_true")
     ap.add_argument("--skip-wiki", action="store_true")
     ap.add_argument("--skip-deploy", action="store_true")
@@ -276,7 +281,7 @@ def main() -> None:
     if not args.skip_steam:
         n += 1
         step(n, total, "Steam 上传")
-        steam_upload(ver, notes)
+        steam_upload(ver, notes, args.steam_note)
 
     log(f"== 完成: {ver} ==")
 

@@ -55,7 +55,9 @@ public sealed class ZCelebrate : CardModel
         get
         {
             yield return KeywordTipHelper.FeedTip;
-            yield return KeywordTipHelper.AbundanceTip;
+            yield return KeywordTipHelper.AbundanceTip;            yield return HoverTipFactory.FromPower<StrengthPower>();
+            yield return HoverTipFactory.FromPower<DexterityPower>();
+
         }
     }
 

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CalyrexMod.Cards;
 
@@ -23,7 +24,9 @@ public sealed class GrassyTerrain : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<GrassyTerrainPower>();
+            yield return HoverTipFactory.FromPower<GrassyTerrainPower>();            yield return KeywordTipHelper.AbundanceTip;
+            yield return KeywordTipHelper.FeedTip;
+
         }
     }
 

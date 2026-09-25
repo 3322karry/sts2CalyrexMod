@@ -36,7 +36,10 @@ public sealed class BondedReins : CardModel
         get
         {
             yield return new HoverTip(new LocString("cards", "KEYWORD_FEED.title"), new LocString("cards", "KEYWORD_FEED.description"));
-            yield return new HoverTip(new LocString("cards", "KEYWORD_MOUNT.title"), new LocString("cards", "KEYWORD_MOUNT.description"));
+            yield return new HoverTip(new LocString("cards", "KEYWORD_MOUNT.title"), new LocString("cards", "KEYWORD_MOUNT.description"));            yield return KeywordTipHelper.FeedTip;
+            yield return KeywordTipHelper.MountTip;
+            yield return HoverTipFactory.FromKeyword(CardKeyword.Exhaust);
+
         }
     }
 

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CalyrexMod.Cards;
 

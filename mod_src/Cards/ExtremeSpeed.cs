@@ -29,7 +29,8 @@ public sealed class ExtremeSpeed : CardModel
     {
         get
         {
-            yield return KeywordTipHelper.MountedSpectrierTip;
+            yield return KeywordTipHelper.MountedSpectrierTip;            yield return KeywordTipHelper.MountTip;
+
         }
     }
 

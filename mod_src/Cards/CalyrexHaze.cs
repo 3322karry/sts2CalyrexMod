@@ -34,7 +34,12 @@ public sealed class CalyrexHaze : CardModel
         var chosen = (await CardSelectCmd.FromHand(choiceContext, base.Owner, prefs, (CardModel c) => c != this && c.IsTransformable, this)).ToList();
         foreach (var card in chosen)
         {
-            await CardCmd.TransformTo<Zero>(card);
+            CardModel replacement = card.CardScope.CreateCard<Zero>(card.Owner);
+            if (base.IsUpgraded)
+            {
+                CardCmd.Upgrade(replacement);
+            }
+            await CardCmd.Transform(card, replacement);
         }
     }
 
@@ -48,6 +53,6 @@ public sealed class CalyrexHaze : CardModel
 
 protected override void OnUpgrade()
     {
-        // 升级：归零+（Zero 自动升级）
+        // 升级：变化出的归零为升级版（见 OnPlay 的 CardCmd.Upgrade）
     }
 }

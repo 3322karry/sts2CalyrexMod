@@ -41,7 +41,8 @@ public sealed class DefendPosition : CardModel
     {
         get
         {
-            yield return KeywordTipHelper.MountedGlastrierTip;
+            yield return KeywordTipHelper.MountedGlastrierTip;            yield return KeywordTipHelper.MountTip;
+
         }
     }
 

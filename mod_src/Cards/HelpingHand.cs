@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CalyrexMod.Cards;
 
@@ -32,7 +33,8 @@ public sealed class HelpingHand : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<HelpingHandPower>();
+            yield return HoverTipFactory.FromPower<HelpingHandPower>();            yield return HoverTipFactory.FromPower<StrengthPower>();
+
         }
     }
 

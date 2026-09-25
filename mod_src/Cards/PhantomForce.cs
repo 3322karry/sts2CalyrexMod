@@ -30,7 +30,8 @@ public sealed class PhantomForce : CardModel
     {
         get
         {
-            yield return KeywordTipHelper.MountedSpectrierTip;
+            yield return KeywordTipHelper.MountedSpectrierTip;            yield return KeywordTipHelper.MountTip;
+
         }
     }
 

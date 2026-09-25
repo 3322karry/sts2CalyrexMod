@@ -35,7 +35,8 @@ public sealed class CleanUpFirst : CardModel
     {
         get
         {
-            yield return KeywordTipHelper.AbundanceTip;
+            yield return KeywordTipHelper.AbundanceTip;            yield return HoverTipFactory.FromPower<StrengthPower>();
+
         }
     }
 

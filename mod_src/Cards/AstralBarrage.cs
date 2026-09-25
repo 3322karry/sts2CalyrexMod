@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
@@ -33,6 +34,14 @@ public sealed class AstralBarrage : CardModel
     }
 
     public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return HoverTipFactory.FromPower<WeakPower>();
+        }
+    }
 
     protected override bool HasEnergyCostX => true;
 

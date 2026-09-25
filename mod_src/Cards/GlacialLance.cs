@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
@@ -32,6 +33,15 @@ public sealed class GlacialLance : CardModel
     }
 
     public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return KeywordTipHelper.FrozenTip;
+            yield return KeywordTipHelper.MountTip;
+        }
+    }
 
     // 只有骑雪暴马（白马）时才能使用
     protected override bool IsPlayable => base.Owner != null && base.Owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier);

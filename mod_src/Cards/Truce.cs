@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using CalyrexMod.Powers;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CalyrexMod.Cards;
 
@@ -36,6 +37,7 @@ public sealed class Truce : CardModel
         get
         {
             yield return HoverTipFactory.FromPower<TrucePower>();
+            yield return KeywordTipHelper.AbundanceTip;
         }
     }
 

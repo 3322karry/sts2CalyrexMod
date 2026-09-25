@@ -31,7 +31,8 @@ public sealed class LonePath : CardModel
     {
         get
         {
-            yield return KeywordTipHelper.AbundanceTip;
+            yield return KeywordTipHelper.AbundanceTip;            yield return KeywordTipHelper.MountTip;
+
         }
     }
 

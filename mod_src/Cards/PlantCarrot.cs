@@ -37,7 +37,8 @@ public sealed class PlantCarrot : CardModel
         {
             yield return KeywordTipHelper.AbundanceTip;
             yield return KeywordTipHelper.QuickSightTip;
-            yield return KeywordTipHelper.HeavyLanceTip;
+            yield return KeywordTipHelper.HeavyLanceTip;            yield return KeywordTipHelper.FeedTip;
+
         }
     }
 

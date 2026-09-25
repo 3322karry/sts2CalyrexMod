@@ -35,7 +35,8 @@ public sealed class Intimidate : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<FrozenPower>();
+            yield return HoverTipFactory.FromPower<FrozenPower>();            yield return HoverTipFactory.FromPower<StrengthPower>();
+
         }
     }
 

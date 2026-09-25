@@ -38,7 +38,7 @@
   "LEECH_SEED_POWER.title": "Leech Seed",
   "LEECH_SEED_POWER.description": "At the end of its owner's turn, this enemy loses 8 HP and you heal 4 HP.",
   "PRESSURE_POWER.title": "Pressure",
-  "PRESSURE_POWER.description": "Enemies gain 1 Vulnerable when attacking.",
+  "PRESSURE_POWER.description": "Enemies gain [blue]1[/blue] [gold]Vulnerable[/gold] when attacking.",
   "INGRAIN_POWER.title": "Ingrain",
   "INGRAIN_POWER.description": "Draw a card whenever you Feed or gain Abundance.",
   "SOUL_HEART_POWER.title": "Soul Heart",

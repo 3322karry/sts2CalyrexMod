@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
@@ -16,6 +17,15 @@ public sealed class PartingShot : CardModel
     }
 
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            yield return HoverTipFactory.FromPower<VulnerablePower>();
+            yield return HoverTipFactory.FromPower<WeakPower>();
+        }
+    }
 
     // canonical 固定带消耗；升级后在 mutable 实例移除（CanonicalKeywords 阶段 IsUpgraded 恒 false）
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
