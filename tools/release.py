@@ -192,12 +192,17 @@ def steam_upload(ver: str, notes: list[str], steam_note: str | None = None) -> N
     if not os.path.isdir(UPLOADER_WORKSPACE):
         log("   ModUploader workspace 不存在，跳过")
         return
-    # 同步 content
+    # 同步 content（dll 用最新构建；json 用项目根；pck 用 deploy 打包产物）
     content = os.path.join(UPLOADER_WORKSPACE, "content")
-    for f in ["CalyrexMod.dll", "CalyrexMod.pck", "CalyrexMod.json"]:
-        src = os.path.join(ROOT, "build", f)
+    sources = [
+        (os.path.join(ROOT, "bin", "Release", "net9.0", "CalyrexMod.dll"), "CalyrexMod.dll"),
+        (os.path.join(ROOT, "build", "CalyrexMod.pck"), "CalyrexMod.pck"),
+        (os.path.join(ROOT, "CalyrexMod.json"), "CalyrexMod.json"),
+    ]
+    for src, name in sources:
         if not os.path.exists(src):
-            src = os.path.join(ROOT, "bin", "Release", "net9.0", f)
+            log(f"   缺少 {src}，跳过该文件")
+            continue
         if DRY:
             log(f"   [dry-run] copy {src} -> {content}")
         else:
@@ -210,14 +215,27 @@ def steam_upload(ver: str, notes: list[str], steam_note: str | None = None) -> N
     write_file(p, json.dumps(d, ensure_ascii=False, indent=2))
     # 上传（长任务，容忍失败——元数据可能成功而内容 Invalid）
     log("   ModUploader 上传中（可能需要几分钟）...")
-    r = run(
-        f'"{os.path.join(UPLOADER_DIR, "ModUploader.exe")}" upload -w "{UPLOADER_WORKSPACE}"',
-        cwd=UPLOADER_DIR,
-        check=False,
-    )
+    exe = os.path.join(UPLOADER_DIR, "ModUploader.exe")
+    r = run(f'"{exe}" upload -w "{UPLOADER_WORKSPACE}"', cwd=UPLOADER_DIR, check=False)
     out = (r.stdout or "") + (r.stderr or "")
     if "Successfully uploaded" in out:
         log("   上传完成（若含 k_EItemUpdateStatusInvalid 表示内容提交被 Steam 拒绝，稍后重试）")
+    elif "k_EResultFail" in out and not DRY:
+        # Steam 上传会话损坏：重启 Steam 后自动重试一次
+        log("   k_EResultFail（Steam 会话问题），重启 Steam 后重试...")
+        run("taskkill /F /IM steam.exe", check=False)
+        run("taskkill /F /IM steamwebhelper.exe", check=False)
+        import time
+        time.sleep(10)
+        steam_exe = r"C:\Program Files (x86)\Steam\steam.exe"
+        run(f'start "" "{steam_exe}"', check=False)
+        time.sleep(45)
+        r2 = run(f'"{exe}" upload -w "{UPLOADER_WORKSPACE}"', cwd=UPLOADER_DIR, check=False)
+        out2 = (r2.stdout or "") + (r2.stderr or "")
+        if "Successfully uploaded" in out2:
+            log("   重试上传完成")
+        else:
+            log("   重试仍失败，请检查 mod-uploader.log")
     else:
         log("   上传未确认成功，请检查 mod-uploader.log")
 
