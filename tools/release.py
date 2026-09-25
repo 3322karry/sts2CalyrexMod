@@ -208,6 +208,7 @@ def steam_upload(ver: str, notes: list[str]) -> None:
     log("   ModUploader 上传中（可能需要几分钟）...")
     r = run(
         f'"{os.path.join(UPLOADER_DIR, "ModUploader.exe")}" upload -w "{UPLOADER_WORKSPACE}"',
+        cwd=UPLOADER_DIR,
         check=False,
     )
     out = (r.stdout or "") + (r.stderr or "")
