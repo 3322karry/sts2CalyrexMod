@@ -1,7 +1,7 @@
 # AGENTS.md — CalyrexMod 项目记忆与接手指南
 
 > 本文件是给 AI agent（及人类协作者）的完整项目记忆。新会话接手时先通读本文件。
-> 最后更新：2026-09-25（v1.2.42.107.1 发布后）
+> 最后更新：2026-10-24（新增 §10 接管核验记录；版本仍为 v1.2.42.107.1）
 
 ---
 
@@ -233,3 +233,38 @@ python -X utf8 tools/release.py v1.2.43.107.1 --note "改动" --steam-note "Engl
 - 不要无条件替换全局能量图标（必须按 prefix 判断）。
 - 不要在没有隔离（禁用另一 mod）时同时加载 exp 与正式 CalyrexMod。
 - 发布前确保 `git status` 的改动都是想发布的（release.py 会全量提交）。
+
+---
+
+## 10. 接管核验记录（2026-10-24）
+
+> 新会话接管时先看本节：下面都是**实测**结论，不是推断。
+
+### 10.1 环境与可复现性
+
+- 工具链：dotnet **10.0.302**（编译 net9.0）、Python **3.14.0**；`dotnet build CalyrexMod.sln -c Release` 通过，**0 error / 37 warning**，约 12 秒。
+- 产物可复现：`bin/Release/net9.0/CalyrexMod.dll` = 407552 B，SHA256 `E21E90DD80F1E2428A123AE8024B777B29838996E3BC2BC69E63AA64149E80D0`，与游戏 mods 目录部署版**逐字节一致**。
+- 游戏未升级：游戏目录 `data_sts2_windows_x86_64\sts2.dll` 与项目 `libs/sts2.dll` 同为 `A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52`；Steam buildid `23811903`。
+- 隔离构建提示：**不要直接 `dotnet build` 验证**（csproj 的 `CopyModToGame` 会覆盖游戏 mods）。用
+  `dotnet build CalyrexMod.sln -c Release -p:Sts2Dir=<临时目录>`，产物落在临时目录，不碰游戏安装。
+
+### 10.2 产物一致性（2026-10-24 实测）
+
+- `build/CalyrexMod.pck`、游戏 `mods\CalyrexMod\CalyrexMod.pck`、`ModUploader-win-x64\sts2CalyrexMod\content\CalyrexMod.pck` 三者 SHA256 相同（`3B2B644A…50609`）；json 亦相同。
+- ⚠️ **ModUploader content 的 dll 与本地构建不同哈希**（`A113197A…3451` vs `E21E90DD…80D0`，大小同为 407552 B）——下次发版前必须让 release.py 重新同步 content 三件套，否则工坊上传的二进制与本地验证版不一致。
+
+### 10.3 待修缺陷（本轮未改代码）
+
+- **`CombatTargetPatches.HittableEnemiesPostfix` 类型过滤恒假（P1）**：`mod_src/Patching/CombatTargetPatches.cs:55` 写的是
+  `c is Glastrier || c is Spectrier`，但 `Glastrier/Spectrier` 继承 `MonsterModel`，`c` 是 `Creature`（`PlayerCombatState.Pets` 是 `IReadOnlyList<Creature>`），编译器 **CS0184 判定恒假** → 宠物马从未被追加进 `CombatState.HittableEnemies`。
+  正确写法：`c.Monster is Glastrier || c.Monster is Spectrier`（`Creature.Monster` 为 `MonsterModel?`）。
+  影响面：花粉团等「可指定马」的卡、爆音波等 AOE 是否真正覆盖马。**尚未实机确认影响范围**（马的血量转移走 `SteedGuardPassive`，与目标列表无关）。
+- **run_history 资源缺失（P3，噪声）**：`godot.log` 报 `res://images/ui/run_history/eternatus_boss.png` 与 `_outline` 加载失败。`AssetIconPatches` 的重定向覆盖不到预加载路径——`AssetLoadingSession` 直接调 `ResourceLoader.Load`。非致命。
+- **`Eternatus._revivePending` 死字段（P3）**：只赋值、从不读取（CS0414）。复活流程实际靠 `EternatusRevivePower` + `_deadState`。
+- **版本号非 SemVer（P3）**：加载器告警 `v1.2.42.107.1 is not a valid Semantic Version`，且未声明 `min_game_version`。当前不影响加载。
+
+### 10.4 现场杂项
+
+- 游戏 `mods\CalyrexMod\` 里混入 44.9 MB `CalyrexMod.zip`（内容 = 部署三件套的压缩包），可删；mod 加载只认 dll/pck/json。
+- 本机存在双份 mod 源：正式 `sts2CalyrexMod`（发布用）与 `CalyrexMod-exp`（RitsuLib 实验，停更于 2026-09-19）；**同时加载会 DuplicateModelException**。
+- `godot.log` 最近一次运行是 2026-10-02，mod 正常加载（`Calling initializer method of type CalyrexMod.ModEntry`）。
