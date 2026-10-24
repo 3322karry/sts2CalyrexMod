@@ -50,3 +50,7 @@ CalyrexMod.pck
 
 # ModUploader 日志（若在其目录外运行会落在 cwd）
 mod-uploader.log
+
+# 测试台（本机专用，含内网地址/截图）
+tools/testrig/
+

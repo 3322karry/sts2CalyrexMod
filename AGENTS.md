@@ -268,3 +268,20 @@ python -X utf8 tools/release.py v1.2.43.107.1 --note "改动" --steam-note "Engl
 - 游戏 `mods\CalyrexMod\` 里混入 44.9 MB `CalyrexMod.zip`（内容 = 部署三件套的压缩包），可删；mod 加载只认 dll/pck/json。
 - 本机存在双份 mod 源：正式 `sts2CalyrexMod`（发布用）与 `CalyrexMod-exp`（RitsuLib 实验，停更于 2026-09-19）；**同时加载会 DuplicateModelException**。
 - `godot.log` 最近一次运行是 2026-10-02，mod 正常加载（`Calling initializer method of type CalyrexMod.ModEntry`）。
+
+---
+
+## 11. 远程真机测试台（2026-10-24 搭建）
+
+> 面向 agent 的完整测试流程见根目录 **`AGENT_TESTING.md`**；机器坐标/账号/脚本细节见 `tools/testrig/README.md`（本机专用、已 gitignore，不入公开仓库）。
+
+- **测试机**：Windows 10 / Administrator / SSH 已开（内网地址见 `tools/testrig/README.md`），游戏 `C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2`（Steam buildid 23811903 = 本地同版本）。
+- **已部署**：`mods\CalyrexMod\{dll,json,pck}`（哈希与本地部署一致）+ `mods\STS2_MCP.{dll,json,conf}`（API 端口 15526，只监听 127.0.0.1）。
+- **本机接法**：`ssh -N -L 15526:127.0.0.1:15526` 隧道 → `http://127.0.0.1:15526/api/v1/*`。
+- **工具**（本机专用，已 `.gitignore`，文档在 `tools/testrig/README.md`）：
+  - `tools/testrig/rig.ps1 status|start|stop|restart|deploy|shot` —— 隧道/远程启动/部署/截图。
+  - `tools/testrig/sts2.ps1 <state|menu|play|end|map|event|...>` —— REST 状态机封装。
+  - `tools/testrig/mcp/` —— upstream MCP 桥（MIT，64 工具）；`uv run --directory tools/testrig/mcp python _selftest.py` 自检。
+- **重要限制**：RDP 会话没有活动显示输出时截图是全黑；纯 API 玩法测试不受影响。
+- **游戏启动**：直接跑 `SlayTheSpire2.exe` 需游戏目录里有 `steam_appid.txt`（内容 `2868840`），否则 Steamworks 初始化失败；计划任务 `STS2_Test_Run` 以 `/IT` 在会话 2 启动。
+- **换行注意**：测试机的 mods 目录即部署目标，改完代码走 `dotnet build -c Release` → `python tools/deploy.py` → `rig.ps1 deploy`（等价 scp 三件套并重启）。
