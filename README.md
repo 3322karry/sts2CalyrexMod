@@ -32,6 +32,22 @@ python tools/gen_tres.py
 python tools/deploy.py
 ```
 
+## 配置
+
+首次启动会在 mod 目录（和 `CalyrexMod.dll` 同级）生成 `CalyrexMod.conf`，改动后重启游戏生效：
+
+```json
+{
+  "abundance_combat_heal": true,
+  "abundance_combat_heal_percent": 50
+}
+```
+
+| 字段 | 默认 | 说明 |
+|---|---|---|
+| `abundance_combat_heal` | `true` | 战斗结束时，是否按「丰饶」层数回复生命 |
+| `abundance_combat_heal_percent` | `50` | 回血比例（层数 × 百分比，向下取整；50 即一半） |
+
 ## 目录结构
 
 ```

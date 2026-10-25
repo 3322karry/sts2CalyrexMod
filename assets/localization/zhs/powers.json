@@ -2,7 +2,7 @@
   "ETERNAL_WHINNY.title": "永恒嘶鸣",
   "ETERNAL_WHINNY.description": "每有敌人死亡，获得 2 点力量。面对单独敌人时，给予其 2 层虚弱与 2 层易伤。",
   "ABUNDANCE.title": "丰饶",
-  "ABUNDANCE.description": "战斗结束时，回复等同于层数的生命值。",
+  "ABUNDANCE.description": "战斗结束时，回复等同于层数一半（向下取整）的生命值。",
   "QUICK_SIGHT.title": "迅疾之视",
   "QUICK_SIGHT.description": "这匹马与蕾冠王合体时，每有 1 层，洗入 1 张星碎到抽牌堆。",
   "HEAVY_LANCE.title": "重装之矛",

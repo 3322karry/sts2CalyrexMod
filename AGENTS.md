@@ -288,3 +288,19 @@ python -X utf8 tools/release.py v1.2.43.107.1 --note "改动" --steam-note "Engl
 - **重要限制**：RDP 会话没有活动显示输出时截图是全黑；纯 API 玩法测试不受影响。
 - **游戏启动**：直接跑 `SlayTheSpire2.exe` 需游戏目录里有 `steam_appid.txt`（内容 `2868840`），否则 Steamworks 初始化失败；计划任务 `STS2_Test_Run` 以 `/IT` 在会话 2 启动。
 - **换行注意**：测试机的 mods 目录即部署目标，改完代码走 `dotnet build -c Release` → `python tools/deploy.py` → `rig.ps1 deploy`（等价 scp 三件套并重启）。
+
+---
+
+## 12. 配置文件（CalyrexMod.conf，v1.3.00 起）
+
+- 位置：**和 `CalyrexMod.dll` 同级**（`mods\CalyrexMod\CalyrexMod.conf`）。`ModConfig.Load()` 在 `ModEntry.Initialize()` 最开始调用；文件缺失会用默认值自动生成（`ModConfig.Save()`）。
+- 字段：
+
+  | 字段 | 默认 | 说明 |
+  |---|---|---|
+  | `abundance_combat_heal` | `true` | 战斗结束时是否按「丰饶」层数回血 |
+  | `abundance_combat_heal_percent` | `50` | 回血比例（`floor(层数 × 百分比 / 100)`） |
+
+- 行为：`Abundance.AfterCombatEnd` 读取配置 → 关闭时只打日志 `Abundance: combat heal disabled by config`；开启时对每个存活玩家 `CreatureCmd.Heal(heal, playAnim:false)` 并打日志 `Abundance: combat end heal N (stacks=…, percent=…)`。
+- **改配置需要重启游戏**（没有热重载；也没做游戏内设置 UI —— 纯原生 mod 没有 BaseLib/RitsuLib 的设置框架）。
+- 真机验证（2026-10-25，测试机蕾冠王 run）：开启时 4 层丰饶 → 战斗结束 `heal 2`；配置改 false 后同样 4 层 → 只记录 `disabled by config`，血量不变。

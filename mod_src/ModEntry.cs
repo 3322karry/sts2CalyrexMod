@@ -16,6 +16,7 @@ public static class ModEntry
 
     public static void Initialize()
     {
+        ModConfig.Load();
         Stage1Harmony();
         Stage2Register();
         Stage3Settings();

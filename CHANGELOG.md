@@ -1,5 +1,13 @@
 # Changelog / 更新日志
 
+## v1.3.00.107.1 (2026-10-25)
+
+### Changes / 改动
+- 丰饶：战斗结束回血改为按「丰饶层数 × 50%（向下取整）」回复，可通过 CalyrexMod.conf 的 abundance_combat_heal 开关（默认开启）
+- 新增配置文件 CalyrexMod.conf（缺失时自动生成），可用 abundance_combat_heal_percent 调整回血比例
+- 修复：宠物马（雪暴马/灵幽马）现在能进入可攻击列表，可被卡牌指定与 AOE 波及
+- 同步更新中英文「丰饶」描述
+
 ## v1.2.42.107.1 (2026-09-25)
 
 ### Changes / 改动

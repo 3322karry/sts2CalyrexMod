@@ -2,7 +2,7 @@
   "ETERNAL_WHINNY.title": "Eternal Whinny",
   "ETERNAL_WHINNY.description": "Whenever an enemy dies, gain 2 Strength. When facing a lone enemy, give it 2 Weak and 2 Vulnerable.",
   "ABUNDANCE.title": "Abundance",
-  "ABUNDANCE.description": "At the end of combat, heal HP equal to stacks.",
+  "ABUNDANCE.description": "At the end of combat, heal HP equal to half your stacks (rounded down).",
   "QUICK_SIGHT.title": "Quick Sight",
   "QUICK_SIGHT.description": "When this steed merges with Calyrex, shuffle an Astral Barrage into your draw pile for each stack.",
   "HEAVY_LANCE.title": "Heavy Lance",
