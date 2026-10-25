@@ -16,7 +16,7 @@ public sealed class Abundance : PowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    // 战斗结束回血：回复「丰饶层数 × 配置百分比」的生命（默认 50%，向下取整），可在 CalyrexMod.conf 关闭。
+    // 战斗结束回血：回复「丰饶层数 × 配置百分比」的生命（默认 50%，向上取整，1 层至少回 1 点），可在 CalyrexMod.conf 关闭。
     // 注意：AfterCombatVictory 前玩家 powers 已被清理，所以用 AfterCombatEnd；
     // playAnim:false 避免在结算阶段创建 VFX 导致卡住。
     public override async Task AfterCombatEnd(CombatRoom room)
@@ -33,10 +33,11 @@ public sealed class Abundance : PowerModel
         }
 
         int percent = ModConfig.Data.AbundanceCombatHealPercent;
-        decimal heal = Math.Floor(base.Amount * percent / 100m);
+        // 向上取整：1 层 50% = 0.5 -> 回 1 点（保底 1 点），3 层 = 1.5 -> 回 2 点。
+        decimal heal = percent > 0 ? Math.Ceiling(base.Amount * percent / 100m) : 0m;
         if (heal <= 0m)
         {
-            Log.Info($"[CalyrexMod] Abundance: heal rounds down to 0 (stacks={base.Amount}, percent={percent}%)");
+            Log.Info($"[CalyrexMod] Abundance: heal rounds to 0 (stacks={base.Amount}, percent={percent}%)");
             return;
         }
 

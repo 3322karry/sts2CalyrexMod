@@ -299,7 +299,7 @@ python -X utf8 tools/release.py v1.2.43.107.1 --note "改动" --steam-note "Engl
   | 字段 | 默认 | 说明 |
   |---|---|---|
   | `abundance_combat_heal` | `true` | 战斗结束时是否按「丰饶」层数回血 |
-  | `abundance_combat_heal_percent` | `50` | 回血比例（`floor(层数 × 百分比 / 100)`） |
+  | `abundance_combat_heal_percent` | `50` | 回血比例（`ceil(层数 × 百分比 / 100)`，向上取整、保底 1 点；v1.3.01 起） |
 
 - 行为：`Abundance.AfterCombatEnd` 读取配置 → 关闭时只打日志 `Abundance: combat heal disabled by config`；开启时对每个存活玩家 `CreatureCmd.Heal(heal, playAnim:false)` 并打日志 `Abundance: combat end heal N (stacks=…, percent=…)`。
 - **改配置需要重启游戏**（没有热重载；也没做游戏内设置 UI —— 纯原生 mod 没有 BaseLib/RitsuLib 的设置框架）。

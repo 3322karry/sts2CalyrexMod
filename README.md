@@ -46,7 +46,7 @@ python tools/deploy.py
 | 字段 | 默认 | 说明 |
 |---|---|---|
 | `abundance_combat_heal` | `true` | 战斗结束时，是否按「丰饶」层数回复生命 |
-| `abundance_combat_heal_percent` | `50` | 回血比例（层数 × 百分比，向下取整；50 即一半） |
+| `abundance_combat_heal_percent` | `50` | 回血比例（层数 × 百分比，**向上取整**，1 层至少回 1 点；50 即一半） |
 
 ## 目录结构
 
