@@ -50,9 +50,11 @@ public static class CombatTargetPatches
     {
         try
         {
+            // 注意：Pets 里是 Creature，Glastrier/Spectrier 是 MonsterModel，必须查 c.Monster。
+            // 曾经写成 `c is Glastrier` 被编译器判为恒假（CS0184），导致马永远进不了可攻击列表。
             var steeds = __instance.Players
                 .SelectMany((Player p) => p.PlayerCombatState?.Pets ?? Enumerable.Empty<Creature>())
-                .Where((Creature c) => c is Glastrier || c is Spectrier)
+                .Where((Creature c) => c.Monster is Glastrier || c.Monster is Spectrier)
                 .Where((Creature c) => c.IsAlive && c.IsHittable)
                 .ToList();
             if (steeds.Count > 0)

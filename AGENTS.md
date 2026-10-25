@@ -253,12 +253,15 @@ python -X utf8 tools/release.py v1.2.43.107.1 --note "改动" --steam-note "Engl
 - `build/CalyrexMod.pck`、游戏 `mods\CalyrexMod\CalyrexMod.pck`、`ModUploader-win-x64\sts2CalyrexMod\content\CalyrexMod.pck` 三者 SHA256 相同（`3B2B644A…50609`）；json 亦相同。
 - ⚠️ **ModUploader content 的 dll 与本地构建不同哈希**（`A113197A…3451` vs `E21E90DD…80D0`，大小同为 407552 B）——下次发版前必须让 release.py 重新同步 content 三件套，否则工坊上传的二进制与本地验证版不一致。
 
-### 10.3 待修缺陷（本轮未改代码）
+### 10.3 缺陷清单
 
-- **`CombatTargetPatches.HittableEnemiesPostfix` 类型过滤恒假（P1）**：`mod_src/Patching/CombatTargetPatches.cs:55` 写的是
+- **[已修复 2026-10-25] `CombatTargetPatches.HittableEnemiesPostfix` 类型过滤恒假（P1）**：原写法
   `c is Glastrier || c is Spectrier`，但 `Glastrier/Spectrier` 继承 `MonsterModel`，`c` 是 `Creature`（`PlayerCombatState.Pets` 是 `IReadOnlyList<Creature>`），编译器 **CS0184 判定恒假** → 宠物马从未被追加进 `CombatState.HittableEnemies`。
-  正确写法：`c.Monster is Glastrier || c.Monster is Spectrier`（`Creature.Monster` 为 `MonsterModel?`）。
-  影响面：花粉团等「可指定马」的卡、爆音波等 AOE 是否真正覆盖马。**尚未实机确认影响范围**（马的血量转移走 `SteedGuardPassive`，与目标列表无关）。
+  已改为 `c.Monster is Glastrier || c.Monster is Spectrier`（`Creature.Monster` 为 `MonsterModel?`）。
+  **真机验证**（测试机，v1.2.42.107.1 + 本修复）：具「黑白萝卜」的蕾冠王进入战斗后，日志出现
+  `[CalyrexMod] HittableEnemies: added 2 steeds, total 3`，临时诊断读数 `pets=2 [GLASTRIER:True:True,SPECTRIER:True:True] hittableCount=3 steedHittable=2`；
+  战斗正常推进（打击 58→52、结束回合进第 2 轮、`SteedGuardPassive: transferring 6 dmg to steeds`），无新异常。诊断代码已删除，最终 dll SHA256 `BF147B0F1647D7C1B68CE60FECC97B1B5948F2D00E08471F7B745F9EF1D952A7`。
+  注：测试 API（STS2_MCP 0.4.0）的 `ResolveTarget` 只在 `combatState.Enemies` 里找目标，**用 API 无法直接把马当目标**，所以改用「查询 HittableEnemies 的日志 + 临时诊断」验证。
 - **run_history 资源缺失（P3，噪声）**：`godot.log` 报 `res://images/ui/run_history/eternatus_boss.png` 与 `_outline` 加载失败。`AssetIconPatches` 的重定向覆盖不到预加载路径——`AssetLoadingSession` 直接调 `ResourceLoader.Load`。非致命。
 - **`Eternatus._revivePending` 死字段（P3）**：只赋值、从不读取（CS0414）。复活流程实际靠 `EternatusRevivePower` + `_deadState`。
 - **版本号非 SemVer（P3）**：加载器告警 `v1.2.42.107.1 is not a valid Semantic Version`，且未声明 `min_game_version`。当前不影响加载。
