@@ -54,3 +54,7 @@ mod-uploader.log
 # 测试台（本机专用，含内网地址/截图）
 tools/testrig/
 
+
+# 像素画预览（生成物，不入库）
+tools/pixelart/preview/
+
