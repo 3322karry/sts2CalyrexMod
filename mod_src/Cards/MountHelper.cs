@@ -101,15 +101,15 @@ public static class MountHelper
         int shuffleCount = 0;
         int heavyLanceLayers = 0;
         bool isSpectrier = steed.Monster is Spectrier;
-        // 迅捷之视/重装之矛挂在蕾冠王身上
+        // 迅捷之视/重装之矛挂在马身上（骑手侧只显示合体状态）
         if (isSpectrier)
         {
-            var qs = owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is QuickSight);
+            var qs = steed.Powers.FirstOrDefault((PowerModel p) => p is QuickSight);
             shuffleCount = qs?.Amount ?? 0;
         }
         else
         {
-            var hl = owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance);
+            var hl = steed.Powers.FirstOrDefault((PowerModel p) => p is HeavyLance);
             shuffleCount = hl?.Amount ?? 0;
             heavyLanceLayers = hl?.Amount ?? 0;
         }
@@ -117,7 +117,8 @@ public static class MountHelper
 
         if (steed.Monster is Glastrier)
         {
-            await PowerCmd.Apply<MountedGlastrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
+            var mg = await PowerCmd.Apply<MountedGlastrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
+            if (mg != null) mg.MarkLayers = heavyLanceLayers;
             if (heavyLanceLayers > 0)
             {
                 await PowerCmd.Apply<IceWallPower>(choiceContext, owner.Creature, heavyLanceLayers, owner.Creature, source);
@@ -125,7 +126,8 @@ public static class MountHelper
         }
         else
         {
-            await PowerCmd.Apply<MountedSpectrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
+            var ms = await PowerCmd.Apply<MountedSpectrier>(choiceContext, owner.Creature, steed.MaxHp, owner.Creature, source);
+            if (ms != null) ms.MarkLayers = shuffleCount;
         }
         MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Mount: mounted power applied, player has MG={owner.Creature.Powers.Any((PowerModel p) => p is MountedGlastrier)} MS={owner.Creature.Powers.Any((PowerModel p) => p is MountedSpectrier)}");
         // 合体标记：防止马的死亡触发魂心等死亡效果
@@ -197,7 +199,7 @@ public static class MountHelper
 
         CalyrexMod.Patching.MountedVisualPatches.ApplyVisual(owner, CalyrexMod.Patching.MountedVisualPatches.NormalVisualPath);
 
-        if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedGlastrier) is PowerModel mg)
+        if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedGlastrier) is MountedGlastrier mg)
         {
             await PowerCmd.Remove<MountedGlastrier>(owner.Creature);
             Creature glastrier = await SpawnSteed(owner, typeof(Glastrier));
@@ -205,14 +207,25 @@ public static class MountHelper
             {
                 await CreatureCmd.GainMaxHp(glastrier, mg.Amount);
             }
+            // 合体期间存的「重装之矛」层数还给新马
+            if (mg.MarkLayers > 0)
+            {
+                await PowerCmd.Apply<HeavyLance>(choiceContext, glastrier, mg.MarkLayers, owner.Creature, null, silent: true);
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Unmount: restored HeavyLance x{mg.MarkLayers} on Glastrier");
+            }
         }
-        if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedSpectrier) is PowerModel ms)
+        if (owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is MountedSpectrier) is MountedSpectrier ms)
         {
             await PowerCmd.Remove<MountedSpectrier>(owner.Creature);
             Creature spectrier = await SpawnSteed(owner, typeof(Spectrier));
             if (ms.Amount > 0m)
             {
                 await CreatureCmd.GainMaxHp(spectrier, ms.Amount);
+            }
+            if (ms.MarkLayers > 0)
+            {
+                await PowerCmd.Apply<QuickSight>(choiceContext, spectrier, ms.MarkLayers, owner.Creature, null, silent: true);
+                MegaCrit.Sts2.Core.Logging.Log.Info($"[CalyrexMod] Unmount: restored QuickSight x{ms.MarkLayers} on Spectrier");
             }
         }
     }
