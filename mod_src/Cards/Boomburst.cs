@@ -33,7 +33,7 @@ public sealed class Boomburst : CardModel
     {
         // 对所有敌人造成全额伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .TargetingAllOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -44,12 +44,12 @@ public sealed class Boomburst : CardModel
             var glastrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Glastrier>();
             if (glastrier != null && glastrier.IsAlive)
             {
-                await CreatureCmd.Damage(choiceContext, glastrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+                await CreatureCmd.Damage(choiceContext, glastrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this, null);
             }
             var spectrier = base.Owner.PlayerCombatState.GetPet<CalyrexMod.Monsters.Spectrier>();
             if (spectrier != null && spectrier.IsAlive)
             {
-                await CreatureCmd.Damage(choiceContext, spectrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+                await CreatureCmd.Damage(choiceContext, spectrier, base.DynamicVars.Damage.BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this, null);
             }
         }
 
@@ -62,7 +62,7 @@ public sealed class Boomburst : CardModel
         }
         if (selfDamage > 0m)
         {
-            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, selfDamage, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
+            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, selfDamage, ValueProp.Unblockable | ValueProp.Unpowered, null, this, null);
         }
     }
 

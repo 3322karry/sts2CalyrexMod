@@ -31,17 +31,17 @@ public sealed class TripleAxel : CardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(base.DynamicVars["Dmg1"].IntValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
         await DamageCmd.Attack(base.DynamicVars["Dmg2"].IntValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
         await DamageCmd.Attack(base.DynamicVars["Dmg3"].IntValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

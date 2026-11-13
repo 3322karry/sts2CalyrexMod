@@ -59,7 +59,7 @@ public sealed class Mimikyu : LeagueMonsterBase
         {
             foreach (var t in targets)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null, null);
             }
         }
     }
@@ -68,7 +68,7 @@ public sealed class Mimikyu : LeagueMonsterBase
     {
         foreach (var t in targets)
         {
-            var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit2Dmg, ValueProp.Unpowered, base.Creature, null);
+            var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit2Dmg, ValueProp.Unpowered, base.Creature, null, null);
             // 回复未被格挡伤害的血量
             decimal dealt = 0;
             foreach (var r in result)
@@ -86,20 +86,20 @@ public sealed class Mimikyu : LeagueMonsterBase
     {
         foreach (var t in targets)
         {
-            var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null);
+            var result = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null, null);
             decimal dealt = 0;
             foreach (var r in result)
             {
                 dealt += r.TotalDamage;
             }
             // 失去未被格挡伤害两倍的血量
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Creature, dealt * 2m, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Creature, dealt * 2m, ValueProp.Unblockable | ValueProp.Unpowered, null, null, null);
         }
         for (int i = 0; i < Hit3Count; i++)
         {
             foreach (var t in targets)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 1m, ValueProp.Unpowered, base.Creature, null, null);
             }
         }
     }

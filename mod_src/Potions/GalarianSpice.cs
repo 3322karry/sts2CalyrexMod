@@ -33,7 +33,7 @@ public sealed class GalarianSpice : PotionModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<Abundance>();
+            yield return HoverTipFactory.FromPower<CalyrexAbundance>();
         }
     }
 
@@ -41,6 +41,6 @@ public sealed class GalarianSpice : PotionModel
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
         PotionModel.AssertValidForTargetedPotion(target);
-        await PowerCmd.Apply<Abundance>(choiceContext, target, base.DynamicVars["Abundance"].BaseValue, target, null);
+        await PowerCmd.Apply<CalyrexAbundance>(choiceContext, target, base.DynamicVars["Abundance"].BaseValue, target, null);
     }
 }

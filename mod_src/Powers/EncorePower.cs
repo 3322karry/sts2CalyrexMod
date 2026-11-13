@@ -12,7 +12,7 @@ namespace CalyrexMod.Powers;
 // 再来一次：锁定目标敌人本回合的行动。
 // 接下来 X 个回合（X=层数），每回合准备时（玩家回合意图显示）其意图被替换为被锁定的行动。
 // 意图替换由 EncoreIntentPatch（PrepareForNextTurn postfix）执行，保证 UI 刷新。
-public sealed class EncorePower : PowerModel
+public sealed class CalyrexEncorePower : PowerModel
 {
     private string? _lockedStateId;
 

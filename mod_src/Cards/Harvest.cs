@@ -45,7 +45,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
         // 消耗 25% 丰饶（向上取整），伤害 = 消耗层数 × 3
-        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance);
+        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance);
         int total = abundancePower?.Amount ?? 0;
         if (total <= 0)
         {
@@ -61,7 +61,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
 
         decimal damage = consumed * base.DynamicVars["PerLayer"].BaseValue;
         await DamageCmd.Attack(damage)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

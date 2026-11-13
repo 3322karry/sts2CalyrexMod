@@ -33,7 +33,7 @@ public sealed class Zero : CardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].IntValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].IntValue, base.Owner.Creature, this);
         await CardPileCmd.Draw(choiceContext, base.DynamicVars["Cards"].BaseValue, base.Owner);
     }
 

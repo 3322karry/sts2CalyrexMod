@@ -51,7 +51,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         }
 
         // 丰饶 2
-        await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].BaseValue, base.Owner.Creature, this);
 
         // 喂养 4
         decimal feed = base.DynamicVars["Feed"].BaseValue;

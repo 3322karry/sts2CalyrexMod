@@ -46,11 +46,11 @@ public sealed class StoredPower : CardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
         // 每层力量/敏捷/丰饶 +2
-        int buffs = base.Owner.Creature.Powers.Where((PowerModel p) => p is StrengthPower || p is DexterityPower || p is Abundance).Sum((PowerModel p) => p.Amount);
+        int buffs = base.Owner.Creature.Powers.Where((PowerModel p) => p is StrengthPower || p is DexterityPower || p is CalyrexAbundance).Sum((PowerModel p) => p.Amount);
         decimal total = base.DynamicVars.Damage.BaseValue + buffs * base.DynamicVars["PerBuff"].BaseValue;
 
         await DamageCmd.Attack(total)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

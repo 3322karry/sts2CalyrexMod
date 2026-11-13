@@ -16,7 +16,7 @@ public sealed class MiracleSeed : RelicModel
     {
         if (base.Owner != null)
         {
-            await PowerCmd.Apply<Abundance>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 2m, base.Owner.Creature, null);
+            await PowerCmd.Apply<CalyrexAbundance>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 2m, base.Owner.Creature, null);
         }
     }
 }

@@ -45,7 +45,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         await PowerCmd.Apply<CannotMountPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         // 丰饶 8
-        await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, base.DynamicVars["Abundance"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

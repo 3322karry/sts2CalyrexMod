@@ -23,7 +23,7 @@ public sealed class PsychicNoisePower : PowerModel
             return;
         }
         // 抵消回复
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, delta, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, delta, ValueProp.Unblockable | ValueProp.Unpowered, null, null, null);
         await PowerCmd.TickDownDuration(this);
     }
 }

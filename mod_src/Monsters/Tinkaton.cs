@@ -38,7 +38,7 @@ public sealed class Tinkaton : LeagueMonsterBase
     {
         foreach (var t in targets)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit, ValueProp.Unpowered, base.Creature, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, Hit, ValueProp.Unpowered, base.Creature, null, null);
         }
     }
 

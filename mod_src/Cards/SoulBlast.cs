@@ -32,7 +32,7 @@ public sealed class SoulBlast : CardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 失去 X 血量（不可格挡伤害）
-        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpCost"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
+        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpCost"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this, null);
 
         // 获得能量
         await PlayerCmd.GainEnergy(base.DynamicVars["Energy"].BaseValue, base.Owner);

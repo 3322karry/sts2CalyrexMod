@@ -28,14 +28,14 @@ public sealed class RoyalFavor : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<Abundance>();
+            yield return HoverTipFactory.FromPower<CalyrexAbundance>();
         }
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 立即触发丰饶效果：回复等同于丰饶层数的血量
-        int amount = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance)?.Amount ?? 0;
+        int amount = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance)?.Amount ?? 0;
         if (amount > 0)
         {
             await CreatureCmd.Heal(base.Owner.Creature, amount);

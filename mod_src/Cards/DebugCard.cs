@@ -44,7 +44,7 @@ public sealed class DebugCard : CardModel
         }
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(1000)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

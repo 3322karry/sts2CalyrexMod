@@ -207,7 +207,7 @@ public sealed class Eternatus : MonsterModel
     {
         foreach (var t in targets)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHitDmg, ValueProp.Unpowered, base.Creature, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHitDmg, ValueProp.Unpowered, base.Creature, null, null);
         }
     }
 
@@ -217,7 +217,7 @@ public sealed class Eternatus : MonsterModel
         {
             foreach (var t in targets)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, MultiHitDmg, ValueProp.Unpowered, base.Creature, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, MultiHitDmg, ValueProp.Unpowered, base.Creature, null, null);
             }
         }
     }
@@ -231,7 +231,7 @@ public sealed class Eternatus : MonsterModel
     {
         foreach (var t in targets)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2Hit, ValueProp.Unpowered, base.Creature, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2Hit, ValueProp.Unpowered, base.Creature, null, null);
         }
         foreach (var t in targets)
         {
@@ -254,7 +254,7 @@ public sealed class Eternatus : MonsterModel
         {
             foreach (var t in targets)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2MultiDmg, ValueProp.Unpowered, base.Creature, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, P2MultiDmg, ValueProp.Unpowered, base.Creature, null, null);
             }
         }
     }

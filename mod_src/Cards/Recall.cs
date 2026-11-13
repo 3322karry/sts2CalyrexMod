@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace CalyrexMod.Cards;
 
-public sealed class Recall : CardModel
+public sealed class CalyrexRecall : CardModel
 {
     protected override IEnumerable<DynamicVar> CanonicalVars
     {
@@ -22,7 +22,7 @@ public sealed class Recall : CardModel
         }
     }
 
-    public Recall()
+    public CalyrexRecall()
         : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
     }

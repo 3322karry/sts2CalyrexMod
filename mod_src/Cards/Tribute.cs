@@ -37,7 +37,7 @@ public sealed class Tribute : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<Abundance>();            yield return KeywordTipHelper.FeedTip;
+            yield return HoverTipFactory.FromPower<CalyrexAbundance>();            yield return KeywordTipHelper.FeedTip;
 
         }
     }
@@ -45,11 +45,11 @@ public sealed class Tribute : CardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 失去所有丰饶
-        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance);
+        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance);
         int lost = abundancePower?.Amount ?? 0;
         if (abundancePower != null)
         {
-            await PowerCmd.Remove<Abundance>(base.Owner.Creature);
+            await PowerCmd.Remove<CalyrexAbundance>(base.Owner.Creature);
         }
 
         // 每失去 1 点丰饶，喂养 X

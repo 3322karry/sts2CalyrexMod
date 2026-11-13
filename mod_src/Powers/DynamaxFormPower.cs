@@ -47,7 +47,11 @@ public sealed class DynamaxFormPower : PowerModel
         return Task.CompletedTask;
     }
 
+#if GAME_113
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
+#else
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+#endif
     {
         if (dealer != base.Owner)
         {

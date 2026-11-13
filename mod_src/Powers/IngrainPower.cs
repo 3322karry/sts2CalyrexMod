@@ -16,7 +16,7 @@ public sealed class IngrainPower : PowerModel
     // 获得丰饶时抽一张
     public override async Task AfterModifyingPowerAmountReceived(PowerModel power)
     {
-        if (power is Abundance && base.Owner?.Player?.PlayerCombatState != null)
+        if (power is CalyrexAbundance && base.Owner?.Player?.PlayerCombatState != null)
         {
             await CardPileCmd.Draw(new ThrowingPlayerChoiceContext(), base.Amount, base.Owner.Player);
         }

@@ -53,7 +53,7 @@ public sealed class Incineroar : LeagueMonsterBase
     {
         foreach (var t in targets)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHit, ValueProp.Unpowered, base.Creature, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, BigHit, ValueProp.Unpowered, base.Creature, null, null);
         }
     }
 
@@ -61,7 +61,7 @@ public sealed class Incineroar : LeagueMonsterBase
     {
         foreach (var t in targets)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, SmallHit, ValueProp.Unpowered, base.Creature, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, SmallHit, ValueProp.Unpowered, base.Creature, null, null);
         }
     }
 

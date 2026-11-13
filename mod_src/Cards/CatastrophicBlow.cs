@@ -34,7 +34,7 @@ public sealed class CatastrophicBlow : CardModel
             damage = cardPlay.Target.MaxHp / 2m;
         }
 
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target, damage, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target, damage, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this, null);
     }
 
     protected override void OnUpgrade()

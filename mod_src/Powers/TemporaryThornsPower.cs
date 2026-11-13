@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CalyrexMod.Powers;
 
-public sealed class TemporaryThornsPower : PowerModel
+public sealed class CalyrexTemporaryThornsPower : PowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
@@ -19,7 +19,7 @@ public sealed class TemporaryThornsPower : PowerModel
     {
         if (target == base.Owner && dealer != null && props.IsPoweredAttack())
         {
-            await CreatureCmd.Damage(choiceContext, dealer, base.Amount, ValueProp.Unpowered | ValueProp.SkipHurtAnim, base.Owner, null);
+            await CreatureCmd.Damage(choiceContext, dealer, base.Amount, ValueProp.Unpowered | ValueProp.SkipHurtAnim, base.Owner, null, null);
         }
     }
 

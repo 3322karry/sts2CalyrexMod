@@ -9,7 +9,7 @@ using CalyrexMod.Powers;
 
 namespace CalyrexMod.Cards;
 
-public sealed class Encore : CardModel
+public sealed class CalyrexEncore : CardModel
 {
     protected override IEnumerable<DynamicVar> CanonicalVars
     {
@@ -19,7 +19,7 @@ public sealed class Encore : CardModel
         }
     }
 
-    public Encore()
+    public CalyrexEncore()
         : base(1, CardType.Power, CardRarity.Ancient, TargetType.AnyEnemy)
     {
     }
@@ -30,7 +30,7 @@ public sealed class Encore : CardModel
     {
         if (cardPlay.Target != null)
         {
-            await PowerCmd.Apply<EncorePower>(choiceContext, cardPlay.Target, base.DynamicVars["Duration"].IntValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<CalyrexEncorePower>(choiceContext, cardPlay.Target, base.DynamicVars["Duration"].IntValue, base.Owner.Creature, this);
         }
     }
 

@@ -35,7 +35,7 @@ public sealed class IcicleCrash : CardModel
         int frost = cardPlay.Target.Powers.FirstOrDefault((PowerModel p) => p is FrozenPower)?.Amount ?? 0;
         decimal total = base.DynamicVars.Damage.BaseValue + frost * base.DynamicVars["PerFrost"].IntValue;
         await DamageCmd.Attack(total)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

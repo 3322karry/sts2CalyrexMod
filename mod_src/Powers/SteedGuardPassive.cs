@@ -107,7 +107,7 @@ public sealed class SteedGuardPassive : PowerModel
     // 打马并返回溢出伤害
     private async Task<decimal> HitSteed(PlayerChoiceContext choiceContext, Creature steed, decimal dmg, Creature? dealer, CardModel? cardSource)
     {
-        var results = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), steed, dmg, ValueProp.Unblockable | ValueProp.Unpowered, dealer, cardSource);
+        var results = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), steed, dmg, ValueProp.Unblockable | ValueProp.Unpowered, dealer, cardSource, null);
         decimal dealt = results.Sum((DamageResult r) => r.TotalDamage);
         return dmg - dealt;
     }

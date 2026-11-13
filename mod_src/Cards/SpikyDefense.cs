@@ -37,14 +37,14 @@ public sealed class SpikyDefense : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<TemporaryThornsPower>();
+            yield return HoverTipFactory.FromPower<CalyrexMod.Powers.CalyrexTemporaryThornsPower>();
         }
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<TemporaryThornsPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Thorns"].IntValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CalyrexMod.Powers.CalyrexTemporaryThornsPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Thorns"].IntValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

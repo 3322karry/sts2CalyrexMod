@@ -33,7 +33,7 @@ public sealed class Substitute : CardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 受到 6 点伤害（不可格挡）
-        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
+        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this, null);
 
         // 获得缓冲
         await PowerCmd.Apply<BufferPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Buffer"].BaseValue, base.Owner.Creature, this);

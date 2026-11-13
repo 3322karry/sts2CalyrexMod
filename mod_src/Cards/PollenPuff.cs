@@ -39,7 +39,7 @@ public sealed class PollenPuff : CardModel
         }
         // 敌人：造成 9（升级 12）点伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

@@ -47,7 +47,7 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         int abundance = x * base.DynamicVars["PerX"].IntValue + base.DynamicVars["Bonus"].IntValue;
         if (abundance > 0)
         {
-            await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, abundance, base.Owner.Creature, this);
+            await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, abundance, base.Owner.Creature, this);
         }
     }
 

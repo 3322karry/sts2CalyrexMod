@@ -35,7 +35,7 @@ public sealed class CrownTundra : CardModel
 protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 对所有敌人施加等量于丰饶层数的冰冻
-        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance)?.Amount ?? 0;
+        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance)?.Amount ?? 0;
         if (abundance <= 0)
         {
             return;

@@ -33,7 +33,7 @@ public sealed class CalyrexPounce : CardModel
             }
         }
         await DamageCmd.Attack(damage)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

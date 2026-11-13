@@ -13,23 +13,28 @@
     <!-- 游戏目录与 Godot 编辑器路径（按需修改） -->
     <Sts2Dir>D:\SteamLibrary\steamapps\common\Slay the Spire 2</Sts2Dir>
     <GodotExe>C:\Users\yy150\AppData\Local\Programs\Godot\Godot_v4.5.1-stable_mono_win64.exe</GodotExe>
+    <!-- 游戏引用 DLL 目录：默认 libs，多版本构建时传 -p:GameLibsDir=libs\game-0.113.0 -->
+    <GameLibsDir Condition="'$(GameLibsDir)' == ''">libs</GameLibsDir>
+    <!-- 目标游戏大版本：107（稳定，默认）/ 113（beta）；113 会启用 GAME_113 条件编译 -->
+    <GameVersion Condition="'$(GameVersion)' == ''">107</GameVersion>
+    <DefineConstants Condition="'$(GameVersion)' == '113'">$(DefineConstants);GAME_113</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="sts2">
-      <HintPath>libs\sts2.dll</HintPath>
+      <HintPath>$(GameLibsDir)\sts2.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>libs\0Harmony.dll</HintPath>
+      <HintPath>$(GameLibsDir)\0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="GodotSharp">
-      <HintPath>libs\GodotSharp.dll</HintPath>
+      <HintPath>$(GameLibsDir)\GodotSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="SmartFormat">
-      <HintPath>libs\SmartFormat.dll</HintPath>
+      <HintPath>$(GameLibsDir)\SmartFormat.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

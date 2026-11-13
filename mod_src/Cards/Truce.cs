@@ -48,11 +48,11 @@ public sealed class Truce : CardModel
         // 升级：先获得 3 丰饶
         if (base.IsUpgraded)
         {
-            await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, 3m, base.Owner.Creature, this);
+            await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, 3m, base.Owner.Creature, this);
         }
 
         // 丰饶翻倍 + 等量于翻倍后层数的格挡
-        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance);
+        var abundancePower = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance);
         int amount = abundancePower?.Amount ?? 0;
         if (abundancePower != null && amount > 0)
         {

@@ -40,11 +40,11 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
         decimal hpLoss = base.Owner.Creature.CurrentHp / 2m;
         if (hpLoss > 0m)
         {
-            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, hpLoss, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
+            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, hpLoss, ValueProp.Unblockable | ValueProp.Unpowered, null, this, null);
         }
 
         // 敌人获得等量于丰饶层数的灾厄
-        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance)?.Amount ?? 0;
+        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance)?.Amount ?? 0;
         if (abundance > 0)
         {
             await PowerCmd.Apply<DoomPower>(choiceContext, cardPlay.Target, abundance, base.Owner.Creature, this);

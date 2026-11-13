@@ -56,7 +56,7 @@ public sealed class AstralBarrage : CardModel
 
         await DamageCmd.Attack(hitDamage)
             .WithHitCount(hits)
-            .FromCard(this)
+            .FromCard(this, null)
             .TargetingAllOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

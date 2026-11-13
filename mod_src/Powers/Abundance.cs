@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Rooms;
 
 namespace CalyrexMod.Powers;
 
-public sealed class Abundance : PowerModel
+public sealed class CalyrexAbundance : PowerModel
 {
     public override PowerType Type => PowerType.Buff;
 

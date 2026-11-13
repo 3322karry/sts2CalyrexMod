@@ -27,9 +27,17 @@ public abstract class LeagueMonsterBase : MonsterModel
         _nextRandomMap[from] = candidates;
     }
 
+#if GAME_113
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, MegaCrit.Sts2.Core.Models.CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
+#else
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+#endif
     {
+#if GAME_113
+        await base.AfterDeath(choiceContext, creature, null, wasRemovalPrevented, deathAnimLength);
+#else
         await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+#endif
         if (wasRemovalPrevented)
         {
             return;

@@ -36,7 +36,7 @@ public sealed class HeroicSacrifice : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<Abundance>();
+            yield return HoverTipFactory.FromPower<CalyrexAbundance>();
         }
     }
 
@@ -91,7 +91,7 @@ public sealed class HeroicSacrifice : CardModel
         int abundance = hpLost / 2 * per2;
         if (abundance > 0)
         {
-            await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, abundance, base.Owner.Creature, this);
+            await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, abundance, base.Owner.Creature, this);
         }
     }
 

@@ -27,7 +27,7 @@ public sealed class FutureSightPower : PowerModel
         _turnsLeft--;
         if (_turnsLeft <= 0)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null, null);
             await PowerCmd.Remove(this);
         }
     }

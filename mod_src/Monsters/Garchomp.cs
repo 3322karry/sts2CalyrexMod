@@ -52,7 +52,7 @@ public sealed class Garchomp : LeagueMonsterBase
         {
             foreach (var t in targets)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, HitDmg, ValueProp.Unpowered, base.Creature, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, HitDmg, ValueProp.Unpowered, base.Creature, null, null);
             }
         }
     }

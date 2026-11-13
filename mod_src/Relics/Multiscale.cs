@@ -10,7 +10,11 @@ public sealed class Multiscale : RelicModel
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     // 满血时受到伤害减 50%
+#if GAME_113
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
+#else
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+#endif
     {
         if (target != base.Owner?.Creature || !props.IsPoweredAttack())
         {

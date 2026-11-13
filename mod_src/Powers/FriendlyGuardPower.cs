@@ -13,7 +13,11 @@ public sealed class FriendlyGuardPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
 
     // 我方（所有玩家）受伤减 25%
+#if GAME_113
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
+#else
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+#endif
     {
         if (target?.Player == null)
         {

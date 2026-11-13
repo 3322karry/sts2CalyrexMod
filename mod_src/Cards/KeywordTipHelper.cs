@@ -9,7 +9,7 @@ namespace CalyrexMod.Cards;
 
 public static class KeywordTipHelper
 {
-    public static IHoverTip AbundanceTip => HoverTipFactory.FromPower<Abundance>();
+    public static IHoverTip AbundanceTip => HoverTipFactory.FromPower<CalyrexAbundance>();
     public static IHoverTip FrozenTip => HoverTipFactory.FromPower<FrozenPower>();
     public static IHoverTip IceWallTip => HoverTipFactory.FromPower<IceWallPower>();
     public static IHoverTip EternalWhinnyTip => HoverTipFactory.FromPower<EternalWhinny>();

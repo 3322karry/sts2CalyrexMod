@@ -31,7 +31,11 @@ public sealed class EternatusRevivePower : PowerModel
 
     public void DoRevive() => GetInternalData<Data>().isReviving = false;
 
+#if GAME_113
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, MegaCrit.Sts2.Core.Models.CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
+#else
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+#endif
     {
         if (!wasRemovalPrevented && creature == base.Owner && creature.Monster is CalyrexMod.Monsters.Eternatus et)
         {
@@ -63,8 +67,15 @@ public sealed class PanicPower : PowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
+#if GAME_113
+    public override async Task AfterBlockBroken(PlayerChoiceContext choiceContext, Creature target, Creature? breaker)
+#else
     public override async Task AfterBlockBroken(Creature creature)
+#endif
     {
+#if GAME_113
+        Creature creature = target;
+#endif
         if (creature != base.Owner)
         {
             return;

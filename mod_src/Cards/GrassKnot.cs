@@ -35,7 +35,7 @@ public sealed class GrassKnot : CardModel
     {
         get
         {
-            yield return HoverTipFactory.FromPower<Abundance>();
+            yield return HoverTipFactory.FromPower<CalyrexAbundance>();
         }
     }
 
@@ -48,7 +48,7 @@ public sealed class GrassKnot : CardModel
         damage = System.Math.Min(damage, cap);
 
         var result = await DamageCmd.Attack(damage)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -56,7 +56,7 @@ public sealed class GrassKnot : CardModel
         var dealt = result.Results.Sum((System.Collections.Generic.List<MegaCrit.Sts2.Core.Entities.Creatures.DamageResult> hit) => hit.Sum((MegaCrit.Sts2.Core.Entities.Creatures.DamageResult r) => r.TotalDamage));
         if (dealt > 0)
         {
-            await PowerCmd.Apply<Abundance>(choiceContext, base.Owner.Creature, dealt, base.Owner.Creature, this);
+            await PowerCmd.Apply<CalyrexAbundance>(choiceContext, base.Owner.Creature, dealt, base.Owner.Creature, this);
         }
     }
 

@@ -15,7 +15,11 @@ public sealed class SoulHeartPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
 
     // 每有单位死亡（包括马），抽一张牌 + 加一费
+#if GAME_113
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, MegaCrit.Sts2.Core.Models.CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
+#else
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+#endif
     {
         if (base.Owner?.Player?.PlayerCombatState == null)
         {

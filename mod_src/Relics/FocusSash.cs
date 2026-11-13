@@ -13,7 +13,11 @@ public sealed class FocusSash : RelicModel
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     // 受到致命伤害时，伤害削减到只剩 1 点血量；此遗物失效
+#if GAME_113
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
+#else
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+#endif
     {
         if (_used || target != base.Owner?.Creature || target.IsDead)
         {

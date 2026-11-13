@@ -43,11 +43,11 @@ protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is Abundance)?.Amount ?? 0;
+        int abundance = base.Owner.Creature.Powers.FirstOrDefault((PowerModel p) => p is CalyrexAbundance)?.Amount ?? 0;
         decimal total = base.DynamicVars.Damage.BaseValue + abundance * base.DynamicVars["PerAbundance"].BaseValue;
 
         await DamageCmd.Attack(total)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

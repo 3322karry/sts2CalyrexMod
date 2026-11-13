@@ -12,14 +12,14 @@ public static class PowerIconPatches
         return power switch
         {
             EternalWhinny => "res://CalyrexMod/icons/markers/eternal_whinny.tres",
-            Abundance => "res://CalyrexMod/icons/markers/abundance.tres",
+            CalyrexAbundance => "res://CalyrexMod/icons/markers/abundance.tres",
             QuickSight => "res://CalyrexMod/icons/markers/quick_sight.tres",
             HeavyLance => "res://CalyrexMod/icons/markers/heavy_lance.tres",
             MountedGlastrier => "res://CalyrexMod/icons/markers/mounted_glastrier.tres",
             MountedSpectrier => "res://CalyrexMod/icons/markers/mounted_spectrier.tres",
             SteedGuard => "res://CalyrexMod/icons/markers/steed_guard.tres",
             DynamaxFormPower => "res://CalyrexMod/icons/markers/dynamax_form.tres",
-            TemporaryThornsPower => "res://CalyrexMod/icons/markers/temp_thorns.tres",
+            CalyrexTemporaryThornsPower => "res://CalyrexMod/icons/markers/temp_thorns.tres",
             HelpingHandPower => "res://CalyrexMod/icons/markers/helping_hand.tres",
             GrassyTerrainPower => "res://CalyrexMod/icons/markers/grassy_terrain.tres",
             TrucePower => "res://CalyrexMod/icons/markers/truce.tres",
@@ -45,7 +45,7 @@ public static class PowerIconPatches
             CalyrexMod.Powers.PanicPower => "res://CalyrexMod/icons/markers/panic.tres",
             CalyrexMod.Powers.AwePower => "res://CalyrexMod/icons/markers/awe.tres",
             CalyrexMod.Powers.EternamaxPower => "res://CalyrexMod/icons/markers/eternamax.tres",
-            EncorePower => "res://CalyrexMod/icons/markers/encore.tres",
+            CalyrexEncorePower => "res://CalyrexMod/icons/markers/encore.tres",
             _ => null
         };
     }

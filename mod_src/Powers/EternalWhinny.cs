@@ -15,7 +15,11 @@ public sealed class EternalWhinny : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
 
     // 骑马状态下：每有一个敌人死亡 +2 力量（单敌战斗敌人死亡即战斗结束，无收益）
+#if GAME_113
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, MegaCrit.Sts2.Core.Models.CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
+#else
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+#endif
     {
         if (creature.PetOwner != null || creature.Player != null)
         {

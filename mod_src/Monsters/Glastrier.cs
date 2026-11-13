@@ -11,7 +11,9 @@ public sealed class Glastrier : MonsterModel
 
     public override int MaxInitialHp => 0;
 
+#if !GAME_113
     public override bool IsHealthBarVisible => true;
+#endif
 
     protected override string VisualsPath => "res://CalyrexMod/scenes/glastrier.tscn";
 

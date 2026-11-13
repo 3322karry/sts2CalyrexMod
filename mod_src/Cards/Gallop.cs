@@ -80,7 +80,7 @@ public sealed class Gallop : CardModel
         }
 
         // 选中的马失去血量（不可格挡）
-        await CreatureCmd.Damage(choiceContext, steed, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this);
+        await CreatureCmd.Damage(choiceContext, steed, base.DynamicVars["HpLoss"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, base.Owner.Creature, this, null);
         if (!steed.IsAlive)
         {
             return;

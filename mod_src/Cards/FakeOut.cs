@@ -38,7 +38,7 @@ public sealed class FakeOut : CardModel
         bool isFirst = carrot == null || !carrot.HasPlayedCardThisTurn;
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, null)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

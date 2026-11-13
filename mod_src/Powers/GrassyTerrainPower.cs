@@ -55,6 +55,6 @@ public sealed class GrassyTerrainPower : PowerModel
             }
         }
 
-        await PowerCmd.Apply<Abundance>(new ThrowingPlayerChoiceContext(), base.Owner, 2m * base.Amount, base.Owner, null);
+        await PowerCmd.Apply<CalyrexAbundance>(new ThrowingPlayerChoiceContext(), base.Owner, 2m * base.Amount, base.Owner, null);
     }
 }

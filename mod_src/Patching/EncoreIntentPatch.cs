@@ -19,7 +19,7 @@ public static class EncoreIntentPatch
     {
         try
         {
-            var encore = __instance.Powers.FirstOrDefault((PowerModel p) => p is EncorePower) as EncorePower;
+            var encore = __instance.Powers.FirstOrDefault((PowerModel p) => p is CalyrexEncorePower) as CalyrexEncorePower;
             if (encore == null)
             {
                 return;

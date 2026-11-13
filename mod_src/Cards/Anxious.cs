@@ -40,7 +40,7 @@ public sealed class Anxious : CardModel
 protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 受到 8 点伤害
-        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpCost"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this);
+        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["HpCost"].BaseValue, ValueProp.Unblockable | ValueProp.Unpowered, null, this, null);
 
         // 骑马
         await MountHelper.DoMount(choiceContext, this);

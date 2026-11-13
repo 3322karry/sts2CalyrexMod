@@ -1,5 +1,12 @@
 # Changelog / 更新日志
 
+## v1.3.04.113.0 (2026-11-13) — BETA
+
+### Changes / 改动
+- 适配《杀戮尖塔 2》v0.113.0 公开测试版（Steam public-beta 分支）
+- 兼容 0.113 API：伤害结算新增 CardPlay 参数、AfterDeath/AfterBlockBroken 签名变更、SavedPropertiesTypeCache 移除
+- 修复与 0.113 内置模型的命名冲突：Abundance→CalyrexAbundance、Encore→CalyrexEncore、EncorePower→CalyrexEncorePower、Recall→CalyrexRecall、TemporaryThornsPower→CalyrexTemporaryThornsPower（含本地化 key）
+- 0.113 构建使用 -p:GameVersion=113 -p:GameLibsDir=libs\game-0.113.0
 ## v1.3.04.107.1 (2026-10-31)
 
 ### Changes / 改动
@@ -333,6 +340,13 @@
 
 # Changelog / 更新日志
 
+## v1.3.04.113.0 (2026-11-13) — BETA
+
+### Changes / 改动
+- 适配《杀戮尖塔 2》v0.113.0 公开测试版（Steam public-beta 分支）
+- 兼容 0.113 API：伤害结算新增 CardPlay 参数、AfterDeath/AfterBlockBroken 签名变更、SavedPropertiesTypeCache 移除
+- 修复与 0.113 内置模型的命名冲突：Abundance→CalyrexAbundance、Encore→CalyrexEncore、EncorePower→CalyrexEncorePower、Recall→CalyrexRecall、TemporaryThornsPower→CalyrexTemporaryThornsPower（含本地化 key）
+- 0.113 构建使用 -p:GameVersion=113 -p:GameLibsDir=libs\game-0.113.0
 ## v1.2 (2026-08-27)
 
 ### Fixes / 修复
@@ -376,3 +390,4 @@
 - **机制**：再来一次（锁定敌人行动）、寄生种子、冰冻、丰饶、费用图标（自定义 24px 青色）
 - **修复**：卡牌选择器卡死、费用图标显示、骑马不触发魂心、白马溢出转黑马等
 - **工程化**：Godot C# 工程、素材分离、deploy/gen_tres/make_pck 工具链、本地化优化
+

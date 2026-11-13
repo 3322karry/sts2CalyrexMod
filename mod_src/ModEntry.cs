@@ -125,7 +125,7 @@ public static class ModEntry
             ModHelper.AddModelToPool<CalyrexCardPool, DarkGleam>();
             ModHelper.AddModelToPool<CalyrexCardPool, PaleLance>();
             ModHelper.AddModelToPool<CalyrexCardPool, StoredPower>();
-            ModHelper.AddModelToPool<CalyrexCardPool, Recall>();
+            ModHelper.AddModelToPool<CalyrexCardPool, CalyrexRecall>();
             ModHelper.AddModelToPool<CalyrexCardPool, FutureSight>();
             ModHelper.AddModelToPool<CalyrexCardPool, Psychic>();
             ModHelper.AddModelToPool<CalyrexCardPool, UproarRoar>();
@@ -169,7 +169,7 @@ public static class ModEntry
             ModHelper.AddModelToPool<CalyrexCardPool, FriendlyGuard>();
             // 卡池：先古牌（达弗给予）
             ModHelper.AddModelToPool<CalyrexCardPool, CourageRope>();
-            ModHelper.AddModelToPool<CalyrexCardPool, Encore>();
+            ModHelper.AddModelToPool<CalyrexCardPool, CalyrexEncore>();
             ModHelper.AddModelToPool<CalyrexCardPool, DebugCard>();
             // 卡池：第八批
             ModHelper.AddModelToPool<CalyrexCardPool, CalyrexHaze>();
@@ -204,6 +204,10 @@ public static class ModEntry
     {
         try
         {
+#if GAME_113
+            // 0.113 起 SavedPropertiesTypeCache 已移除，序列化属性缓存由 ModelIdSerializationCache.Init 统一构建
+            Log.Info($"[{ModInfo.ModId}] GAME_113: skip SavedPropertiesTypeCache injection (built-in)");
+#else
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.BlackWhiteCarrot));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.SereneGrace));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.FocusSash));
@@ -219,6 +223,7 @@ public static class ModEntry
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.KingRock));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.AbilityCapsule));
             SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CalyrexMod.Relics.LeagueWeakRelic));
+#endif
         }
         catch (Exception ex)
         {
