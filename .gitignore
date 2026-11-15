@@ -58,3 +58,7 @@ tools/testrig/
 # 像素画预览（生成物，不入库）
 tools/pixelart/preview/
 
+
+# 多版本参考 DLL（含游戏程序集，不入库）
+libs/game-*/
+
