@@ -21,6 +21,12 @@ public static class AssetIconPatches
     {
         try
         {
+            // 只改蕾冠王卡池的卡：0.113 新增角色有大量与 mod 同名 slug 的卡（Recall/Encore 等），
+            // 若只按 slug 查文件会把这些原版卡的卡面换成 mod 的图。
+            if (__instance.Pool is not CalyrexMod.CardPools.CalyrexCardPool)
+            {
+                return;
+            }
             string slug = __instance.Id.Entry.ToLowerInvariant();
             string path = string.Format(CardPortraitRoot, slug);
             if (ResourceLoader.Exists(path))

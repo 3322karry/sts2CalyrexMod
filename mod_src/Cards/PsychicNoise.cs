@@ -17,7 +17,7 @@ public sealed class PsychicNoise : CardModel
         get
         {
             yield return new DamageVar(6m, ValueProp.Move);
-            yield return new IntVar("Blocks", 3m);
+            yield return new BlockVar("Blocks", 3m, ValueProp.Move);
         }
     }
 

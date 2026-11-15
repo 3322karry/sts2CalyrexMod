@@ -30,6 +30,7 @@ public sealed class MoveRecord : CardModel
 
     protected override void OnUpgrade()
     {
+        base.DynamicVars["Options"].UpgradeValueBy(1m);
     }
 
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();

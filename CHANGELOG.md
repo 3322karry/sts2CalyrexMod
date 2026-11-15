@@ -1,5 +1,14 @@
 # Changelog / 更新日志
 
+## v1.3.05.113.1 (2026-11-15) — BETA
+
+### Changes / 改动
+- 适配《杀戮尖塔 2》v0.113.1（public-beta）
+- 修复：0.113 新角色的原版卡（Recall/Encore 等同名 slug）卡面被 mod 图替换；卡面重定向现在只作用于蕾冠王卡池
+- 修复：费用图标在 0.113 下显示 NOPE；补丁改为 EnergyIconHelper.GetPath 前缀判断，指向独立 AtlasTexture
+- 修复：扑击/招式记录/扎根/休战/漆黑闪耀/苍白利矛/PP多项全补剂 升级无效或预览无变化
+- 新增：手牌中的最终伤害/格挡预览（DamageVar/BlockVar 走 Hook；扑击改用 CalculatedDamageVar）
+- Z庆祝 现在会消耗（Exhaust）
 ## v1.3.04.113.0 (2026-11-13) — BETA
 
 ### Changes / 改动
@@ -340,6 +349,15 @@
 
 # Changelog / 更新日志
 
+## v1.3.05.113.1 (2026-11-15) — BETA
+
+### Changes / 改动
+- 适配《杀戮尖塔 2》v0.113.1（public-beta）
+- 修复：0.113 新角色的原版卡（Recall/Encore 等同名 slug）卡面被 mod 图替换；卡面重定向现在只作用于蕾冠王卡池
+- 修复：费用图标在 0.113 下显示 NOPE；补丁改为 EnergyIconHelper.GetPath 前缀判断，指向独立 AtlasTexture
+- 修复：扑击/招式记录/扎根/休战/漆黑闪耀/苍白利矛/PP多项全补剂 升级无效或预览无变化
+- 新增：手牌中的最终伤害/格挡预览（DamageVar/BlockVar 走 Hook；扑击改用 CalculatedDamageVar）
+- Z庆祝 现在会消耗（Exhaust）
 ## v1.3.04.113.0 (2026-11-13) — BETA
 
 ### Changes / 改动
@@ -390,4 +408,5 @@
 - **机制**：再来一次（锁定敌人行动）、寄生种子、冰冻、丰饶、费用图标（自定义 24px 青色）
 - **修复**：卡牌选择器卡死、费用图标显示、骑马不触发魂心、白马溢出转黑马等
 - **工程化**：Godot C# 工程、素材分离、deploy/gen_tres/make_pck 工具链、本地化优化
+
 

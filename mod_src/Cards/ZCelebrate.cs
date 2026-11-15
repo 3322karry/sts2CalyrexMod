@@ -20,7 +20,7 @@ public sealed class ZCelebrate : CardModel
         {
             yield return new IntVar("FeedX", 5m);
             yield return new IntVar("StrDex", 1m);
-            yield return new IntVar("BlockX", 5m);
+            yield return new BlockVar("BlockX", 5m, ValueProp.Unpowered);
         }
     }
 
@@ -32,6 +32,8 @@ public sealed class ZCelebrate : CardModel
     public override CardPoolModel Pool => ModelDb.CardPool<CalyrexMod.CardPools.CalyrexCardPool>();
 
     protected override bool HasEnergyCostX => true;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

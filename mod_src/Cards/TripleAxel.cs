@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CalyrexMod.Cards;
 
@@ -14,9 +15,9 @@ public sealed class TripleAxel : CardModel
     {
         get
         {
-            yield return new IntVar("Dmg1", 4m);
-            yield return new IntVar("Dmg2", 5m);
-            yield return new IntVar("Dmg3", 6m);
+            yield return new DamageVar("Dmg1", 4m, ValueProp.Move);
+            yield return new DamageVar("Dmg2", 5m, ValueProp.Move);
+            yield return new DamageVar("Dmg3", 6m, ValueProp.Move);
         }
     }
 
