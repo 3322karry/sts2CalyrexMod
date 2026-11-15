@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using CalyrexMod.Powers;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -30,12 +32,21 @@ public sealed class Ingrain : CardModel
         }
     }
 
+    protected override IEnumerable<DynamicVar> CanonicalVars
+    {
+        get
+        {
+            yield return new IntVar("Draw", 1m);
+        }
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<IngrainPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<IngrainPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Draw"].IntValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
+        base.DynamicVars["Draw"].UpgradeValueBy(1m);
     }
 }

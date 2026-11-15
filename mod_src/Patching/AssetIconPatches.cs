@@ -21,6 +21,11 @@ public static class AssetIconPatches
     {
         try
         {
+            // 只改蕾冠王卡池的卡，避免与其它角色/内置卡同名 slug 冲突
+            if (__instance.Pool is not CalyrexMod.CardPools.CalyrexCardPool)
+            {
+                return;
+            }
             string slug = __instance.Id.Entry.ToLowerInvariant();
             string path = string.Format(CardPortraitRoot, slug);
             if (ResourceLoader.Exists(path))
